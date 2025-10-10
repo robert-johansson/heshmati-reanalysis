@@ -5,11 +5,11 @@ author:
   - name: "Robert Johansson"
     affiliation: "1"
     corresponding: yes
-    email: "robert.johansson@university.edu"
+    email: "robert.johansson@psychology.su.se"
 
 affiliation:
   - id: "1"
-    institution: "Your University"
+    institution: "Department of Psychology, Stockholm University, Stockholm, Sweden"
 
 author_note: |
   This manuscript presents a reanalysis of publicly available data from Heshmati, Wienicke, and Driessen (2023, 2025).

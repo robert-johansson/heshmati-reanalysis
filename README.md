@@ -7,7 +7,7 @@
 
 This repository contains a complete reanalysis of data from a randomized controlled trial examining the effects of Intensive Short-Term Dynamic Psychotherapy (ISTDP) versus waitlist control on depressive symptoms in individuals with treatment-resistant depression.
 
-**Author:** Robert Johansson
+**Author:** Robert Johansson, Department of Psychology, Stockholm University, Stockholm, Sweden
 
 **Original Study:**
 > Heshmati, R., Wienicke, F. J., & Driessen, E. (2023). The effects of intensive short-term dynamic psychotherapy on depressive symptoms, negative affect, and emotional repression in single treatment-resistant depression: A randomized controlled trial. *Psychotherapy*, *60*(4), 497-511. https://doi.org/10.1037/pst0000500
@@ -194,7 +194,7 @@ The only requirement is:
 ## Contact
 
 For questions about this reanalysis:
-- Robert Johansson: robert.johansson@university.edu
+- Robert Johansson: robert.johansson@psychology.su.se
 
 For questions about the original data:
 - Rasoul Heshmati: psy.heshmati@tabrizu.ac.ir
