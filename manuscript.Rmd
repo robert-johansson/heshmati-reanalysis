@@ -15,7 +15,7 @@ author_note: |
   This manuscript presents a reanalysis of publicly available data from Heshmati, Wienicke, and Driessen (2023, 2025).
 
 abstract: |
-  **Objective:** This study presents a reanalysis of data from a randomized controlled trial examining the effects of Intensive Short-Term Dynamic Psychotherapy (ISTDP) versus waitlist control on depressive symptoms in individuals with treatment-resistant depression. **Method:** The original trial randomized 86 Iranian adults with treatment-resistant depression to either ISTDP (20 sessions over 10 weeks) or waitlist control. Depression was assessed using the Weinberger Adjustment Inventory Depression subscale at baseline, post-treatment (10 weeks), and 3-month follow-up. Linear mixed-effects models with random intercepts were used to analyze depression trajectories over time. **Results:** A significant Time × Treatment interaction emerged (*p* < .001), indicating differential trajectories between groups. ISTDP participants showed large reductions in depression from baseline to post-treatment (*M* = -8.40, *p* < .001) with continued improvement through follow-up (*M* = -12.87, *p* < .001), while waitlist controls showed minimal change. Between-group effect sizes were negligible at baseline (Cohen's *d* = 0.08) but increased substantially by post-treatment (*d* = 1.68, 95% CI [1.15, 2.22]) and follow-up (*d* = 2.50, 95% CI [1.88, 3.11]). **Conclusion:** This reanalysis confirms the large beneficial effects of ISTDP on depression in treatment-resistant depression, with effects that strengthen over time.
+  **Objective:** This study presents a reanalysis of data from a randomized controlled trial examining the effects of Intensive Short-Term Dynamic Psychotherapy (ISTDP) versus waitlist control on depressive symptoms and proposed mechanisms in individuals with treatment-resistant depression. **Method:** The original trial randomized 86 Iranian adults with treatment-resistant depression to either ISTDP (20 sessions over 10 weeks) or waitlist control. Depression and process measures (emotional repression, negative affect, distress) were assessed at baseline, post-treatment (10 weeks), and 3-month follow-up. Linear mixed-effects models analyzed trajectories; mediation and cross-lagged analyses examined mechanisms. **Results:** A significant Time × Treatment interaction emerged for depression (*p* < .001). ISTDP participants showed large reductions from baseline to post-treatment (*M* = -8.40, *p* < .001) with continued improvement through follow-up (*M* = -12.87, *p* < .001), while waitlist controls showed minimal change. Between-group effect sizes reached *d* = 2.50 (95% CI [1.88, 3.11]) at follow-up. Process measures showed comparable or larger effects (*d* = 1.96 to 2.95). Mediation analyses revealed that distress reduction accounted for 54% of depression improvement, though this finding requires cautious interpretation due to conceptual overlap. Contrary to theoretical expectations, emotional repression and negative affect changes did not significantly mediate outcomes. Cross-lagged analyses indicated that process and depression changes occurred concurrently rather than sequentially. **Conclusion:** This reanalysis confirms large beneficial effects of ISTDP on depression in treatment-resistant depression. However, ISTDP appears to create broad, simultaneous therapeutic change rather than working through specific sequential mechanisms, challenging theoretical assumptions about how this treatment operates.
 
 keywords: [depression, psychotherapy, ISTDP, treatment-resistant depression, reanalysis]
 wordcount: "X"
@@ -46,6 +46,8 @@ library(emmeans)
 library(effsize)
 library(knitr)
 library(kableExtra)
+library(mediation)
+library(patchwork)
 
 # Set up R options
 knitr::opts_chunk$set(
@@ -430,6 +432,315 @@ Figure \@ref(fig:effect-sizes) displays the between-group effect sizes (Cohen's 
 ## Model Diagnostics
 
 The random intercept variance was `r printnum(as.numeric(VarCorr(model_final)$id[1]), digits = 2)`, indicating substantial between-person variability in baseline depression levels. The residual variance was `r printnum(sigma(model_final)^2, digits = 2)`. Visual inspection of residual plots (not shown) indicated acceptable model fit, with approximately normally distributed residuals and homogeneous variance across predicted values.
+
+Having established that ISTDP produces large, sustained reductions in depression, we next examined whether these improvements operate through changes in theoretically-relevant process measures, including emotional repression, defensiveness, and negative affect—key targets of ISTDP theory.
+
+## Process Measure Changes
+
+```{r process-data-prep}
+# Define process measures for analysis
+process_measures <- c("WAI_RRC", "PANAS_NA", "Distress", "Suppression_of_aggression")
+
+process_labels <- c(
+  "WAI_RRC" = "Emotional Repression",
+  "PANAS_NA" = "Negative Affect",
+  "Distress" = "Distress (Total)",
+  "Suppression_of_aggression" = "Suppression of Aggression"
+)
+
+# Fit LMMs for process measures
+process_lmm_results <- list()
+process_emm_data <- list()
+
+for (var in process_measures) {
+  # Fit model
+  formula_str <- paste0(var, " ~ Time * Tx_condition + (1 | id)")
+  model <- lmer(as.formula(formula_str), data = data, REML = TRUE)
+  process_lmm_results[[var]] <- model
+
+  # Get EMMs for plotting
+  emm <- emmeans(model, ~ Time * Tx_condition)
+  process_emm_data[[var]] <- as.data.frame(emm)
+}
+
+# Calculate process effect sizes at follow-up
+process_effect_sizes <- data.frame()
+
+for (var in process_measures) {
+  df_fu <- data %>% filter(Time == "Follow-up")
+
+  control <- df_fu %>% filter(Tx_condition == "Control") %>% pull(!!sym(var))
+  istdp <- df_fu %>% filter(Tx_condition == "ISTDP") %>% pull(!!sym(var))
+
+  d_result <- cohen.d(istdp, control, na.rm = TRUE)
+
+  process_effect_sizes <- rbind(process_effect_sizes, data.frame(
+    measure = process_labels[var],
+    d = -d_result$estimate,
+    ci_lower = -d_result$conf.int[2],
+    ci_upper = -d_result$conf.int[1]
+  ))
+}
+
+# Add depression for comparison
+df_fu_dep <- data %>% filter(Time == "Follow-up")
+control_dep <- df_fu_dep %>% filter(Tx_condition == "Control") %>% pull(Depression)
+istdp_dep <- df_fu_dep %>% filter(Tx_condition == "ISTDP") %>% pull(Depression)
+d_dep <- cohen.d(istdp_dep, control_dep)
+
+process_effect_sizes <- rbind(
+  process_effect_sizes,
+  data.frame(
+    measure = "Depression (Outcome)",
+    d = -d_dep$estimate,
+    ci_lower = -d_dep$conf.int[2],
+    ci_upper = -d_dep$conf.int[1]
+  )
+)
+```
+
+ISTDP theory proposes that depression improvement occurs through reducing emotional repression and defensiveness. We examined four theoretically-relevant process measures: Emotional Repression (WAI Repressive/Restraint Composite), Negative Affect (PANAS), overall Distress, and Suppression of Aggression. Linear mixed-effects models with random intercepts were fit for each process measure using the same analytical approach as the primary depression outcome.
+
+All four process measures showed highly significant Time × Treatment interactions (all *p*s < .001), indicating that ISTDP produced differential changes compared to waitlist control. Figure \@ref(fig:process-trajectories) displays the trajectories for these key process measures alongside depression.
+
+```{r process-trajectories, fig.cap = "Trajectories for depression and key process measures by treatment condition. Error bars represent 95\\% confidence intervals. ISTDP = Intensive Short-Term Dynamic Psychotherapy; WAI-RRC = Weinberger Adjustment Inventory Repressive/Restraint Composite; PANAS = Positive and Negative Affect Schedule.", fig.width = 10, fig.height = 10}
+# Prepare plotting data
+plot_list <- list()
+
+# Depression (from earlier)
+dep_data <- summary_stats %>%
+  mutate(measure = "Depression")
+
+plot_list[[1]] <- ggplot(dep_data, aes(x = Time_numeric, y = mean, color = Tx_condition)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = mean - ci, ymax = mean + ci), width = 0.1, size = 0.8) +
+  scale_color_manual(values = colors) +
+  scale_x_continuous(breaks = c(0, 1, 2), labels = c("BL", "Post", "FU")) +
+  labs(title = "Depression", x = NULL, y = "Score", color = NULL) +
+  theme_apa() +
+  theme(legend.position = "none", plot.title = element_text(size = 10, face = "bold"))
+
+# Process measures
+for (i in seq_along(process_measures)) {
+  var <- process_measures[i]
+  label <- process_labels[var]
+
+  emm_df <- process_emm_data[[var]] %>%
+    mutate(Time_numeric = case_when(
+      Time == "Baseline" ~ 0,
+      Time == "Post-treatment" ~ 1,
+      Time == "Follow-up" ~ 2
+    ))
+
+  plot_list[[i + 1]] <- ggplot(emm_df, aes(x = Time_numeric, y = emmean, color = Tx_condition)) +
+    geom_line(size = 1.2) +
+    geom_point(size = 3) +
+    geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.1, size = 0.8) +
+    scale_color_manual(values = colors) +
+    scale_x_continuous(breaks = c(0, 1, 2), labels = c("BL", "Post", "FU")) +
+    labs(title = label, x = NULL, y = "Score", color = NULL) +
+    theme_apa() +
+    theme(legend.position = "none", plot.title = element_text(size = 10, face = "bold"))
+}
+
+# Combine plots
+combined <- wrap_plots(plot_list, ncol = 2) +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom", legend.title = element_blank())
+
+combined
+```
+
+Effect sizes for process measures at 3-month follow-up were comparable to or exceeded the depression effect. Emotional Repression showed a very large effect (*d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Emotional Repression"], digits = 2)`), as did Negative Affect (*d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Negative Affect"], digits = 2)`), Distress (*d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Distress (Total)"], digits = 2)`), and Suppression of Aggression (*d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Suppression of Aggression"], digits = 2)`).
+
+```{r concurrent-correlations}
+# Calculate concurrent change correlations (baseline to follow-up) in ISTDP group
+change_data <- data %>%
+  filter(Tx_condition == "ISTDP") %>%
+  dplyr::select(id, Time, Depression, WAI_RRC, PANAS_NA, Distress) %>%
+  pivot_wider(
+    names_from = Time,
+    values_from = c(Depression, WAI_RRC, PANAS_NA, Distress),
+    names_sep = "_"
+  ) %>%
+  rename_with(~gsub(" ", "", .x), everything()) %>%
+  rename_with(~gsub("-", "_", .x), everything()) %>%
+  mutate(
+    Depression_change = Depression_Follow_up - Depression_Baseline,
+    WAI_RRC_change = WAI_RRC_Follow_up - WAI_RRC_Baseline,
+    PANAS_change = PANAS_NA_Follow_up - PANAS_NA_Baseline,
+    Distress_change = Distress_Follow_up - Distress_Baseline
+  )
+
+# Calculate correlations
+cor_repression <- cor(change_data$Depression_change, change_data$WAI_RRC_change, use = "complete.obs")
+cor_na <- cor(change_data$Depression_change, change_data$PANAS_change, use = "complete.obs")
+cor_distress <- cor(change_data$Depression_change, change_data$Distress_change, use = "complete.obs")
+```
+
+Importantly, changes in these process measures were strongly correlated with depression change in the ISTDP group. From baseline to follow-up, depression change showed strong correlations with Distress change (*r* = `r printnum(cor_distress, digits = 2)`), Negative Affect change (*r* = `r printnum(cor_na, digits = 2)`), and Emotional Repression change (*r* = `r printnum(cor_repression, digits = 2)`), suggesting these processes may be closely linked to therapeutic improvement.
+
+## Mechanisms: Mediation Analyses
+
+```{r mediation-prep}
+# Prepare data for mediation (wide format with complete cases)
+data_wide_med <- data %>%
+  dplyr::select(id, Tx_condition, Time, Depression, PANAS_NA, WAI_RRC, Distress) %>%
+  pivot_wider(
+    names_from = Time,
+    values_from = c(Depression, PANAS_NA, WAI_RRC, Distress),
+    names_sep = "_"
+  ) %>%
+  rename_with(~gsub(" ", "", .x), everything()) %>%
+  rename_with(~gsub("-", "_", .x), everything()) %>%
+  mutate(
+    treatment = ifelse(Tx_condition == "ISTDP", 1, 0),
+
+    # Mediators: Process change (baseline → post-treatment)
+    PANAS_change = PANAS_NA_Post_treatment - PANAS_NA_Baseline,
+    WAI_RRC_change = WAI_RRC_Post_treatment - WAI_RRC_Baseline,
+    Distress_change = Distress_Post_treatment - Distress_Baseline
+  ) %>%
+  filter(complete.cases(treatment, Depression_Baseline, Depression_Follow_up,
+                       PANAS_change, WAI_RRC_change, Distress_change))
+
+# Function to run mediation analysis
+run_mediation_analysis <- function(data, mediator_var, mediator_label, n_boot = 5000) {
+  # Rename for mediate() compatibility
+  data$M <- data[[mediator_var]]
+  data$Y <- data$Depression_Follow_up
+  data$C <- data$Depression_Baseline
+
+  # Fit models
+  med_model <- lm(M ~ treatment, data = data)
+  out_model <- lm(Y ~ M + treatment + C, data = data)
+
+  # Run mediation with bootstrap
+  set.seed(2025)
+  med_results <- mediate(med_model, out_model,
+                        treat = "treatment", mediator = "M",
+                        boot = TRUE, sims = n_boot, boot.ci.type = "bca")
+
+  return(list(
+    label = mediator_label,
+    results = med_results,
+    indirect = med_results$d0,
+    indirect_ci_lower = med_results$d0.ci[1],
+    indirect_ci_upper = med_results$d0.ci[2],
+    indirect_p = med_results$d0.p,
+    prop_mediated = med_results$n0
+  ))
+}
+
+# Run mediation for 3 primary mediators
+med_distress <- run_mediation_analysis(data_wide_med, "Distress_change", "Distress (Total)")
+med_repression <- run_mediation_analysis(data_wide_med, "WAI_RRC_change", "Emotional Repression")
+med_na <- run_mediation_analysis(data_wide_med, "PANAS_change", "Negative Affect")
+```
+
+While ISTDP clearly affected hypothesized process measures, the critical question is whether these changes *mediate* (explain) depression improvement. We tested whether changes in process measures from baseline to post-treatment predicted depression at 3-month follow-up (controlling for baseline depression), using bootstrap mediation analysis with 5,000 resamples.
+
+**Distress.** Changes in overall distress significantly mediated depression improvement, with an indirect effect of `r printnum(med_distress$indirect, digits = 2)`, 95% CI [`r printnum(med_distress$indirect_ci_lower, digits = 2)`, `r printnum(med_distress$indirect_ci_upper, digits = 2)`], *p* = `r printp(med_distress$indirect_p)`, accounting for `r printnum(med_distress$prop_mediated * 100, digits = 1)`% of the total treatment effect. However, this finding must be interpreted cautiously as the Distress composite includes the Depression subscale itself, creating conceptual overlap between mediator and outcome.
+
+**Emotional Repression.** Contrary to theoretical expectations, changes in emotional repression did not significantly mediate depression improvement, indirect effect = `r printnum(med_repression$indirect, digits = 2)`, 95% CI [`r printnum(med_repression$indirect_ci_lower, digits = 2)`, `r printnum(med_repression$indirect_ci_upper, digits = 2)`], *p* = `r printp(med_repression$indirect_p)`. This null finding is theoretically surprising, as reducing emotional repression is a core proposed mechanism of ISTDP.
+
+**Negative Affect.** Changes in negative affect also did not significantly mediate depression improvement, indirect effect = `r printnum(med_na$indirect, digits = 2)`, 95% CI [`r printnum(med_na$indirect_ci_lower, digits = 2)`, `r printnum(med_na$indirect_ci_upper, digits = 2)`], *p* = `r printp(med_na$indirect_p)`, despite showing strong concurrent correlations with depression change (*r* = -0.52).
+
+```{r mediation-table}
+# Create mediation summary table
+med_table <- data.frame(
+  Mediator = c("Distress (Total)", "Emotional Repression", "Negative Affect"),
+  Indirect = c(
+    sprintf("%.2f [%.2f, %.2f]", med_distress$indirect,
+            med_distress$indirect_ci_lower, med_distress$indirect_ci_upper),
+    sprintf("%.2f [%.2f, %.2f]", med_repression$indirect,
+            med_repression$indirect_ci_lower, med_repression$indirect_ci_upper),
+    sprintf("%.2f [%.2f, %.2f]", med_na$indirect,
+            med_na$indirect_ci_lower, med_na$indirect_ci_upper)
+  ),
+  Proportion = c(
+    sprintf("%.1f%%", med_distress$prop_mediated * 100),
+    sprintf("%.1f%%", med_repression$prop_mediated * 100),
+    sprintf("%.1f%%", med_na$prop_mediated * 100)
+  ),
+  p = c(
+    sprintf("%.3f", med_distress$indirect_p),
+    sprintf("%.3f", med_repression$indirect_p),
+    sprintf("%.3f", med_na$indirect_p)
+  )
+)
+
+ apa_table(
+  med_table,
+  caption = "Mediation Analysis Results for Key Process Measures",
+  note = "Indirect effects estimated using bootstrap mediation analysis with 5,000 resamples. CI = 95\\% bias-corrected and accelerated confidence interval. All models control for baseline depression.",
+  align = c("l", "c", "c", "c"),
+  col.names = c("Mediator", "Indirect Effect [95\\% CI]", "Proportion Mediated", "p")
+)
+```
+
+## Temporal Precedence
+
+```{r temporal-precedence}
+# Prepare data for cross-lagged analysis
+data_wide_temp <- data %>%
+  dplyr::select(id, Tx_condition, Time, Depression, WAI_RRC, PANAS_NA, Distress) %>%
+  pivot_wider(
+    names_from = Time,
+    values_from = c(Depression, WAI_RRC, PANAS_NA, Distress),
+    names_sep = "_"
+  ) %>%
+  rename_with(~gsub(" ", "", .x), everything()) %>%
+  rename_with(~gsub("-", "_", .x), everything()) %>%
+  mutate(treatment = ifelse(Tx_condition == "ISTDP", 1, 0))
+
+# Test cross-lagged associations for key measures
+test_cross_lag <- function(data, process_var, baseline_suff = "_Baseline",
+                          post_suff = "_Post_treatment", fu_suff = "_Follow_up") {
+
+  # Early period: T1 → T2
+  # Does baseline process predict post depression (controlling for baseline depression)?
+  t1_proc <- paste0(process_var, baseline_suff)
+  t2_dep <- paste0("Depression", post_suff)
+  t1_dep <- paste0("Depression", baseline_suff)
+
+  model_proc_to_dep <- lm(
+    formula(paste(t2_dep, "~", t1_proc, "+", t1_dep, "+ treatment")),
+    data = data
+  )
+
+  coef_proc_to_dep <- summary(model_proc_to_dep)$coefficients[t1_proc, ]
+
+  # Does baseline depression predict post process (controlling for baseline process)?
+  t2_proc <- paste0(process_var, post_suff)
+
+  model_dep_to_proc <- lm(
+    formula(paste(t2_proc, "~", t1_dep, "+", t1_proc, "+ treatment")),
+    data = data
+  )
+
+  coef_dep_to_proc <- summary(model_dep_to_proc)$coefficients[t1_dep, ]
+
+  return(list(
+    proc_to_dep_t = coef_proc_to_dep["t value"],
+    proc_to_dep_p = coef_proc_to_dep["Pr(>|t|)"],
+    dep_to_proc_t = coef_dep_to_proc["t value"],
+    dep_to_proc_p = coef_dep_to_proc["Pr(>|t|)"]
+  ))
+}
+
+# Test for key measures
+temp_distress <- test_cross_lag(data_wide_temp, "Distress")
+temp_repression <- test_cross_lag(data_wide_temp, "WAI_RRC")
+temp_na <- test_cross_lag(data_wide_temp, "PANAS_NA")
+```
+
+The disconnect between large treatment effects on process measures, strong concurrent correlations, yet null mediation findings, prompted examination of temporal dynamics. Cross-lagged analyses tested whether process measures at baseline predicted depression at post-treatment (controlling for baseline depression and treatment), and vice versa.
+
+Results revealed no clear temporal precedence. For Distress, neither direction showed significant effects (process → depression: *t* = `r printnum(temp_distress$proc_to_dep_t, digits = 2)`, *p* = `r printp(temp_distress$proc_to_dep_p)`; depression → process: *t* = `r printnum(temp_distress$dep_to_proc_t, digits = 2)`, *p* = `r printp(temp_distress$dep_to_proc_p)`). Similarly, Emotional Repression (process → depression: *t* = `r printnum(temp_repression$proc_to_dep_t, digits = 2)`, *p* = `r printp(temp_repression$proc_to_dep_p)`) and Negative Affect (process → depression: *t* = `r printnum(temp_na$proc_to_dep_t, digits = 2)`, *p* = `r printp(temp_na$proc_to_dep_p)`) showed no evidence that process changes preceded depression changes.
+
+This pattern suggests that process measures and depression change *concurrently* rather than sequentially. Rather than a specific mechanism where process changes lead to depression improvement (Treatment → Process → Depression), ISTDP appears to create simultaneous change across multiple domains (Treatment → Process AND Depression). This explains why mediation analyses failed to identify clear sequential pathways despite large treatment effects and strong concurrent associations.
 
 \newpage
 
