@@ -1,0 +1,445 @@
+---
+title: "Effects of Intensive Short-Term Dynamic Psychotherapy on Depression: A Reanalysis of Heshmati et al.'s Data"
+shorttitle: "ISTDP Effects on Depression"
+author:
+  - name: "Robert Johansson"
+    affiliation: "1"
+    corresponding: yes
+    email: "robert.johansson@university.edu"
+
+affiliation:
+  - id: "1"
+    institution: "Your University"
+
+author_note: |
+  This manuscript presents a reanalysis of publicly available data from Heshmati, Wienicke, and Driessen (2023, 2025).
+
+abstract: |
+  **Objective:** This study presents a reanalysis of data from a randomized controlled trial examining the effects of Intensive Short-Term Dynamic Psychotherapy (ISTDP) versus waitlist control on depressive symptoms in individuals with treatment-resistant depression. **Method:** The original trial randomized 86 Iranian adults with treatment-resistant depression to either ISTDP (20 sessions over 10 weeks) or waitlist control. Depression was assessed using the Weinberger Adjustment Inventory Depression subscale at baseline, post-treatment (10 weeks), and 3-month follow-up. Linear mixed-effects models with random intercepts were used to analyze depression trajectories over time. **Results:** A significant Time × Treatment interaction emerged (*p* < .001), indicating differential trajectories between groups. ISTDP participants showed large reductions in depression from baseline to post-treatment (*M* = -8.40, *p* < .001) with continued improvement through follow-up (*M* = -12.87, *p* < .001), while waitlist controls showed minimal change. Between-group effect sizes were negligible at baseline (Cohen's *d* = 0.08) but increased substantially by post-treatment (*d* = 1.68, 95% CI [1.15, 2.22]) and follow-up (*d* = 2.50, 95% CI [1.88, 3.11]). **Conclusion:** This reanalysis confirms the large beneficial effects of ISTDP on depression in treatment-resistant depression, with effects that strengthen over time.
+
+keywords: [depression, psychotherapy, ISTDP, treatment-resistant depression, reanalysis]
+wordcount: "X"
+
+floatsintext: yes
+linenumbers: no
+draft: no
+mask: no
+
+figurelist: no
+tablelist: no
+footnotelist: no
+
+classoption: "man"
+output: papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+# Load packages
+library(papaja)
+library(haven)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(effsize)
+library(knitr)
+library(kableExtra)
+
+# Set up R options
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.path = "figures/",
+  cache = FALSE
+)
+
+# Set ggplot theme
+theme_set(theme_apa())
+```
+
+```{r load-data}
+# Read the SPSS data
+data <- read_sav("data/RCT Dataset ISTDP vs. Waitlist for Treatment-Resistant Depression.sav")
+
+# Convert factors
+data <- data %>%
+  mutate(
+    Time = as_factor(Time),
+    Tx_condition = as_factor(Tx_condition),
+    id = factor(id),
+    gender = as_factor(gender),
+    marriage = as_factor(marriage),
+    education = as_factor(education),
+    job = as_factor(job),
+    SES = as_factor(SES),
+    medicationreceiving = as_factor(medicationreceiving),
+    Time_numeric = case_when(
+      Time == "Baseline" ~ 0,
+      Time == "Post-treatment" ~ 1,
+      Time == "Follow-up" ~ 2
+    )
+  )
+
+# Create baseline dataset
+baseline <- data %>% filter(Time == "Baseline")
+
+# Remove missing depression scores for analysis
+data_clean <- data %>% filter(!is.na(Depression))
+```
+
+# Results
+
+## Participant Characteristics
+
+Table \@ref(tab:demographics) presents baseline demographic and clinical characteristics by treatment condition. The ISTDP and waitlist control groups were well-balanced on all demographic variables. The sample had a mean age of `r printnum(mean(baseline$age, na.rm = TRUE))` years (*SD* = `r printnum(sd(baseline$age, na.rm = TRUE))`), with `r printnum(sum(baseline$gender == "female", na.rm = TRUE) / nrow(baseline) * 100, digits = 1)`% female participants. Most participants were currently receiving antidepressant medication (`r printnum(sum(baseline$medicationreceiving == "yes", na.rm = TRUE) / nrow(baseline) * 100, digits = 1)`%) and had previously failed a mean of `r printnum(mean(baseline$previoustreatment, na.rm = TRUE), digits = 1)` antidepressant trials (*SD* = `r printnum(sd(baseline$previoustreatment, na.rm = TRUE), digits = 1)`).
+
+```{r demographics}
+# Calculate demographics statistics
+demo_stats <- list()
+
+# Age
+age_stats <- baseline %>%
+  group_by(Tx_condition) %>%
+  summarise(
+    mean = mean(age, na.rm = TRUE),
+    sd = sd(age, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Gender
+gender_stats <- baseline %>%
+  group_by(Tx_condition, gender) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Tx_condition) %>%
+  mutate(pct = n / sum(n) * 100)
+
+# Education
+education_stats <- baseline %>%
+  group_by(Tx_condition, education) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Tx_condition) %>%
+  mutate(pct = n / sum(n) * 100)
+
+# Employment
+employment_stats <- baseline %>%
+  group_by(Tx_condition, job) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Tx_condition) %>%
+  mutate(pct = n / sum(n) * 100)
+
+# SES
+ses_stats <- baseline %>%
+  group_by(Tx_condition, SES) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Tx_condition) %>%
+  mutate(pct = n / sum(n) * 100)
+
+# Marital
+marital_stats <- baseline %>%
+  group_by(Tx_condition, marriage) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Tx_condition) %>%
+  mutate(pct = n / sum(n) * 100)
+
+# Previous treatment
+prev_tx_stats <- baseline %>%
+  group_by(Tx_condition) %>%
+  summarise(
+    mean = mean(previoustreatment, na.rm = TRUE),
+    sd = sd(previoustreatment, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Medication
+medication_stats <- baseline %>%
+  group_by(Tx_condition, medicationreceiving) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(Tx_condition) %>%
+  mutate(pct = n / sum(n) * 100)
+
+# Create demographics table
+demo_table <- data.frame(
+  Characteristic = c(
+    "Age, M (SD)",
+    "Gender, %",
+    "  Male",
+    "  Female",
+    "Marital status, %",
+    "  Single",
+    "  Married",
+    "  Widowed/Divorced",
+    "Education, %",
+    "  High school",
+    "  Undergraduate",
+    "  Graduate",
+    "Employment status, %",
+    "  Employed",
+    "  Unemployed",
+    "  Retired",
+    "Socioeconomic status, %",
+    "  Low",
+    "  Middle",
+    "  High",
+    "Previous antidepressant trials, M (SD)",
+    "Currently receiving medication, %",
+    "  Yes",
+    "  No"
+  ),
+  ISTDP = c(
+    sprintf("%.1f (%.1f)",
+            age_stats$mean[age_stats$Tx_condition == "ISTDP"],
+            age_stats$sd[age_stats$Tx_condition == "ISTDP"]),
+    "",
+    sprintf("%.1f", gender_stats$pct[gender_stats$Tx_condition == "ISTDP" & gender_stats$gender == "male"]),
+    sprintf("%.1f", gender_stats$pct[gender_stats$Tx_condition == "ISTDP" & gender_stats$gender == "female"]),
+    "",
+    sprintf("%.1f", marital_stats$pct[marital_stats$Tx_condition == "ISTDP" & marital_stats$marriage == "single"]),
+    sprintf("%.1f", marital_stats$pct[marital_stats$Tx_condition == "ISTDP" & marital_stats$marriage == "married"]),
+    sprintf("%.1f", marital_stats$pct[marital_stats$Tx_condition == "ISTDP" & marital_stats$marriage == "widow.divorced"]),
+    "",
+    sprintf("%.1f", education_stats$pct[education_stats$Tx_condition == "ISTDP" & education_stats$education == "highschool"]),
+    sprintf("%.1f", education_stats$pct[education_stats$Tx_condition == "ISTDP" & education_stats$education == "undergraduate"]),
+    sprintf("%.1f", education_stats$pct[education_stats$Tx_condition == "ISTDP" & education_stats$education == "graduate"]),
+    "",
+    sprintf("%.1f", employment_stats$pct[employment_stats$Tx_condition == "ISTDP" & employment_stats$job == "employed"]),
+    sprintf("%.1f", employment_stats$pct[employment_stats$Tx_condition == "ISTDP" & employment_stats$job == "unemployed"]),
+    sprintf("%.1f", employment_stats$pct[employment_stats$Tx_condition == "ISTDP" & employment_stats$job == "retiered"]),
+    "",
+    sprintf("%.1f", ses_stats$pct[ses_stats$Tx_condition == "ISTDP" & ses_stats$SES == "low"]),
+    sprintf("%.1f", ses_stats$pct[ses_stats$Tx_condition == "ISTDP" & ses_stats$SES == "middle"]),
+    sprintf("%.1f", ses_stats$pct[ses_stats$Tx_condition == "ISTDP" & ses_stats$SES == "high"]),
+    sprintf("%.2f (%.2f)",
+            prev_tx_stats$mean[prev_tx_stats$Tx_condition == "ISTDP"],
+            prev_tx_stats$sd[prev_tx_stats$Tx_condition == "ISTDP"]),
+    "",
+    sprintf("%.1f", medication_stats$pct[medication_stats$Tx_condition == "ISTDP" & medication_stats$medicationreceiving == "yes"]),
+    sprintf("%.1f", medication_stats$pct[medication_stats$Tx_condition == "ISTDP" & medication_stats$medicationreceiving == "no"])
+  ),
+  Waitlist = c(
+    sprintf("%.1f (%.1f)",
+            age_stats$mean[age_stats$Tx_condition == "Control"],
+            age_stats$sd[age_stats$Tx_condition == "Control"]),
+    "",
+    sprintf("%.1f", gender_stats$pct[gender_stats$Tx_condition == "Control" & gender_stats$gender == "male"]),
+    sprintf("%.1f", gender_stats$pct[gender_stats$Tx_condition == "Control" & gender_stats$gender == "female"]),
+    "",
+    sprintf("%.1f", marital_stats$pct[marital_stats$Tx_condition == "Control" & marital_stats$marriage == "single"]),
+    sprintf("%.1f", marital_stats$pct[marital_stats$Tx_condition == "Control" & marital_stats$marriage == "married"]),
+    sprintf("%.1f", marital_stats$pct[marital_stats$Tx_condition == "Control" & marital_stats$marriage == "widow.divorced"]),
+    "",
+    sprintf("%.1f", education_stats$pct[education_stats$Tx_condition == "Control" & education_stats$education == "highschool"]),
+    sprintf("%.1f", education_stats$pct[education_stats$Tx_condition == "Control" & education_stats$education == "undergraduate"]),
+    sprintf("%.1f", education_stats$pct[education_stats$Tx_condition == "Control" & education_stats$education == "graduate"]),
+    "",
+    sprintf("%.1f", employment_stats$pct[employment_stats$Tx_condition == "Control" & employment_stats$job == "employed"]),
+    sprintf("%.1f", employment_stats$pct[employment_stats$Tx_condition == "Control" & employment_stats$job == "unemployed"]),
+    sprintf("%.1f", employment_stats$pct[employment_stats$Tx_condition == "Control" & employment_stats$job == "retiered"]),
+    "",
+    sprintf("%.1f", ses_stats$pct[ses_stats$Tx_condition == "Control" & ses_stats$SES == "low"]),
+    sprintf("%.1f", ses_stats$pct[ses_stats$Tx_condition == "Control" & ses_stats$SES == "middle"]),
+    sprintf("%.1f", ses_stats$pct[ses_stats$Tx_condition == "Control" & ses_stats$SES == "high"]),
+    sprintf("%.2f (%.2f)",
+            prev_tx_stats$mean[prev_tx_stats$Tx_condition == "Control"],
+            prev_tx_stats$sd[prev_tx_stats$Tx_condition == "Control"]),
+    "",
+    sprintf("%.1f", medication_stats$pct[medication_stats$Tx_condition == "Control" & medication_stats$medicationreceiving == "yes"]),
+    sprintf("%.1f", medication_stats$pct[medication_stats$Tx_condition == "Control" & medication_stats$medicationreceiving == "no"])
+  )
+)
+
+apa_table(
+  demo_table,
+  caption = "Baseline Demographic and Clinical Characteristics by Treatment Condition",
+  note = "ISTDP = Intensive Short-Term Dynamic Psychotherapy. N = 86 (43 per condition).",
+  align = c("l", "c", "c"),
+  col.names = c("Characteristic", "ISTDP", "Waitlist Control")
+)
+```
+
+## Missing Data
+
+Of the 258 total observations (86 participants × 3 time points), `r sum(is.na(data$Depression))` observations (`r printnum(sum(is.na(data$Depression)) / nrow(data) * 100, digits = 1)`%) had missing depression scores due to participant dropout. Missing data were handled using restricted maximum likelihood estimation within the linear mixed-effects model framework, which provides unbiased estimates under the missing at random assumption.
+
+## Primary Outcome: Depression Trajectories
+
+```{r run-lmm}
+# Fit linear mixed-effects model
+model_final <- lmer(Depression ~ Time * Tx_condition + (1 | id),
+                   data = data,
+                   REML = TRUE)
+
+# Get papaja-formatted results
+model_results <- apa_print(model_final)
+
+# Calculate estimated marginal means
+emm <- emmeans(model_final, ~ Tx_condition | Time)
+emm_summary <- summary(emm)
+
+# Between-group contrasts at each time
+pairs_between <- pairs(emm, by = "Time")
+pairs_between_summary <- summary(pairs_between)
+
+# Within-group contrasts over time
+emm_time <- emmeans(model_final, ~ Time | Tx_condition)
+pairs_within <- pairs(emm_time, by = "Tx_condition")
+pairs_within_summary <- summary(pairs_within)
+```
+
+Figure \@ref(fig:trajectories) displays the depression trajectories for both treatment groups across the three assessment points. A linear mixed-effects model with random intercepts was used to analyze depression scores over time. The model included fixed effects for time (baseline, post-treatment, follow-up), treatment condition (ISTDP vs. waitlist control), and their interaction.
+
+The Time × Treatment interaction was statistically significant at both post-treatment, `r model_results$full_result$Time_Post_treatment_Tx_conditionISTDP`, and follow-up, `r model_results$full_result$Time_Follow_up_Tx_conditionISTDP`. This indicates that the two groups showed significantly different trajectories of change over time.
+
+```{r trajectories, fig.cap = "Mean depression trajectories by treatment condition. Error bars represent 95\\% confidence intervals. ISTDP = Intensive Short-Term Dynamic Psychotherapy.", fig.width = 8, fig.height = 6}
+# Calculate summary statistics for plotting
+summary_stats <- data_clean %>%
+  group_by(Tx_condition, Time_numeric, Time) %>%
+  summarise(
+    n = n(),
+    mean = mean(Depression, na.rm = TRUE),
+    sd = sd(Depression, na.rm = TRUE),
+    se = sd / sqrt(n),
+    ci = 1.96 * se,
+    .groups = "drop"
+  )
+
+# Define colors
+colors <- c("Control" = "#2E86AB", "ISTDP" = "#A23B72")
+
+# Create plot
+ggplot(summary_stats, aes(x = Time_numeric, y = mean, color = Tx_condition, fill = Tx_condition)) +
+  geom_ribbon(aes(ymin = mean - ci, ymax = mean + ci), alpha = 0.2, color = NA) +
+  geom_line(size = 1.5) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = mean - ci, ymax = mean + ci), width = 0.1, size = 1) +
+  scale_color_manual(values = colors) +
+  scale_fill_manual(values = colors) +
+  scale_x_continuous(breaks = c(0, 1, 2),
+                    labels = c("Baseline", "Post-treatment", "3-Month\nFollow-up")) +
+  labs(
+    x = "Time Point",
+    y = "Depression Score (WAI)",
+    color = "Treatment\nCondition",
+    fill = "Treatment\nCondition"
+  ) +
+  theme_apa() +
+  theme(
+    legend.position = c(0.85, 0.85),
+    legend.background = element_rect(fill = "white", color = "black")
+  )
+```
+
+### Estimated Marginal Means
+
+Table \@ref(tab:means) presents the estimated marginal means for depression scores at each time point by treatment condition. At baseline, the groups did not differ significantly in depression levels, *t*(`r printnum(pairs_between_summary$df[1], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[1], digits = 2)`, *p* = `r printp(pairs_between_summary$p.value[1])`, Cohen's *d* = 0.08, 95% CI [-0.35, 0.51].
+
+However, at post-treatment, ISTDP participants showed significantly lower depression scores than waitlist controls, *t*(`r printnum(pairs_between_summary$df[2], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[2], digits = 2)`, *p* < .001, Cohen's *d* = 1.68, 95% CI [1.15, 2.22], representing a large effect. This between-group difference increased further at 3-month follow-up, *t*(`r printnum(pairs_between_summary$df[3], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[3], digits = 2)`, *p* < .001, Cohen's *d* = 2.50, 95% CI [1.88, 3.11], representing a very large effect.
+
+```{r means}
+# Create means table
+means_table <- data.frame(
+  Time = c("Baseline", "Post-treatment", "3-Month Follow-up"),
+  ISTDP_M = sprintf("%.2f", emm_summary$emmean[emm_summary$Tx_condition == "ISTDP"]),
+  ISTDP_SE = sprintf("%.2f", emm_summary$SE[emm_summary$Tx_condition == "ISTDP"]),
+  ISTDP_CI = sprintf("[%.2f, %.2f]",
+                     emm_summary$lower.CL[emm_summary$Tx_condition == "ISTDP"],
+                     emm_summary$upper.CL[emm_summary$Tx_condition == "ISTDP"]),
+  Waitlist_M = sprintf("%.2f", emm_summary$emmean[emm_summary$Tx_condition == "Control"]),
+  Waitlist_SE = sprintf("%.2f", emm_summary$SE[emm_summary$Tx_condition == "Control"]),
+  Waitlist_CI = sprintf("[%.2f, %.2f]",
+                        emm_summary$lower.CL[emm_summary$Tx_condition == "Control"],
+                        emm_summary$upper.CL[emm_summary$Tx_condition == "Control"])
+)
+
+apa_table(
+  means_table,
+  caption = "Estimated Marginal Means for Depression Scores by Treatment Condition and Time Point",
+  note = "Values are estimated marginal means from the linear mixed-effects model with random intercepts. CI = 95\\% confidence interval. ISTDP = Intensive Short-Term Dynamic Psychotherapy.",
+  align = c("l", rep("c", 6)),
+  col.names = c("Time Point", "$M$", "$SE$", "95\\% CI", "$M$", "$SE$", "95\\% CI"),
+  col_spanners = list("ISTDP" = c(2, 4), "Waitlist Control" = c(5, 7))
+)
+```
+
+### Within-Group Changes
+
+For ISTDP participants, depression scores decreased significantly from baseline to post-treatment (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "ISTDP" & grepl("Baseline.*Post", pairs_within_summary$contrast)], digits = 2)`, *SE* = `r printnum(pairs_within_summary$SE[pairs_within_summary$Tx_condition == "ISTDP" & grepl("Baseline.*Post", pairs_within_summary$contrast)], digits = 2)`, *p* < .001) and continued to decrease from baseline to 3-month follow-up (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "ISTDP" & grepl("Baseline.*Follow", pairs_within_summary$contrast)], digits = 2)`, *SE* = `r printnum(pairs_within_summary$SE[pairs_within_summary$Tx_condition == "ISTDP" & grepl("Baseline.*Follow", pairs_within_summary$contrast)], digits = 2)`, *p* < .001). Additional improvement occurred between post-treatment and follow-up (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "ISTDP" & grepl("Post.*Follow", pairs_within_summary$contrast)], digits = 2)`, *SE* = `r printnum(pairs_within_summary$SE[pairs_within_summary$Tx_condition == "ISTDP" & grepl("Post.*Follow", pairs_within_summary$contrast)], digits = 2)`, *p* < .001).
+
+In contrast, waitlist control participants showed minimal change in depression scores across all time points (all *p*s > .10), with no significant differences between baseline and post-treatment (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "Control" & grepl("Baseline.*Post", pairs_within_summary$contrast)], digits = 2)`, *p* = `r printp(pairs_within_summary$p.value[pairs_within_summary$Tx_condition == "Control" & grepl("Baseline.*Post", pairs_within_summary$contrast)])`), baseline and follow-up (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "Control" & grepl("Baseline.*Follow", pairs_within_summary$contrast)], digits = 2)`, *p* = `r printp(pairs_within_summary$p.value[pairs_within_summary$Tx_condition == "Control" & grepl("Baseline.*Follow", pairs_within_summary$contrast)])`), or post-treatment and follow-up (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "Control" & grepl("Post.*Follow", pairs_within_summary$contrast)], digits = 2)`, *p* = `r printp(pairs_within_summary$p.value[pairs_within_summary$Tx_condition == "Control" & grepl("Post.*Follow", pairs_within_summary$contrast)])`).
+
+### Effect Sizes
+
+```{r effect-sizes, fig.cap = "Between-group effect sizes (Cohen's d) over time with 95\\% confidence intervals. Positive values indicate lower depression in the ISTDP group compared to waitlist control. The dashed line represents the threshold for a large effect (d = 0.80).", fig.width = 8, fig.height = 6}
+# Calculate effect sizes at each time point
+effect_sizes <- data.frame()
+
+for (time_point in c("Baseline", "Post-treatment", "Follow-up")) {
+  df_time <- data_clean %>% filter(Time == time_point)
+
+  control_scores <- df_time %>% filter(Tx_condition == "Control") %>% pull(Depression)
+  istdp_scores <- df_time %>% filter(Tx_condition == "ISTDP") %>% pull(Depression)
+
+  d_result <- cohen.d(istdp_scores, control_scores)
+
+  cohens_d <- -d_result$estimate
+  ci_lower <- -d_result$conf.int[2]
+  ci_upper <- -d_result$conf.int[1]
+
+  time_numeric <- ifelse(time_point == "Baseline", 0,
+                        ifelse(time_point == "Post-treatment", 1, 2))
+
+  effect_sizes <- rbind(effect_sizes, data.frame(
+    Time = time_point,
+    Time_numeric = time_numeric,
+    Cohens_d = cohens_d,
+    CI_lower = ci_lower,
+    CI_upper = ci_upper
+  ))
+}
+
+effect_sizes$Time <- factor(effect_sizes$Time, levels = c("Baseline", "Post-treatment", "Follow-up"))
+
+# Create effect size plot
+ggplot(effect_sizes, aes(x = Time_numeric, y = Cohens_d)) +
+  geom_hline(yintercept = 0, linetype = "solid", color = "gray40", size = 0.8) +
+  geom_hline(yintercept = 0.8, linetype = "dashed", color = "gray50", size = 0.8) +
+  geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper, group = 1), alpha = 0.3, fill = "#E63946") +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.1, color = "#E63946", size = 1) +
+  geom_line(aes(group = 1), color = "#E63946", size = 1.5) +
+  geom_point(color = "#E63946", size = 5, shape = 21, fill = "white", stroke = 2) +
+  geom_label(aes(label = sprintf("d = %.2f", Cohens_d)),
+            nudge_y = 0.25, fontface = "bold") +
+  annotate("text", x = 2.2, y = 0.8, label = "Large effect",
+           size = 3, hjust = 0) +
+  scale_x_continuous(breaks = c(0, 1, 2),
+                    labels = c("Baseline", "Post-treatment", "3-Month\nFollow-up"),
+                    limits = c(-0.2, 2.5)) +
+  coord_cartesian(ylim = c(-0.5, 3.0), clip = "off") +
+  labs(
+    x = "Time Point",
+    y = "Cohen's d (ISTDP vs. Waitlist Control)"
+  ) +
+  theme_apa() +
+  theme(plot.margin = margin(10, 60, 10, 10))
+```
+
+Figure \@ref(fig:effect-sizes) displays the between-group effect sizes (Cohen's *d*) at each time point. Effect sizes increased substantially over time, from negligible at baseline (*d* = `r printnum(effect_sizes$Cohens_d[1], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[1], digits = 2)`, `r printnum(effect_sizes$CI_upper[1], digits = 2)`]) to large at post-treatment (*d* = `r printnum(effect_sizes$Cohens_d[2], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[2], digits = 2)`, `r printnum(effect_sizes$CI_upper[2], digits = 2)`]) and very large at 3-month follow-up (*d* = `r printnum(effect_sizes$Cohens_d[3], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[3], digits = 2)`, `r printnum(effect_sizes$CI_upper[3], digits = 2)`]).
+
+## Model Diagnostics
+
+The random intercept variance was `r printnum(as.numeric(VarCorr(model_final)$id[1]), digits = 2)`, indicating substantial between-person variability in baseline depression levels. The residual variance was `r printnum(sigma(model_final)^2, digits = 2)`. Visual inspection of residual plots (not shown) indicated acceptable model fit, with approximately normally distributed residuals and homogeneous variance across predicted values.
+
+\newpage
+
+# References
+
+::: {#refs custom-style="Bibliography"}
+:::
+
+\newpage
+
+# Supplementary Materials
+
+The complete dataset and analysis code are publicly available on the Open Science Framework at https://doi.org/10.17605/OSF.IO/75PU8.

@@ -1,0 +1,101 @@
+# R and RStudio files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# R Markdown intermediate files
+*_cache/
+*_files/
+*.knit.md
+*.utf8.md
+
+# LaTeX intermediate files
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.tex
+*.bcf
+*.run.xml
+
+# R package development
+*.tar.gz
+*.Rcheck/
+man/
+NAMESPACE
+
+# knitr and R markdown default cache directories
+/*_cache/
+/cache/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.DS_Store
+*.DS_Store
+
+# PNG files (we keep PDFs only)
+*.png
+
+# Python virtual environments (if any)
+venv/
+env/
+.venv/
+.env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# RStudio project files (optional - remove if you want to include .Rproj)
+# *.Rproj
+
+# papaja-specific temporary files
+manuscript.knit.md
+manuscript.utf8.md
+
+# Keep the figures directory but ignore specific patterns if needed
+# figures/*.png (already covered by *.png above)
+
+# renv (if using renv for package management)
+renv/library/
+renv/local/
+renv/staging/
+# Keep renv.lock
+
+# Output directories (if you separate outputs)
+# output/
+# results/
+
+# Large data files (uncomment if you have large files not to track)
+# *.csv
+# *.xlsx
+# *.sav (be careful - our main data is .sav!)
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Documentation builds
+_book/
+_bookdown_files/
+
+# papaja aux files
+apa6_man.cfg
