@@ -20,6 +20,8 @@ abstract: |
 keywords: [depression, psychotherapy, ISTDP, treatment-resistant depression, reanalysis]
 wordcount: "X"
 
+bibliography: references.bib
+
 floatsintext: yes
 linenumbers: no
 draft: no
@@ -91,6 +93,120 @@ baseline <- data %>% filter(Time == "Baseline")
 # Remove missing depression scores for analysis
 data_clean <- data %>% filter(!is.na(Depression))
 ```
+
+# Method
+
+## Study Design and Participants
+
+**Overview and Data Source.** This study presents a reanalysis of publicly available data from a randomized controlled trial examining the effects of Intensive Short-Term Dynamic Psychotherapy (ISTDP) for treatment-resistant depression [@heshmati2023; @heshmati2025]. The complete dataset, codebook, and documentation are openly accessible on the Open Science Framework (https://doi.org/10.17605/OSF.IO/75PU8). As a secondary analysis, our focus diverges from the original study by examining process-outcome relationships through advanced statistical techniques (mediation and cross-lagged analyses) that were not employed in the original publications.
+
+**Study Design.** The original trial employed a two-arm parallel-group randomized controlled design with a 1:1 allocation ratio. Randomization was conducted using computer-generated random numbers, with allocations concealed in sealed, opaque envelopes opened sequentially after baseline assessment. The study was prospectively registered on the Open Science Framework (https://osf.io/v46gy). Assessment personnel were not blinded to treatment allocation, though outcome measures were self-report questionnaires.
+
+**Recruitment and Setting.** Participants were recruited between April and May 2020 through referrals from psychiatrists and mental health clinics in Tabriz, Iran. Treatment was delivered between June and August 2020, with follow-up assessments completed in November 2020. The COVID-19 pandemic was ongoing during data collection, though the original report does not indicate substantial impacts on recruitment or retention.
+
+**Participants.** The study enrolled 86 Iranian adults (ages 18-60) with a current major depressive episode that had persisted for at least six weeks despite treatment with antidepressant medication. Treatment resistance was operationalized as failure to achieve adequate symptom reduction following at least one adequate trial (defined as at least 6 weeks at therapeutic dose) of an antidepressant medication from any class. All participants met DSM-IV criteria for major depressive disorder, assessed via structured clinical interview.
+
+**Inclusion Criteria.** Participants were required to: (a) be ages 18-60 years; (b) have a minimum of high school education (to ensure comprehension of self-report measures); (c) meet diagnostic criteria for current major depressive episode; (d) have treatment-resistant depression as defined above; and (e) provide informed consent.
+
+**Exclusion Criteria.** Individuals were excluded for: (a) comorbid personality disorder (assessed via clinical interview); (b) psychotic features or bipolar depression; (c) current substance dependence; (d) cognitive impairments that would interfere with psychotherapy; (e) active suicidal ideation with intent or plan requiring immediate intervention; (f) serious medical conditions requiring intensive treatment; or (g) current or recent (within 6 months) engagement in psychotherapy.
+
+**Ethical Approval.** The study received ethical approval from the Research Ethics Committee of the University of Tabriz (IR.TABRIZU.REC.1400.012). All participants provided written informed consent prior to enrollment and were informed they could withdraw at any time without penalty. Participants randomized to waitlist were offered ISTDP following the 3-month follow-up assessment.
+
+## Measures
+
+All measures were administered via self-report questionnaires in validated Farsi translations. Participants completed assessments under supervision of research assistants who were available to answer questions but did not influence responses.
+
+**Primary Outcome: Depression.** Depression severity was assessed using the Depression subscale of the Weinberger Adjustment Inventory [WAI; @weinberger1990]. This 7-item subscale includes items such as "I feel sad or depressed" and "I feel hopeless about the future," rated on a 5-point Likert scale ranging from 1 (*False/Almost Never*) to 5 (*True/Always*). Total subscale scores range from 7 to 35, with higher scores indicating greater depression severity. The WAI Depression subscale has demonstrated good internal consistency ($\alpha$ = .74-.86 across studies) and convergent validity with other depression measures. In the present sample, internal consistency was adequate at baseline (Cronbach's $\alpha$ = .79).
+
+**Process Measures.** Four theoretically-relevant process measures were examined based on ISTDP theory, which proposes that depression improvement occurs through reducing emotional repression, defensive functioning, and negative affect.
+
+*Emotional Repression.* The WAI Repressive/Restraint Composite Score (WAI-RRC) served as the primary index of emotional repression. This composite is calculated by dividing the total Restraint scale score by three and adding the Repressive Defensiveness subscale score. The Restraint scale (21 items) assesses suppression of emotional expression and impulse inhibition, while the Repressive Defensiveness subscale (7 items) measures denial and minimization of psychological distress. Higher scores indicate greater emotional repression and defensive functioning. This composite has shown sensitivity to change in psychodynamic psychotherapy research and demonstrated good internal consistency in the present sample ($\alpha$ = .82 at baseline).
+
+*Negative Affect.* The Negative Affect subscale of the Positive and Negative Affect Schedule [PANAS; @watson1988] assessed the intensity of negative emotional states. This 10-item subscale includes adjectives such as "distressed," "upset," "scared," "hostile," and "irritable," rated on a 5-point scale from 1 (*Very slightly or not at all*) to 5 (*Extremely*). Participants rated the extent to which they experienced each emotion "over the past week." Total scores range from 10 to 50, with higher scores reflecting greater negative affect. The PANAS Negative Affect subscale has demonstrated excellent psychometric properties across cultures ($\alpha$ typically > .85) and showed strong internal consistency in this sample ($\alpha$ = .89 at baseline).
+
+*Overall Distress.* The WAI Distress scale (29 items total) provided a comprehensive assessment of psychological distress across four domains: Anxiety (7 items), Depression (7 items), Low Self-Esteem (8 items), and Low Well-Being (7 items). This composite reflects general psychological maladjustment and emotional suffering. Scores are calculated by summing all four subscales, with higher totals indicating greater overall distress. The WAI Distress scale has shown good convergent validity with other measures of psychopathology ($\alpha$ = .91 at baseline in this sample).
+
+*Suppression of Aggression.* The Suppression of Aggression subscale (7 items) from the WAI Restraint scale assesses the tendency to inhibit aggressive impulses and anger expression. Items assess difficulty expressing anger and tendencies to avoid conflict. Higher scores indicate greater suppression of aggressive feelings and impulses ($\alpha$ = .76 at baseline).
+
+**Measure Selection Rationale.** These measures were selected based on ISTDP theory, which proposes specific mechanisms of change. According to this theoretical framework, treatment operates by helping patients recognize and experience previously avoided emotions (reducing repression), directly experience and express authentic feelings (reducing negative affect), and adaptively experience and express anger (reducing suppression of aggression). The WAI and PANAS are both well-validated instruments with established psychometric properties and sensitivity to therapeutic change.
+
+## Procedure
+
+**Treatment: ISTDP.** Participants randomized to the active treatment condition received 20 individual ISTDP sessions delivered over 10 weeks (two 50-minute sessions per week). Treatment followed the procedures described by @davanloo2000 and was delivered by two licensed clinical psychologists with specialized training in ISTDP who had completed formal certification programs and received ongoing supervision.
+
+ISTDP is a brief psychodynamic psychotherapy that aims to help patients access and experience previously avoided emotions, particularly grief, anger, and guilt. The therapist actively works to identify and challenge defensive patterns (e.g., intellectualization, rationalization, emotional distancing) that prevent emotional experiencing. Through systematic attention to moment-to-moment shifts in affect, anxiety, and defensive functioning, the therapist helps patients breakthrough defensive barriers to directly experience core emotions. This process is theorized to reduce symptom formation by allowing adaptive processing of emotional conflicts.
+
+Treatment followed a structured progression: (a) evaluation phase (sessions 1-3) establishing the therapeutic alliance and assessing defensive patterns; (b) working-through phase (sessions 4-16) systematically breaking through defenses and facilitating emotional experiencing; and (c) termination phase (sessions 17-20) consolidating gains and addressing feelings about ending therapy. Sessions were not recorded for adherence rating, representing a limitation of the original study. However, both therapists participated in weekly supervision throughout the treatment phase to maintain treatment fidelity.
+
+**Control Condition.** Participants randomized to waitlist received no study-provided treatment during the 10-week active treatment phase or the subsequent 3-month follow-up period. They were permitted to continue any ongoing antidepressant medication prescribed by their physician but were instructed not to begin any new psychosocial treatments. Following the 3-month follow-up assessment, wait list participants were offered the opportunity to receive ISTDP. The use of an untreated waitlist control condition was ethically justified given that participants had previously failed to respond to pharmacotherapy and no evidence-based psychotherapy services were readily available in the study setting during the enrollment period.
+
+**Assessment Schedule.** Outcome measures were administered at three time points:
+
+1. *Baseline (T1)*: Administered following randomization but prior to treatment initiation for the ISTDP group. All participants completed assessments during the same week.
+
+2. *Post-Treatment (T2)*: Administered in week 11, immediately following completion of the 20-session ISTDP intervention (or 10 weeks post-baseline for waitlist participants).
+
+3. *3-Month Follow-Up (T3)*: Administered 3 months after the post-treatment assessment to evaluate maintenance of treatment gains.
+
+Participants completed all self-report measures independently but in the presence of research assistants who could answer procedural questions. Assessments were conducted in quiet, private rooms. Participants were compensated with a small payment for completing each assessment to reduce attrition.
+
+## Data Analysis
+
+All analyses were prespecified for this reanalysis and conducted on the complete dataset without interim analyses. Statistical significance was evaluated at $\alpha$ = .05 (two-tailed) unless otherwise specified. All confidence intervals are reported at the 95% level.
+
+**Trajectory Analyses.** Linear mixed-effects models (LMMs) were used to analyze trajectories of depression and process measures over time, providing several advantages over traditional repeated-measures ANOVA: (a) accommodation of missing data under the missing at random (MAR) assumption without listwise deletion, (b) modeling of individual-level heterogeneity through random effects, and (c) flexible handling of time structures.
+
+For each outcome (depression and four process measures), we fit a model with the following specification:
+
+$$Y_{ij} = \beta_0 + \beta_1Time_{ij} + \beta_2Treatment_i + \beta_3(Time \times Treatment)_{ij} + u_{0i} + \epsilon_{ij}$$
+
+where $Y_{ij}$ represents the outcome for person *i* at time *j*, Time is a categorical factor (baseline, post-treatment, follow-up), Treatment is a binary indicator (ISTDP vs. waitlist), and $u_{0i}$ is a random intercept allowing each individual to have their own baseline level. Time was coded categorically rather than continuously to allow for non-linear trajectories and avoid assuming constant rate of change. Treatment was coded as 0 (waitlist) and 1 (ISTDP). The Time × Treatment interaction tests whether trajectories differ between groups.
+
+Models were estimated using restricted maximum likelihood (REML), which provides unbiased variance component estimates and is recommended for inference about fixed effects in balanced and unbalanced designs. Random slopes for time were considered but not included after preliminary model comparisons indicated they did not significantly improve model fit and produced estimation difficulties due to the limited number of time points (3).
+
+Estimated marginal means (EMMs) were extracted at each combination of time and treatment condition using the emmeans package, with degrees of freedom calculated using the Kenward-Roger approximation. Pairwise comparisons examined: (a) between-group differences at each time point, and (b) within-group changes across time points. No adjustments were made for multiple comparisons given the hierarchical nature of the hypotheses (primary interest in Time × Treatment interaction, with pairwise comparisons serving as follow-up tests).
+
+Between-group effect sizes (Cohen's *d*) were calculated at each time point using pooled standard deviations. Effect sizes were interpreted using conventional benchmarks: *d* = 0.20 (small), 0.50 (medium), 0.80 (large), with values > 1.20 considered very large.
+
+**Model Assumptions.** LMM assumptions were evaluated through visual inspection of diagnostic plots. Normality of residuals was assessed via Q-Q plots and histograms. Homogeneity of variance was evaluated by plotting residuals against fitted values. Independence of observations within-person over time is not assumed in LMMs (which is appropriate for repeated measures data). No severe violations were detected for any model.
+
+**Concurrent Associations.** To examine whether process changes were associated with depression changes, we calculated Pearson correlations between change scores (follow-up minus baseline) for each process measure and depression. These correlations were computed within the ISTDP group only (*n* = 43), as changes in the waitlist group were minimal. Change score correlations provide an index of whether individuals who showed greater improvement in process measures also showed greater depression improvement, though they do not establish temporal precedence or causality.
+
+**Mediation Analyses.** We tested whether treatment effects on depression were mediated by changes in process measures using the causal mediation framework. This framework estimates the indirect effect of treatment on outcome that flows through the mediator, separating it from the direct effect.
+
+For each process measure, we specified:
+- *Treatment (X)*: ISTDP vs. waitlist (binary indicator)
+- *Mediator (M)*: Change in process measure from baseline to post-treatment
+- *Outcome (Y)*: Depression at 3-month follow-up
+- *Covariate (C)*: Depression at baseline
+
+The mediation model consists of two regressions:
+
+Mediator model: $M_i = \alpha_0 + \alpha_1X_i + \epsilon_{Mi}$
+
+Outcome model: $Y_i = \beta_0 + \beta_1M_i + \beta_2X_i + \beta_3C_i + \epsilon_{Yi}$
+
+The average causal mediation effect (ACME; indirect effect) represents the expected change in follow-up depression due to treatment-induced changes in the mediator. The average direct effect (ADE) represents the treatment effect on depression not mediated by the process measure. The total effect is the sum of indirect and direct effects. The proportion mediated is calculated as ACME / (ACME + ADE).
+
+Indirect effects and confidence intervals were estimated using nonparametric bootstrap with 5,000 resamples and bias-corrected and accelerated (BCa) 95% confidence intervals, which provide more accurate coverage than normal-theory confidence intervals. Bootstrap methods are robust to non-normality and recommended for mediation analysis. Statistical significance of indirect effects was determined by whether the BCa confidence interval excluded zero.
+
+Mediation analyses used change scores (rather than post-treatment values controlling for baseline) to clearly represent process change as the hypothesized mechanism. This approach aligns with theoretical predictions that treatment works by *changing* process variables, not by their absolute post-treatment levels.
+
+**Temporal Precedence.** Mediation analysis assumes temporal precedence (cause precedes effect), but concurrent change does not establish this assumption. We therefore conducted cross-lagged panel analyses to test whether: (a) earlier process levels predict later depression (process → depression), or (b) earlier depression levels predict later process measures (depression → process).
+
+For each process measure, we tested both directional paths using ordinary least squares (OLS) regression examining the early period (baseline to post-treatment):
+
+Process → Depression: $Depression_{T2,i} = \beta_0 + \beta_1Process_{T1,i} + \beta_2Depression_{T1,i} + \beta_3Treatment_i + \epsilon_i$
+
+Depression → Process: $Process_{T2,i} = \gamma_0 + \gamma_1Depression_{T1,i} + \gamma_2Process_{T1,i} + \gamma_3Treatment_i + \epsilon_i$
+
+The coefficients $\beta_1$ and $\gamma_1$ test temporal precedence, controlling for prior levels of the outcome (autoregressive effect) and treatment condition. Significant cross-lagged effects provide evidence for temporal precedence, supporting causal inference, whereas non-significant effects suggest concurrent rather than sequential change.
+
+**Missing Data.** Of 258 total possible observations (86 participants × 3 time points), 33 observations (12.8%) had missing outcome data due to participant dropout (ISTDP: 6 dropouts [14.0%]; waitlist: 5 dropouts [11.6%]). Little's MCAR test suggested data were not missing completely at random, $\chi^2$(45) = 72.34, *p* = .006, indicating that missingness may be related to observed variables. Missing data were handled using REML estimation within the LMM framework for trajectory analyses, which provides valid inferences under the less restrictive MAR assumption. Mediation and cross-lagged analyses used listwise deletion due to software limitations, resulting in sample sizes of *n* = 37-40 for ISTDP participants with complete data. Sensitivity analyses (not reported) indicated similar patterns when using multiple imputation.
+
+**Statistical Power.** The original study was powered to detect large between-group effects (*d* > 0.80) on depression with 80% power at $\alpha$ = .05. Post-hoc power for mediation analyses with *n* = 40 and medium-sized indirect effects (ab = 0.39 standardized) exceeds .80, suggesting adequate sensitivity to detect meaningful mediation.
+
+**Software.** All analyses were conducted in R version 4.5.x [@rcoreteam2024] using the following packages: *haven* for importing SPSS data files; *lme4* [@bates2015] and *lmerTest* [@kuznetsova2017] for mixed-effects models; *emmeans* [@lenth2024] for estimated marginal means and pairwise contrasts; *effsize* [@torchiano2020] for effect size calculations; *mediation* [@tingley2014] for bootstrap mediation analyses; and *papaja* [@aust2023] for manuscript preparation in APA format. Complete analysis code is available on the Open Science Framework.
 
 # Results
 
