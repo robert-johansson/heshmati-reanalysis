@@ -2,8 +2,9 @@
 
 /* Improve readability */
 .remark-slide-content {
-  font-size: 20px;
+  font-size: 18px;
   padding: 1em 2em 1em 2em;
+  line-height: 1.4;
 }
 
 /* Title slide */
@@ -74,7 +75,15 @@ a:hover {
 
 /* Lists */
 ul {
-  line-height: 1.6;
+  line-height: 1.5;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* Headings spacing */
+h2, h3 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 /* Tables */
