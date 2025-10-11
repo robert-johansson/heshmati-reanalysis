@@ -52,8 +52,9 @@ Thumbs.db
 .DS_Store
 *.DS_Store
 
-# PNG files (we keep PDFs only)
+# PNG files (we keep PDFs only, except presentation figures)
 *.png
+!docs/presentation/figures/*.png
 
 # Python virtual environments (if any)
 venv/
