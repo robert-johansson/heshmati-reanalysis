@@ -1,0 +1,91 @@
+/* Custom CSS for ISTDP Presentation */
+
+/* Improve readability */
+.remark-slide-content {
+  font-size: 24px;
+  padding: 1em 2em 1em 2em;
+}
+
+/* Title slide */
+.title-slide {
+  background-color: #A23B72;
+  color: white;
+}
+
+.title-slide h1, .title-slide h2, .title-slide h3 {
+  color: white;
+}
+
+/* Inverse slides (section headers) */
+.inverse {
+  background-color: #2E86AB;
+  color: white;
+}
+
+/* Pull left/right for two-column layouts */
+.pull-left {
+  float: left;
+  width: 47%;
+}
+
+.pull-right {
+  float: right;
+  width: 47%;
+}
+
+/* Clear floats */
+.pull-left ~ * {
+  clear: both;
+}
+
+/* Highlight boxes */
+.highlight-box {
+  background-color: #f0f0f0;
+  border-left: 5px solid #A23B72;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Code blocks */
+.remark-code, .remark-inline-code {
+  font-family: 'Monaco', 'Courier New', monospace;
+  background-color: #f5f5f5;
+}
+
+/* Links */
+a {
+  color: #A23B72;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2E86AB;
+  text-decoration: underline;
+}
+
+/* Lists */
+ul {
+  line-height: 1.6;
+}
+
+/* Tables */
+table {
+  margin: auto;
+  border-collapse: collapse;
+}
+
+table thead th {
+  border-bottom: 2px solid #A23B72;
+  padding: 8px;
+}
+
+table tbody td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Footer */
+.remark-slide-number {
+  font-size: 14px;
+  opacity: 0.7;
+}
