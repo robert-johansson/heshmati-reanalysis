@@ -33,9 +33,18 @@
   width: 47%;
 }
 
-/* Clear floats */
-.pull-left ~ * {
+/* Better float clearing */
+.remark-slide-content:after {
+  content: "";
+  display: table;
   clear: both;
+}
+
+/* Ensure images don't overflow */
+.pull-left img,
+.pull-right img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Highlight boxes */

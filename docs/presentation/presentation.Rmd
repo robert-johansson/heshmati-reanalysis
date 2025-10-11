@@ -32,7 +32,8 @@ knitr::opts_chunk$set(
   fig.path = "figures/",
   cache = FALSE,
   dev = "png",
-  dpi = 300
+  dpi = 96,
+  out.width = "100%"
 )
 
 # Load packages
@@ -93,7 +94,7 @@ class: inverse, center, middle
 ]
 
 .pull-right[
-```{r problem-fig, fig.width=5, fig.height=3.5}
+```{r problem-fig, fig.width=5, fig.height=3}
 # Simple illustration
 tibble(
   Trial = 1:4,
