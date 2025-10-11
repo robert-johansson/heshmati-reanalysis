@@ -2,6 +2,7 @@
 
 [![DOI](https://img.shields.io/badge/DOI-10.17605%2FOSF.IO%2F75PU8-blue)](https://doi.org/10.17605/OSF.IO/75PU8)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Pages](https://img.shields.io/badge/presentation-live-success)](https://robert-johansson.github.io/heshmati-reanalysis/presentation/)
 
 ## Overview
 
@@ -12,6 +13,12 @@ This repository contains a complete reanalysis of data from a randomized control
 **Original Study:**
 > Heshmati, R., Wienicke, F. J., & Driessen, E. (2023). The effects of intensive short-term dynamic psychotherapy on depressive symptoms, negative affect, and emotional repression in single treatment-resistant depression: A randomized controlled trial. *Psychotherapy*, *60*(4), 497-511. https://doi.org/10.1037/pst0000500
 
+## Presentations
+
+**View the research presentation online:**
+- **HTML Slides (Web):** [View online](https://robert-johansson.github.io/heshmati-reanalysis/presentation/) - Interactive xaringan presentation
+- **PDF Slides:** [Download PDF](https://github.com/robert-johansson/heshmati-reanalysis/raw/main/presentation-beamer.pdf) - Beamer slides for printing
+
 ## Repository Structure
 
 ```
@@ -19,18 +26,39 @@ heshmati-reanalysis/
 ├── README.md                  # This file
 ├── LICENSE                    # License information
 ├── .gitignore                # Git ignore rules
+├── check-analyses.R          # Run all validation tests
 ├── data/
 │   ├── RCT Dataset...sav     # Original SPSS data file
 │   └── README.md             # Data dictionary and codebook
 ├── docs/
+│   ├── index.html            # GitHub Pages landing page
+│   ├── presentation/         # Web presentation
+│   │   ├── presentation.Rmd  # xaringan source
+│   │   ├── index.html        # Generated HTML slides
+│   │   ├── custom.css        # Custom styling
+│   │   └── libs/             # xaringan dependencies
 │   ├── Heshmati et al 2023 RCT.pdf              # Original paper
 │   ├── Heshmati Wienicke Driessen 2025.pdf      # Data descriptor
+│   ├── testing.md            # Testing framework documentation
+│   ├── presentation-guide.md # Presentation usage guide
+│   ├── github-pages-setup.md # GitHub Pages setup guide
 │   └── VARIABLES.md          # Variable descriptions
 ├── manuscript.Rmd            # Main R Markdown manuscript (reproduces all analyses)
 ├── manuscript.pdf            # Generated manuscript (APA format)
+├── presentation-beamer.Rmd   # Beamer presentation source
+├── presentation-beamer.pdf   # PDF presentation
 ├── figures/                  # Auto-generated figures
 │   ├── trajectories-1.pdf
 │   └── effect-sizes-1.pdf
+├── tests/                    # Comprehensive test suite (75 tests)
+│   ├── testthat/
+│   │   ├── test-data-integrity.R
+│   │   ├── test-transformations.R
+│   │   ├── test-models.R
+│   │   ├── test-results.R
+│   │   ├── test-reproducibility.R
+│   │   └── test-original-comparison.R
+│   └── testthat.R
 └── sessionInfo.txt           # R package versions used
 ```
 
@@ -77,7 +105,7 @@ install.packages(c(
 **Option 2: Command Line**
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/heshmati-reanalysis.git
+git clone https://github.com/robert-johansson/heshmati-reanalysis.git
 cd heshmati-reanalysis
 
 # Install R packages (if needed)
@@ -145,6 +173,72 @@ See `data/README.md` for complete variable descriptions and `docs/VARIABLES.md` 
 - Pairwise comparisons with Tukey adjustment for multiple testing
 - Effect sizes: Cohen's d with 95% confidence intervals
 
+## Testing and Validation
+
+This project includes a comprehensive testing framework to ensure reproducibility and statistical validity.
+
+### Overview
+
+- **75 automated tests** validate all analyses
+- **Two-tier approach:** Inline assertions (run during knitting) + comprehensive test suite
+- **100% pass rate** ✅
+- Full documentation: [`docs/testing.md`](docs/testing.md)
+
+### Quick Test
+
+Run all validation tests:
+
+```bash
+Rscript check-analyses.R
+```
+
+Expected output:
+```
+✅ All tests passed! Statistical analyses are validated.
+```
+
+### What's Tested
+
+| Category | Tests | Validates |
+|----------|-------|-----------|
+| **Data Integrity** | 15 | Sample size, missing data, variable types, scale ranges |
+| **Transformations** | 10 | Variable coding, change scores, format conversions |
+| **Model Validity** | 12 | LMM convergence, structure, assumptions, diagnostics |
+| **Results** | 20 | Effect sizes, EMMs, treatment effects, significance tests |
+| **Reproducibility** | 8 | Identical results across runs, bootstrap consistency |
+| **Original Study** | 10 | Demographics, effects match Heshmati et al. (2023) |
+
+### Test Files
+
+```
+tests/
+├── testthat/
+│   ├── test-data-integrity.R       # Data structure validation
+│   ├── test-transformations.R      # Variable coding checks
+│   ├── test-models.R               # Statistical model validation
+│   ├── test-results.R              # Results plausibility checks
+│   ├── test-reproducibility.R      # Reproducibility verification
+│   └── test-original-comparison.R  # Cross-validation with original study
+└── testthat.R                      # Test runner
+```
+
+### For Reviewers
+
+To verify reproducibility:
+
+1. Clone this repository
+2. Install R packages (see Requirements above)
+3. Run: `Rscript check-analyses.R`
+4. All 75 tests should pass ✅
+
+This demonstrates:
+- **Reproducibility:** Analyses produce identical results (seed = 2025)
+- **Validity:** All statistical assumptions verified
+- **Transparency:** Complete test code available
+- **Best practices:** Modern research software engineering standards
+
+For details, see [`docs/testing.md`](docs/testing.md).
+
 ## Citations
 
 ### Original Study
@@ -177,7 +271,7 @@ See `data/README.md` for complete variable descriptions and `docs/VARIABLES.md` 
 ### This Reanalysis
 If you use this reanalysis, please cite:
 ```
-Johansson, R. (2025). Effects of Intensive Short-Term Dynamic Psychotherapy on Depression: A Reanalysis of Heshmati et al.'s Data. GitHub repository: https://github.com/yourusername/heshmati-reanalysis
+Johansson, R. (2025). Effects of Intensive Short-Term Dynamic Psychotherapy on Depression: A Reanalysis of Heshmati et al.'s Data. GitHub repository: https://github.com/robert-johansson/heshmati-reanalysis
 ```
 
 ## License
