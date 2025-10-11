@@ -33,7 +33,7 @@ knitr::opts_chunk$set(
   cache = FALSE,
   dev = "png",
   dpi = 96,
-  out.width = "100%"
+  out.width = "90%"
 )
 
 # Load packages
@@ -192,34 +192,28 @@ class: inverse, center, middle
 
 ---
 
-# Four Key Questions
+# Research Questions (1/2)
 
 ### **RQ1: How large and durable are ISTDP effects?**
 - Examine trajectories through 3-month follow-up
 - Quantify effect sizes at each time point
-- Test for continued improvement post-treatment
-
---
 
 ### **RQ2: Does ISTDP change proposed process measures?**
 - Emotional repression
 - Negative affect
 - Overall distress
-- Suppression of aggression
 
---
+---
+
+# Research Questions (2/2)
 
 ### **RQ3: Do process changes mediate depression improvement?**
 - Test causal mediation models
 - Quantify indirect effects
-- Identify key mechanisms
-
---
 
 ### **RQ4: Do process changes precede depression changes?**
 - Cross-lagged panel analyses
 - Test temporal precedence
-- Distinguish cause from correlation
 
 ---
 class: inverse, center, middle
