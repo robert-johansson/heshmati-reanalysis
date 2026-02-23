@@ -11,7 +11,7 @@ This repository contains a complete reanalysis of data from a randomized control
 **Authors:** Robert Johansson & Peter Lilliengren, Department of Psychology, Stockholm University, Stockholm, Sweden
 
 **Original Study:**
-> Heshmati, R., Wienicke, F. J., & Driessen, E. (2023). The effects of intensive short-term dynamic psychotherapy on depressive symptoms, negative affect, and emotional repression in single treatment-resistant depression: A randomized controlled trial. *Psychotherapy*, *60*(4), 497-511. https://doi.org/10.1037/pst0000500
+> Heshmati, R., Wienicke, F. J., & Driessen, E. (2023). The effects of intensive short-term dynamic psychotherapy on depressive symptoms, negative affect, and emotional repression in single treatment-resistant depression: A randomized controlled trial. *Psychotherapy*, *60*(4), 497-511. https://doi.org/10.1037/pst0000500 ([preprint](https://repository.ubn.ru.nl/bitstream/handle/2066/298912/1/298912.pdf))
 
 ## Presentations
 
@@ -37,8 +37,6 @@ heshmati-reanalysis/
 │   │   ├── index.html        # Generated HTML slides
 │   │   ├── custom.css        # Custom styling
 │   │   └── libs/             # xaringan dependencies
-│   ├── Heshmati et al 2023 RCT.pdf              # Original paper
-│   ├── Heshmati Wienicke Driessen 2025.pdf      # Data descriptor
 │   ├── testing.md            # Testing framework documentation
 │   ├── presentation-guide.md # Presentation usage guide
 │   ├── github-pages-setup.md # GitHub Pages setup guide
