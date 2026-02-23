@@ -177,8 +177,8 @@ Create `docs/index.html` with the following content:
     </style>
 </head>
 <body>
-    <h1>Effects of ISTDP on Treatment-Resistant Depression</h1>
-    <p><strong>A Reanalysis of Heshmati et al. (2023)</strong></p>
+    <h1>Effectiveness and Mechanisms of ISTDP for Treatment-Resistant Depression</h1>
+    <p><strong>A Reanalysis of a Randomized Controlled Trial</strong></p>
     <p>Robert Johansson | Stockholm University</p>
 
     <h2>📊 Presentation</h2>

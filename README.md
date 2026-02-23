@@ -1,4 +1,4 @@
-# Effects of Intensive Short-Term Dynamic Psychotherapy on Depression: A Reanalysis of Heshmati et al.'s Data
+# Effectiveness and Mechanisms of Intensive Short-Term Dynamic Psychotherapy for Treatment-Resistant Depression: A Reanalysis of a Randomized Controlled Trial
 
 [![Validate Analyses](https://github.com/robert-johansson/heshmati-reanalysis/actions/workflows/check-analyses.yml/badge.svg)](https://github.com/robert-johansson/heshmati-reanalysis/actions/workflows/check-analyses.yml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18743450.svg)](https://doi.org/10.5281/zenodo.18743450)
