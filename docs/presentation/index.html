@@ -3,8 +3,8 @@
   <head>
     <title>Effects of ISTDP on Treatment-Resistant Depression</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Robert Johansson" />
-    <meta name="date" content="2025-10-11" />
+    <meta name="author" content="Robert Johansson &amp; Peter Lilliengren" />
+    <meta name="date" content="2026-02-23" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
@@ -21,13 +21,13 @@ class: center, middle, inverse, title-slide
 ## A Reanalysis Examining Mechanisms of Change
 ]
 .author[
-### Robert Johansson
+### Robert Johansson &amp; Peter Lilliengren
 ]
 .institute[
 ### Department of Psychology, Stockholm University
 ]
 .date[
-### 2025-10-11
+### 2026-02-23
 ]
 
 ---
@@ -37,131 +37,67 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
+
+
 ---
 class: inverse, center, middle
 
-# The Problem
+# Introduction
 
 ---
 
-# Treatment-Resistant Depression: A Major Challenge
+# Treatment-Resistant Depression
 
 .pull-left[
-**Clinical Reality:**
+**Clinical Challenge:**
 - ~30% of depressed patients don't respond to first-line treatments
 - Cumulative failure rates increase with each trial
 - Substantial burden on patients and healthcare systems
 
-**Need:**
-- Effective alternative treatments
-- Understanding of mechanisms
-- Evidence-based interventions
+**ISTDP as a Promising Alternative:**
+- Brief psychodynamic therapy (10--40 sessions, typically once per week)
+- Targets emotional avoidance and defensive functioning
+- Growing evidence base for depression, including TRD
 ]
 
 .pull-right[
-&lt;img src="figures/problem-fig-1.png" width="90%" /&gt;
+**Proposed Sequential Mechanism:**
+
+.center[
+Reduce Repression
+
+&amp;darr;
+
+Facilitate Emotional Experiencing
+
+&amp;darr;
+
+Reduce Depression
+]
 ]
 
 ---
 
-# ISTDP: A Promising Alternative
+# The Original Study &amp; Our Research Questions
 
-.pull-left[
-**What is ISTDP?**
-- Intensive Short-Term Dynamic Psychotherapy
-- Developed by Habib Davanloo (2000)
-- Brief (10-20 sessions), structured approach
-
-**Core Theory:**
-- Depression stems from emotional avoidance
-- Defenses block emotional experiencing
-- Break through defenses → experience emotion → symptom relief
-]
+**Heshmati, Wienicke, &amp; Driessen (2023):**
+- RCT: *N* = 86 with treatment-resistant depression (Iran)
+- ISTDP (20 sessions / 10 weeks) vs. Waitlist
+- Very large effects on depression, but mechanisms untested
 
 --
 
-.pull-right[
-**Proposed Mechanism:**
+**Our Four Research Questions:**
 
-```
-Emotional Repression
-        ↓
-    Depression
-```
+1. How large and durable are ISTDP's effects on depression?
 
-**Treatment Targets:**
-1. ⬇️ Emotional repression
-2. ⬇️ Defensive functioning
-3. ⬇️ Negative affect
+2. Does ISTDP change proposed process measures?
 
-**Hypothesis:**
-Process changes should mediate depression improvement
-]
+3. Do process changes **mediate** depression improvement?
 
----
-
-# The Original Study
-
-**Heshmati, Wienicke, &amp; Driessen (2023)**
-
---
-
-.pull-left[
-**Design:**
-- Randomized controlled trial
-- N = 86 Iranian adults
-- Treatment-resistant depression
-- ISTDP (20 sessions/10 weeks) vs. Waitlist
-
-**Key Finding:**
-- **Very large effects** on depression (d &gt; 2.0)
-- Effects on proposed mechanisms
-- Published in *Psychotherapy*
-]
-
---
-
-.pull-right[
-**But Questions Remained:**
-
-1. How durable are effects?
-2. Do mechanisms actually mediate?
-3. What is the temporal order of change?
-4. Are effects specific to proposed mechanisms?
-
-**Our Contribution:**
-Advanced analyses to understand **HOW** ISTDP works
-]
-
----
-class: inverse, center, middle
-
-# Research Questions
-
----
-
-# Research Questions (1/2)
-
-### **RQ1: How large and durable are ISTDP effects?**
-- Examine trajectories through 3-month follow-up
-- Quantify effect sizes at each time point
-
-### **RQ2: Does ISTDP change proposed process measures?**
-- Emotional repression
-- Negative affect
-- Overall distress
-
----
-
-# Research Questions (2/2)
-
-### **RQ3: Do process changes mediate depression improvement?**
-- Test causal mediation models
-- Quantify indirect effects
-
-### **RQ4: Do process changes precede depression changes?**
-- Cross-lagged panel analyses
-- Test temporal precedence
+4. Do process changes **precede** depression changes?
 
 ---
 class: inverse, center, middle
@@ -170,729 +106,197 @@ class: inverse, center, middle
 
 ---
 
-# Methods Overview
+# Design and Analysis
 
 .pull-left[
-**Sample:**
-- N = 86 participants
-- 43 ISTDP, 43 Waitlist
-- Treatment-resistant depression
-- Ages 18-60, Iran
-- 62% female
+**Sample:** *N* = 86 (43 ISTDP, 43 Waitlist); 62% female; ages 18--60
 
-**Treatment:**
-- ISTDP: 20 sessions over 10 weeks
-- Waitlist: No treatment
-- Both groups: Continue medication
-]
+**Attrition:** 12.8% (7 ISTDP, 4 Waitlist); handled via REML
 
---
-
-.pull-right[
 **Measures:**
-- **Primary:** Depression (WAI)
-- **Process:**
-  - Emotional Repression (WAI-RRC)
-  - Negative Affect (PANAS)
-  - Distress (WAI)
-  - Suppression of Aggression (WAI)
-
-**Assessments:**
-- Baseline
-- Post-treatment (10 weeks)
-- 3-month follow-up
+- Primary: Depression (WAI Depression subscale, 7--35)
+- Process: Emotional Repression (WAI-RRC), Negative Affect (PANAS-NA), Distress (WAI Distress)
 ]
-
----
-
-# Statistical Approach
-
-### **Trajectory Analyses**
-- Linear mixed-effects models with random intercepts
-- Time × Treatment interactions
-- Estimated marginal means
-- Cohen's *d* with 95% CIs
-
---
-
-### **Mechanism Analyses**
-- Bootstrap mediation (5,000 resamples)
-- Test: Treatment → Process → Depression
-- Control for baseline depression
-
---
-
-### **Temporal Precedence**
-- Cross-lagged panel models
-- Does Process(T1) predict Depression(T2)?
-- Or Depression(T1) predict Process(T2)?
-
---
-
-### **Open Science**
-- All data public (OSF)
-- All code public (GitHub)
-- **75 automated tests** (100% passing ✅)
-- Fully reproducible
-
----
-class: inverse, center, middle
-
-# Results: RQ1
-## Depression Trajectories
-
----
-
-# Depression Trajectories Over Time
-
-&lt;img src="figures/trajectories-1.png" width="90%" /&gt;
-
----
-
-# Effect Sizes Over Time
-
-&lt;img src="figures/effect-sizes-1.png" width="90%" /&gt;
-
----
-
-# RQ1: Key Findings
-
-.pull-left[
-### **Baseline**
-- Cohen's *d* = 0.08
-- 95% CI [-0.35, 0.51]
-- *p* = .73
-- ✅ **Groups balanced**
-
-### **Post-Treatment**
-- Cohen's *d* = 1.68
-- 95% CI [1.15, 2.22]
-- *p* &lt; .001
-- ✅ **Large effect**
-]
-
---
 
 .pull-right[
-### **3-Month Follow-Up**
-- Cohen's *d* = **2.50**
-- 95% CI [1.88, 3.11]
-- *p* &lt; .001
-- ✅ **Very large effect**
+**Analyses:**
+- Linear mixed-effects models (random intercepts)
+- Bootstrap mediation (5,000 resamples, BCa CIs)
+- Cross-lagged panel analyses (standardized coefficients)
+- Sensitivity: Distress without Depression subscale, therapist effects
 
-### **Within-Group Changes (ISTDP)**
-- Post: -8.40 points (*p* &lt; .001)
-- Follow-up: -12.87 points (*p* &lt; .001)
-- **Continued improvement** after treatment ends
-]
-
---
-
-.center[
-## **Answer to RQ1:**
-### Effects are large, durable, and increase over time ✅
+**Open Science:** All data (OSF) and code (GitHub) publicly available; 75 automated validation tests
 ]
 
 ---
 class: inverse, center, middle
 
-# Results: RQ2
-## Process Measure Changes
+# Results
 
 ---
 
-# Process Measures Show Large Effects
+# RQ1: Depression Trajectories
 
-&lt;img src="figures/process-measures-1.png" width="90%" /&gt;
-
----
-
-# Process-Depression Correlations
-
-&lt;img src="figures/correlations-1.png" width="90%" /&gt;
+&lt;img src="figures/trajectories-1.png" width="80%" /&gt;
 
 ---
 
-# RQ2: Key Findings
+# RQ1: Effect Sizes
 
-.pull-left[
-### **All Process Measures Changed**
+**Between-group effect sizes (Cohen's *d*):**
 
-**Effect Sizes (Follow-up):**
-- Distress: *d* = 2.95
-- Emotional Repression: *d* = 2.57
-- Negative Affect: *d* = 1.96
-- Suppression Aggression: *d* = 2.14
-
-All *p* &lt; .001
-
-**Comparable to depression** outcome
-]
+| Time Point | *d* | 95% CI |
+|-----------|-----|--------|
+| Baseline | 0.08 | [-0.35, 0.51] |
+| Post-treatment | 1.68 | [1.15, 2.22] |
+| **Follow-up** | **2.50** | [1.88, 3.11] |
 
 --
 
-.pull-right[
-### **Strong Concurrent Correlations**
+- Effects **increase over time** rather than diminishing
+- Continued improvement after treatment ended (*p* &lt; .001)
+- Very large effects relative to waitlist control
 
-**With Depression Change:**
-- Distress: *r* = 0.70
-- Negative Affect: *r* = -0.19
+---
+
+# RQ2: Process Measure Effects at Follow-Up
+
+.pull-left[
+**All proposed mechanisms showed very large effects:**
+
+| Process Measure | Cohen's *d* |
+|----------------|-------------|
+| Emotional Repression (WAI-RRC) | 2.76 |
+| Negative Affect (PANAS-NA) | 1.96 |
+| Distress (WAI) | 2.95 |
+| Suppression of Aggression | 2.75 |
+]
+
+.pull-right[
+**Within-ISTDP correlations with depression change:**
+
+- Distress: *r* = 0.70 (but includes Depression subscale)
 - Emotional Repression: *r* = 0.03
-
-All statistically significant
+- Negative Affect: *r* = -0.19
 ]
+
+---
+
+# RQ3: Mediation Results
+
+| Mediator | Indirect Effect | *p* | Mediated? |
+|----------|:-:|:-:|:-:|
+| Distress | -6.34 | 0.000 | Significant (54%) |
+| Emotional Repression | -1.84 | 0.246 | No |
+| Negative Affect | 1.51 | 0.149 | No |
+
+--
+
+**But:** Distress includes the Depression subscale &amp;rarr; circular!
+
+--
+
+**Sensitivity analysis** (removing Depression from Distress):
+
+- ACME = 0.55, *p* = 0.702 &amp;rarr; **Not significant**
 
 --
 
 .center[
-## **Answer to RQ2:**
-### ISTDP produces large changes in all proposed mechanisms ✅
-### Changes are strongly correlated with depression improvement ✅
+### No genuine mediation for any process measure
 ]
+
+---
+
+# RQ4: Temporal Precedence
+
+**Cross-lagged panel analyses (standardized &amp;beta;):**
+
+No evidence that process changes precede depression changes:
+
+| Process Measure | Process &amp;rarr; Depression | Depression &amp;rarr; Process |
+|:--|:-:|:-:|
+| Emotional Repression | n.s. | n.s. |
+| Negative Affect | n.s. | n.s. |
+| Distress | n.s. | n.s. |
+
+--
+
+**Interpretation:**
+- Process measures and depression change **concurrently**, not sequentially
+- No evidence for the theorized causal chain
+- Consistent with broad, simultaneous therapeutic change
 
 ---
 class: inverse, center, middle
 
-# Results: RQ3
-## Mediation Analyses
+# Discussion
 
 ---
 
-# Do Process Changes Mediate Depression Improvement?
+# The Mediation Puzzle
 
-
-
-.pull-left[
-### **Distress**
-- Indirect effect = -6.34
-- 95% CI [-11.07, -3.08]
-- *p* = 0.000
-- ✅ **SIGNIFICANT**
-- Proportion mediated: **54%**
-
-**BUT:** Conceptual overlap (Distress includes Depression subscale)
-]
+**The paradox:** ISTDP produces large effects on both depression and all process measures, yet process changes don't mediate depression improvement.
 
 --
 
-.pull-right[
-### **Emotional Repression**
-- Indirect effect = -1.84
-- 95% CI [-5.41, 1.00]
-- *p* = 0.246
-- ❌ **NOT significant**
+**Four possible explanations:**
 
-### **Negative Affect**
-- Indirect effect = 1.51
-- 95% CI [-0.52, 3.87]
-- *p* = 0.149
-- ❌ **NOT significant**
-]
+1. **Measurement timing** -- 3 time points too coarse to capture session-level dynamics; session-by-session process coding has shown effects (Town et al., 2022)
 
---
+2. **Self-report limitations** -- Unconscious processes may not be capturable via questionnaires; observer-rated "unlocking" *did* mediate outcomes (Johansson et al., 2024)
 
-.center[
-## **Surprising Null Findings!**
-### Core theoretical mechanisms don't mediate depression improvement
-]
+3. **Defensive restructuring** -- Patients may shift defensive organization (e.g., repression &amp;rarr; isolation of affect) without full "unlocking" (Abbass, 2015)
+
+4. **Multiple pathways** -- Different psychodiagnostic groups (resistant, repressive, fragile) may change through different mechanisms (Abbass, 2015; Johansson et al., 2014)
 
 ---
-class: inverse, center, middle
-
-# Results: RQ4
-## Temporal Precedence
-
----
-
-# Does Process Change Precede Depression Change?
-
-**Cross-Lagged Panel Analyses:**
-
-Test whether:
-- Process(Baseline) → Depression(Post), **OR**
-- Depression(Baseline) → Process(Post)
-
---
-
-.pull-left[
-### **Distress**
-- Process → Depression: *t* = -0.87, *p* = .39
-- Depression → Process: *t* = 1.32, *p* = .19
-- ❌ **No clear temporal order**
-
-### **Emotional Repression**
-- Process → Depression: *t* = 0.43, *p* = .67
-- Depression → Process: *t* = -0.21, *p* = .83
-- ❌ **No clear temporal order**
-]
-
---
-
-.pull-right[
-### **Negative Affect**
-- Process → Depression: *t* = -1.15, *p* = .25
-- Depression → Process: *t* = 0.89, *p* = .38
-- ❌ **No clear temporal order**
-
-### **Interpretation**
-Process and depression change **concurrently**, not sequentially
-]
-
---
-
-.center[
-## **Answer to RQ4:**
-### No evidence of temporal precedence ❌
-### Changes happen simultaneously, not in sequence
-]
-
----
-class: inverse, center, middle
-
-# Key Findings Summary
-
----
-
-# Four Major Findings
-
-.pull-left[
-### **1. Large, Durable Effects** ✅
-- Very large depression reduction (*d* = 2.50)
-- Effects **increase** through 3-month follow-up
-- Confirms and extends original study
-
-### **2. All Processes Change** ✅
-- Large effects on all proposed mechanisms
-- Effect sizes comparable to depression
-- Strong concurrent correlations
-]
-
---
-
-.pull-right[
-### **3. But Mediation is Limited** ⚠️
-- Only distress mediates (with caveat)
-- **Core mechanisms don't mediate:**
-  - Emotional repression ❌
-  - Negative affect ❌
-- Challenges theoretical assumptions
-
-### **4. Concurrent, Not Sequential** ⚠️
-- No temporal precedence
-- Process and depression change **together**
-- Not: Process → Depression
-- Instead: Treatment → (Process AND Depression)
-]
-
----
-class: inverse, center, middle
-
-# Implications
-
----
-
-# Clinical Implications
-
-.pull-left[
-### **For Practitioners**
-
-✅ **ISTDP is highly effective**
-- Large, durable effects
-- Works for treatment-resistant depression
-- Effects maintain post-treatment
-
-✅ **Process changes occur**
-- Patients do show reduced repression
-- Negative affect decreases
-- Observable therapeutic change
-
-✅ **Treatment works**
-- Even if mechanism unclear
-- Broad therapeutic benefits
-]
-
---
-
-.pull-right[
-### **For Patients**
-
-✅ **Effective treatment option**
-- If first-line treatments fail
-- Substantial symptom reduction
-- Lasting benefits
-
-✅ **Comprehensive improvement**
-- Not just symptom reduction
-- Broader psychological change
-- Multiple domains affected
-
-⚠️ **Mechanism unclear**
-- We know it works
-- We don't fully know HOW
-- Future research needed
-]
-
----
-
-# Theoretical Implications
-
-### **Challenge to ISTDP Theory**
-
---
-
-.pull-left[
-**Traditional Theory:**
-```
-Treatment
-   ↓
-Reduce Emotional Repression
-   ↓
-Reduce Negative Affect
-   ↓
-Reduce Depression
-```
-
-**Sequential causal chain**
-**Specific mechanisms**
-]
-
---
-
-.pull-right[
-**Our Findings Suggest:**
-```
-    Treatment
-    ↙   ↓   ↘
-  Process Changes
-       AND
-   Depression Change
-   (Concurrent)
-```
-
-**Simultaneous change**
-**Broad therapeutic effect**
-]
-
---
-
-### **Possible Explanations:**
-
-1. **Common factors** (therapeutic alliance, hope, engagement)
-2. **Measurement timing** (3 time points may miss dynamics)
-3. **Overlapping constructs** (depression and process measures related)
-4. **True concurrent mechanism** (synergistic change)
-
----
-
-# Strengths &amp; Limitations
-
-.pull-left[
-### **Strengths** ✅
-
-**Data &amp; Methods:**
-- Public data (reproducible)
-- Advanced statistical analyses
-- Mediation AND temporal tests
-- 75 automated validation tests
-
-**Sample:**
-- RCT design
-- Treatment-resistant population
-- Adequate power
-- 3-month follow-up
-
-**Transparency:**
-- All code public
-- All data public
-- Fully reproducible
-]
-
---
-
-.pull-right[
-### **Limitations** ⚠️
-
-**Design:**
-- Secondary analysis
-- Limited time points (3)
-- No session-by-session data
-- Waitlist control only
-
-**Measurement:**
-- Conceptual overlap (distress/depression)
-- Self-report only
-- 3-month follow-up (not longer-term)
-
-**Sample:**
-- Iranian sample (generalizability?)
-- Moderate sample size
-- Treatment-resistant only
-
-**Timing:**
-- May miss dynamic processes
-- Weekly/daily measures might reveal more
-]
-
----
-class: inverse, center, middle
 
 # Conclusions
 
----
-
-# Main Conclusions
-
-## **What We Know:**
-
-### ✅ **ISTDP produces large, durable depression improvements**
-- Very large effects (*d* = 2.50 at 3-month follow-up)
-- Effects increase over time
-- Robust findings
-
---
-
-### ✅ **ISTDP changes proposed process measures**
-- All mechanisms show large effects
-- Strong concurrent associations
-- Observable therapeutic change
-
---
-
-### ❌ **BUT: Mechanisms don't mediate as expected**
-- Core theoretical mechanisms (repression, negative affect) don't explain change
-- No clear temporal precedence
-- Changes occur concurrently
-
---
-
-## **Bottom Line:**
-
-.center[
-### **ISTDP works... but HOW it works remains unclear**
-### Future research needed to understand mechanisms of change
-]
-
----
-
-# Future Research Directions
-
-### **Better Temporal Resolution**
-- Session-by-session assessments
-- Daily diary methods
-- Ecological momentary assessment
-- Capture dynamic processes
-
---
-
-### **Better Process Measures**
-- Observational coding of sessions
-- Therapist-rated breakthrough moments
-- Physiological measures
-- Multi-method assessment
-
---
-
-### **Comparative Studies**
-- ISTDP vs. other active treatments
-- Component analyses
-- Moderator analyses
-- Who benefits most?
-
---
-
-### **Longer Follow-Up**
-- 6-month, 12-month assessments
-- Durability of change
-- Relapse prevention
-- Maintenance mechanisms
-
----
-class: inverse, center, middle
-
-# Open Science
-
----
-
-# Fully Reproducible Research
-
 .pull-left[
-### **All Data Public**
-- Open Science Framework
-- Complete dataset
-- Codebook included
-- DOI: 10.17605/OSF.IO/75PU8
+### ISTDP is effective
 
-### **All Code Public**
-- GitHub repository
-- R Markdown manuscript
-- Complete analysis scripts
-- This presentation!
+- Very large, durable effects on TRD (*d* = 2.50 at follow-up)
+- Effects increase after treatment ends
+- All proposed process measures change substantially
 ]
 
 .pull-right[
-### **Validation Framework**
-- **75 automated tests**
-- 100% pass rate ✅
-- Tests data integrity
-- Tests statistical models
-- Tests reproducibility
-- Compares to original study
+### But mechanisms remain unclear
 
-### **Documentation**
-- Complete methods
-- Analysis decisions explained
-- Session info included
-- Transparent process
+- No mediation by emotional repression or negative affect
+- Distress mediation due to construct overlap, not genuine mechanism
+- Concurrent rather than sequential change
 ]
+
+--
 
 .center[
-## **Anyone can verify our findings**
-### Modern research best practices
+### Understanding *how* psychotherapy works requires finer temporal measurement and observational methods
 ]
 
 ---
 
-# Repository Structure
-
-```
-heshmati-reanalysis/
-├── manuscript.Rmd          # Full manuscript
-├── manuscript.pdf          # Rendered PDF
-├── presentation.Rmd        # This presentation!
-├── data/                   # Public dataset
-├── tests/                  # 75 validation tests
-│   ├── test-data-integrity.R
-│   ├── test-transformations.R
-│   ├── test-models.R
-│   ├── test-results.R
-│   ├── test-reproducibility.R
-│   └── test-original-comparison.R
-├── check-analyses.R        # Run all tests
-└── docs/                   # Documentation
-    ├── testing.md
-    └── presentation-guide.md
-```
-
-**Try it yourself:**
-```bash
-git clone https://github.com/robert-johansson/heshmati-reanalysis
-cd heshmati-reanalysis
-Rscript check-analyses.R  # All tests pass ✅
-```
-
----
-class: inverse, center, middle
-
-# Thank You!
-
----
-
-# Questions?
+# Thank You
 
 .pull-left[
-### **Contact**
-**Robert Johansson**
-- Email: robert.johansson@psychology.su.se
-- Department of Psychology
-- Stockholm University
+**Questions?**
 
-### **Resources**
-- GitHub: https://github.com/robert-johansson/heshmati-reanalysis
-- OSF Data: https://doi.org/10.17605/OSF.IO/75PU8
+Robert Johansson &amp; Peter Lilliengren
+
+robert.johansson@psychology.su.se
+
+Department of Psychology, Stockholm University
+]
+
+.pull-right[
+**Resources:**
+
+- GitHub: github.com/robert-johansson/heshmati-reanalysis
+- Data: doi.org/10.17605/OSF.IO/75PU8
 - Original Paper: Heshmati et al. (2023), *Psychotherapy*
 ]
-
-.pull-right[
-### **Key Takeaways**
-
-1. ✅ ISTDP works (very large effects)
-2. ✅ Process measures change
-3. ❌ Mechanisms unclear
-4. 🔍 Future research needed
-
-### **Open Science**
-- All data public
-- All code public
-- 75 validation tests
-- Fully reproducible
-]
-
-.center[
-## **GitHub Repository:**
-### https://github.com/robert-johansson/heshmati-reanalysis
-]
-
----
-class: inverse, center, middle
-
-# Backup Slides
-
----
-
-# Sample Characteristics
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:center;"&gt; N &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Age (M±SD) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Female (%) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; On Medication (%) &lt;/th&gt;
-   &lt;th style="text-align:center;"&gt; Previous Trials (M±SD) &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 86 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 36.9 ± 11.7 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.0 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.0 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1.8 ± 0.9 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-**Groups were well-balanced at baseline** (all *p*s &gt; .10)
-
----
-
-# Statistical Model Specification
-
-**Linear Mixed-Effects Model:**
-
-`$$Y_{ij} = \beta_0 + \beta_1Time_{ij} + \beta_2Treatment_i + \beta_3(Time \times Treatment)_{ij} + u_{0i} + \epsilon_{ij}$$`
-
-Where:
-- `\(Y_{ij}\)` = Outcome for person *i* at time *j*
-- `\(Time\)` = Categorical (Baseline, Post, Follow-up)
-- `\(Treatment\)` = Binary (ISTDP vs. Control)
-- `\(u_{0i}\)` = Random intercept (person-specific baseline)
-- `\(\epsilon_{ij}\)` = Residual error
-
-**Estimation:** REML (Restricted Maximum Likelihood)
-**Software:** R packages `lme4` and `lmerTest`
-
----
-
-# Mediation Model Specification
-
-**Causal Mediation Analysis:**
-
-- `\(X\)` = Treatment (ISTDP vs. Control)
-- `\(M\)` = Process change (Baseline → Post-treatment)
-- `\(Y\)` = Depression at 3-month follow-up
-- `\(C\)` = Depression at baseline (covariate)
-
-**Models:**
-1. Mediator: `\(M = \alpha_0 + \alpha_1 X + \epsilon_M\)`
-2. Outcome: `\(Y = \beta_0 + \beta_1 M + \beta_2 X + \beta_3 C + \epsilon_Y\)`
-
-**Estimation:**
-- Bootstrap: 5,000 resamples
-- BCa 95% confidence intervals
-- Bias-corrected and accelerated
-
-**Software:** R package `mediation` (Tingley et al., 2014)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

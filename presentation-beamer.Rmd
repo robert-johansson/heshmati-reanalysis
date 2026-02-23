@@ -1,9 +1,10 @@
 ---
 title: "Effects of ISTDP on Treatment-Resistant Depression"
 subtitle: "A Reanalysis Examining Mechanisms of Change"
-author: "Robert Johansson"
+author: "Robert Johansson & Peter Lilliengren"
 institute: "Department of Psychology, Stockholm University"
 date: "`r Sys.Date()`"
+classoption: "aspectratio=1610"
 output:
   beamer_presentation:
     theme: "metropolis"
@@ -11,6 +12,7 @@ output:
     fonttheme: "default"
     slide_level: 2
     keep_tex: false
+    latex_engine: xelatex
     includes:
       in_header: beamer-header.tex
 ---
@@ -21,12 +23,11 @@ knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
   fig.width = 6,
-  fig.height = 4,
+  fig.height = 3.2,
   out.width = "0.9\\textwidth",
   fig.align = "center"
 )
 
-# Load packages
 library(haven)
 library(dplyr)
 library(tidyr)
@@ -37,12 +38,10 @@ library(emmeans)
 library(effsize)
 library(knitr)
 
-# Set ggplot theme
-theme_set(theme_minimal(base_size = 12))
+theme_set(theme_minimal(base_size = 11))
 ```
 
 ```{r load-data, include=FALSE}
-# Load data
 data <- read_sav("data/RCT Dataset ISTDP vs. Waitlist for Treatment-Resistant Depression.sav")
 
 data <- data %>%
@@ -61,483 +60,344 @@ baseline <- data %>% filter(Time == "Baseline")
 data_clean <- data %>% filter(!is.na(Depression))
 ```
 
+```{r compute-effects, include=FALSE}
+# Compute effect sizes at each time point
+effect_sizes <- data.frame()
+for (tp in c("Baseline", "Post-treatment", "Follow-up")) {
+  df_time <- data_clean %>% filter(Time == tp)
+  ctrl <- df_time %>% filter(Tx_condition == "Control") %>% pull(Depression)
+  istdp <- df_time %>% filter(Tx_condition == "ISTDP") %>% pull(Depression)
+  d <- cohen.d(istdp, ctrl)
+  effect_sizes <- rbind(effect_sizes, data.frame(
+    Time = tp,
+    d = -d$estimate,
+    ci_lo = -d$conf.int[2],
+    ci_hi = -d$conf.int[1]
+  ))
+}
+
+# Compute process measure effect sizes at follow-up
+process_vars <- c("WAI_RRC", "PANAS_NA", "Distress", "Suppression_of_aggression")
+process_labels <- c("Emotional Repression", "Negative Affect", "Distress", "Suppression of Aggression")
+process_es <- data.frame()
+for (i in seq_along(process_vars)) {
+  df_fu <- data %>% filter(Time == "Follow-up")
+  ctrl <- na.omit(df_fu %>% filter(Tx_condition == "Control") %>% pull(!!sym(process_vars[i])))
+  istdp <- na.omit(df_fu %>% filter(Tx_condition == "ISTDP") %>% pull(!!sym(process_vars[i])))
+  d <- cohen.d(istdp, ctrl)
+  process_es <- rbind(process_es, data.frame(
+    measure = process_labels[i],
+    d = -d$estimate
+  ))
+}
+
+# Within-ISTDP correlations (baseline to follow-up change)
+change_data <- data %>%
+  filter(Tx_condition == "ISTDP") %>%
+  dplyr::select(id, Time, Depression, WAI_RRC, PANAS_NA, Distress) %>%
+  pivot_wider(names_from = Time, values_from = c(Depression, WAI_RRC, PANAS_NA, Distress),
+              names_sep = "_") %>%
+  rename_with(~gsub(" ", "", .x)) %>%
+  rename_with(~gsub("-", "_", .x)) %>%
+  mutate(
+    dep_change = Depression_Follow_up - Depression_Baseline,
+    rrc_change = WAI_RRC_Follow_up - WAI_RRC_Baseline,
+    na_change = PANAS_NA_Follow_up - PANAS_NA_Baseline,
+    dist_change = Distress_Follow_up - Distress_Baseline
+  )
+
+cor_rrc <- cor(change_data$dep_change, change_data$rrc_change, use = "complete.obs")
+cor_na <- cor(change_data$dep_change, change_data$na_change, use = "complete.obs")
+cor_dist <- cor(change_data$dep_change, change_data$dist_change, use = "complete.obs")
+```
+
+```{r mediation, include=FALSE}
+library(mediation)
+
+data_wide_med <- data %>%
+  dplyr::select(id, Tx_condition, Time, Depression, PANAS_NA, WAI_RRC, Distress) %>%
+  pivot_wider(names_from = Time, values_from = c(Depression, PANAS_NA, WAI_RRC, Distress),
+              names_sep = "_") %>%
+  rename_with(~gsub(" ", "", .x)) %>%
+  rename_with(~gsub("-", "_", .x)) %>%
+  mutate(
+    treatment = ifelse(Tx_condition == "ISTDP", 1, 0),
+    PANAS_change = PANAS_NA_Post_treatment - PANAS_NA_Baseline,
+    WAI_RRC_change = WAI_RRC_Post_treatment - WAI_RRC_Baseline,
+    Distress_change = Distress_Post_treatment - Distress_Baseline,
+    Distress_noDep_BL = Distress_Baseline - Depression_Baseline,
+    Distress_noDep_Post = Distress_Post_treatment - Depression_Post_treatment,
+    Distress_noDep_change = Distress_noDep_Post - Distress_noDep_BL
+  ) %>%
+  filter(complete.cases(treatment, Depression_Baseline, Depression_Follow_up,
+                       PANAS_change, WAI_RRC_change, Distress_change))
+
+run_med <- function(data, mediator_var) {
+  data$M <- data[[mediator_var]]
+  med_m <- lm(M ~ treatment, data = data)
+  out_m <- lm(Depression_Follow_up ~ M + treatment + Depression_Baseline, data = data)
+  set.seed(2025)
+  res <- mediate(med_m, out_m, treat = "treatment", mediator = "M",
+                 boot = TRUE, sims = 5000, boot.ci.type = "bca")
+  list(indirect = res$d0, p = res$d0.p, prop = res$n0)
+}
+
+med_dist <- run_med(data_wide_med, "Distress_change")
+med_rrc <- run_med(data_wide_med, "WAI_RRC_change")
+med_na <- run_med(data_wide_med, "PANAS_change")
+med_dist_noDep <- run_med(data_wide_med, "Distress_noDep_change")
+```
+
 # Introduction
 
-## The Problem: Treatment-Resistant Depression
+## Treatment-Resistant Depression
+
+\small
 
 **Clinical Challenge:**
 
 - ~30% of depressed patients don't respond to first-line treatments
 - Cumulative failure rates increase with each trial
-- Substantial burden on patients and healthcare
-
-\vspace{0.5cm}
-
-**Need:**
-
-- Effective alternative treatments
-- Understanding of mechanisms
-- Evidence-based interventions
-
-## ISTDP: A Promising Alternative
-
-**Intensive Short-Term Dynamic Psychotherapy (ISTDP):**
-
-- Brief (10-20 sessions), structured approach
-- Developed by Habib Davanloo (2000)
+- Substantial burden on patients and healthcare systems
 
 \vspace{0.3cm}
 
-**Core Theory:**
+**ISTDP as a Promising Alternative:**
 
-- Depression stems from emotional avoidance
-- Break through defenses → experience emotion → symptom relief
+- Brief psychodynamic therapy (10--40 sessions, typically once per week)
+- Targets emotional avoidance and defensive functioning
+- Growing evidence base for depression, including TRD
 
 \vspace{0.3cm}
 
-**Proposed Mechanism:**
+**Proposed Sequential Mechanism:**
 
 \centering
-Emotional Repression → Depression
+Reduce Repression $\rightarrow$ Facilitate Emotional Experiencing $\rightarrow$ Reduce Depression
 
-## The Original Study
+## The Original Study & Our Research Questions
 
-**Heshmati, Wienicke, & Driessen (2023)**
+\small
 
-- Randomized controlled trial
-- N = 86 Iranian adults with treatment-resistant depression
-- ISTDP (20 sessions/10 weeks) vs. Waitlist
-- **Found very large effects** (*d* > 2.0)
+**Heshmati, Wienicke, & Driessen (2023):**
 
-\vspace{0.5cm}
+- RCT: *N* = 86 with treatment-resistant depression (Iran)
+- ISTDP (20 sessions / 10 weeks) vs. Waitlist
+- Very large effects on depression, but mechanisms untested
 
-**But Questions Remained:**
+\vspace{0.3cm}
 
-1. How durable are effects?
-2. Do mechanisms actually mediate?
-3. What is the temporal order of change?
+**Our Four Research Questions:**
 
-## Research Questions
+1. How large and durable are ISTDP's effects on depression?
 
-**Four Key Questions:**
+2. Does ISTDP change proposed process measures?
 
-1. **RQ1:** How large and durable are ISTDP effects?
+3. Do process changes **mediate** depression improvement?
 
-2. **RQ2:** Does ISTDP change proposed process measures?
-
-3. **RQ3:** Do process changes mediate depression improvement?
-
-4. **RQ4:** Do process changes precede depression changes?
+4. Do process changes **precede** depression changes?
 
 # Methods
 
-## Methods Overview
+## Design and Analysis
 
-**Sample:**
+\small
 
-- N = 86 participants (43 ISTDP, 43 Waitlist)
-- Treatment-resistant depression, Ages 18-60, Iran
-- 62% female
+**Sample:** *N* = 86 (43 ISTDP, 43 Waitlist); 62% female; ages 18--60
 
-\vspace{0.3cm}
-
-**Treatment:**
-
-- ISTDP: 20 sessions over 10 weeks
-- Waitlist: No treatment (both groups continue medication)
-
-\vspace{0.3cm}
+**Attrition:** 12.8% (7 ISTDP, 4 Waitlist); handled via REML
 
 **Measures:**
 
-- Primary: Depression (WAI)
-- Process: Emotional Repression, Negative Affect, Distress
-- Assessments: Baseline, Post-treatment, 3-month Follow-up
+- Primary: Depression (WAI Depression subscale, 7--35)
+- Process: Emotional Repression (WAI-RRC), Negative Affect (PANAS-NA), Distress (WAI Distress)
 
-## Statistical Approach
+\vspace{0.2cm}
 
-**Trajectory Analyses:**
+**Analyses:**
 
-- Linear mixed-effects models with random intercepts
-- Time × Treatment interactions
-- Cohen's *d* with 95% CIs
+- Linear mixed-effects models (random intercepts)
+- Bootstrap mediation (5,000 resamples, BCa CIs)
+- Cross-lagged panel analyses (standardized coefficients)
+- Sensitivity: Distress without Depression subscale, therapist effects
 
-\vspace{0.3cm}
+\vspace{0.2cm}
 
-**Mechanism Analyses:**
-
-- Bootstrap mediation (5,000 resamples)
-- Cross-lagged panel models
-- Test temporal precedence
-
-\vspace{0.3cm}
-
-**Open Science:**
-
-- All data and code public
-- 75 automated validation tests (100% passing)
+**Open Science:** All data (OSF) and code (GitHub) publicly available; 75 automated validation tests
 
 # Results
 
 ## RQ1: Depression Trajectories
 
-```{r trajectories, fig.height=3.5}
+```{r trajectories}
 summary_stats <- data_clean %>%
   group_by(Tx_condition, Time_numeric, Time) %>%
   summarise(
-    n = n(),
-    mean = mean(Depression, na.rm = TRUE),
-    sd = sd(Depression, na.rm = TRUE),
-    se = sd / sqrt(n),
-    ci = 1.96 * se,
-    .groups = "drop"
+    n = n(), mean = mean(Depression, na.rm = TRUE),
+    se = sd(Depression, na.rm = TRUE) / sqrt(n),
+    ci = 1.96 * se, .groups = "drop"
   )
 
 colors <- c("Control" = "#2E86AB", "ISTDP" = "#A23B72")
 
-ggplot(summary_stats, aes(x = Time_numeric, y = mean,
-                          color = Tx_condition)) +
+ggplot(summary_stats, aes(x = Time_numeric, y = mean, color = Tx_condition)) +
   geom_line(size = 1.2) +
   geom_point(size = 3) +
-  geom_errorbar(aes(ymin = mean - ci, ymax = mean + ci),
-                width = 0.1) +
+  geom_errorbar(aes(ymin = mean - ci, ymax = mean + ci), width = 0.1) +
   scale_color_manual(values = colors) +
-  scale_x_continuous(
-    breaks = c(0, 1, 2),
-    labels = c("Baseline", "Post", "Follow-up")
-  ) +
-  labs(
-    x = NULL,
-    y = "Depression Score",
-    color = "Group"
-  ) +
+  scale_x_continuous(breaks = c(0, 1, 2),
+                    labels = c("Baseline", "Post-treatment", "3-mo Follow-up")) +
+  labs(x = NULL, y = "Depression Score (WAI)", color = "Group") +
   theme_minimal(base_size = 11) +
-  theme(legend.position = c(0.8, 0.8))
+  theme(legend.position = c(0.85, 0.85))
 ```
 
-## RQ1: Effect Sizes Over Time
+## RQ1: Effect Sizes
 
-```{r effect-sizes, fig.height=3.5}
-effect_sizes <- data.frame()
+\small
 
-for (time_point in c("Baseline", "Post-treatment", "Follow-up")) {
-  df_time <- data_clean %>% filter(Time == time_point)
-  control <- df_time %>% filter(Tx_condition == "Control") %>% pull(Depression)
-  istdp <- df_time %>% filter(Tx_condition == "ISTDP") %>% pull(Depression)
+**Between-group effect sizes (Cohen's *d*):**
 
-  d_result <- cohen.d(istdp, control)
-  time_numeric <- ifelse(time_point == "Baseline", 0,
-                        ifelse(time_point == "Post-treatment", 1, 2))
-
-  effect_sizes <- rbind(effect_sizes, data.frame(
-    Time = time_point,
-    Time_numeric = time_numeric,
-    Cohens_d = -d_result$estimate,
-    CI_lower = -d_result$conf.int[2],
-    CI_upper = -d_result$conf.int[1]
-  ))
-}
-
-ggplot(effect_sizes, aes(x = Time_numeric, y = Cohens_d)) +
-  geom_hline(yintercept = 0.8, linetype = "dashed", color = "gray50") +
-  geom_line(color = "#E63946", size = 1.2) +
-  geom_point(color = "#E63946", size = 3) +
-  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper),
-                width = 0.1, color = "#E63946") +
-  geom_text(aes(label = sprintf("d=%.2f", Cohens_d)),
-            nudge_y = 0.25, size = 3) +
-  scale_x_continuous(
-    breaks = c(0, 1, 2),
-    labels = c("Baseline", "Post", "Follow-up")
-  ) +
-  labs(
-    x = NULL,
-    y = "Cohen's d"
-  ) +
-  theme_minimal(base_size = 11)
-```
-
-## RQ1: Key Findings
-
-**Baseline:**
-
-- *d* = 0.08, 95% CI [-0.35, 0.51], *p* = .73 (groups balanced)
+| Time Point | *d* | 95% CI |
+|-----------|-----|--------|
+| Baseline | `r sprintf("%.2f", effect_sizes$d[1])` | [`r sprintf("%.2f", effect_sizes$ci_lo[1])`, `r sprintf("%.2f", effect_sizes$ci_hi[1])`] |
+| Post-treatment | `r sprintf("%.2f", effect_sizes$d[2])` | [`r sprintf("%.2f", effect_sizes$ci_lo[2])`, `r sprintf("%.2f", effect_sizes$ci_hi[2])`] |
+| **Follow-up** | **`r sprintf("%.2f", effect_sizes$d[3])`** | [`r sprintf("%.2f", effect_sizes$ci_lo[3])`, `r sprintf("%.2f", effect_sizes$ci_hi[3])`] |
 
 \vspace{0.3cm}
 
-**Post-Treatment:**
+- Effects **increase over time** rather than diminishing
+- Continued improvement after treatment ended (*p* < .001)
+- Very large effects relative to waitlist control
 
-- *d* = 1.68, 95% CI [1.15, 2.22], *p* < .001 (large effect)
+## RQ2: Process Measure Effects at Follow-Up
+
+\small
+
+**All proposed mechanisms showed very large effects:**
+
+| Process Measure | Cohen's *d* |
+|----------------|-------------|
+| Emotional Repression (WAI-RRC) | `r sprintf("%.2f", process_es$d[process_es$measure == "Emotional Repression"])` |
+| Negative Affect (PANAS-NA) | `r sprintf("%.2f", process_es$d[process_es$measure == "Negative Affect"])` |
+| Distress (WAI) | `r sprintf("%.2f", process_es$d[process_es$measure == "Distress"])` |
+| Suppression of Aggression | `r sprintf("%.2f", process_es$d[process_es$measure == "Suppression of Aggression"])` |
 
 \vspace{0.3cm}
 
-**3-Month Follow-Up:**
+**Within-ISTDP correlations with depression change:**
 
-- *d* = **2.50**, 95% CI [1.88, 3.11], *p* < .001 (very large effect)
-
-\vspace{0.5cm}
-
-\centering
-\textbf{Effects are large, durable, and increase over time}
-
-## RQ2: Process Measure Changes
-
-All process measures showed large effects at follow-up:
-
-| Process Measure | Cohen's *d* | *p* |
-|----------------|-------------|-----|
-| Emotional Repression | 2.57 | <.001 |
-| Negative Affect | 1.96 | <.001 |
-| Distress | 2.95 | <.001 |
-| Suppression Aggression | 2.14 | <.001 |
-
-\vspace{0.5cm}
-
-**Strong concurrent correlations with depression change:**
-
-- Distress: *r* = .76
-- Negative Affect: *r* = .52
-- Emotional Repression: *r* = .69
+- Distress: *r* = `r sprintf("%.2f", cor_dist)` (but includes Depression subscale)
+- Emotional Repression: *r* = `r sprintf("%.2f", cor_rrc)` (weak)
+- Negative Affect: *r* = `r sprintf("%.2f", cor_na)` (weak)
 
 ## RQ3: Mediation Results
 
-```{r mediation, include=FALSE}
-# Prepare mediation data
-data_wide_med <- data %>%
-  select(id, Tx_condition, Time, Depression, PANAS_NA, WAI_RRC, Distress) %>%
-  pivot_wider(
-    names_from = Time,
-    values_from = c(Depression, PANAS_NA, WAI_RRC, Distress),
-    names_sep = "_"
-  ) %>%
-  rename_with(~gsub(" ", "", .x), everything()) %>%
-  rename_with(~gsub("-", "_", .x), everything()) %>%
-  mutate(
-    treatment = ifelse(Tx_condition == "ISTDP", 1, 0),
-    PANAS_change = PANAS_NA_Post_treatment - PANAS_NA_Baseline,
-    WAI_RRC_change = WAI_RRC_Post_treatment - WAI_RRC_Baseline,
-    Distress_change = Distress_Post_treatment - Distress_Baseline
-  ) %>%
-  filter(complete.cases(treatment, Depression_Baseline, Depression_Follow_up,
-                       PANAS_change, WAI_RRC_change, Distress_change))
+\small
 
-run_mediation_analysis <- function(data, mediator_var) {
-  data$M <- data[[mediator_var]]
-  data$Y <- data$Depression_Follow_up
-  data$C <- data$Depression_Baseline
-
-  med_model <- lm(M ~ treatment, data = data)
-  out_model <- lm(Y ~ M + treatment + C, data = data)
-
-  set.seed(2025)
-  library(mediation)
-  med_results <- mediate(med_model, out_model,
-                        treat = "treatment", mediator = "M",
-                        boot = TRUE, sims = 5000, boot.ci.type = "bca")
-
-  return(list(
-    indirect = med_results$d0,
-    indirect_p = med_results$d0.p,
-    prop_mediated = med_results$n0
-  ))
-}
-
-med_distress <- run_mediation_analysis(data_wide_med, "Distress_change")
-med_repression <- run_mediation_analysis(data_wide_med, "WAI_RRC_change")
-med_na <- run_mediation_analysis(data_wide_med, "PANAS_change")
-```
-
-| Mediator | Indirect Effect | *p* | Result |
-|----------|----------------|-----|--------|
-| Distress | `r sprintf("%.2f", med_distress$indirect)` | `r sprintf("%.3f", med_distress$indirect_p)` | + Significant (54% mediated) |
-| Emotional Repression | `r sprintf("%.2f", med_repression$indirect)` | `r sprintf("%.3f", med_repression$indirect_p)` | - Not significant |
-| Negative Affect | `r sprintf("%.2f", med_na$indirect)` | `r sprintf("%.3f", med_na$indirect_p)` | - Not significant |
+| Mediator | Indirect Effect | *p* | Mediated? |
+|----------|:-:|:-:|:-:|
+| Distress | `r sprintf("%.2f", med_dist$indirect)` | `r sprintf("%.3f", med_dist$p)` | Significant (54%) |
+| Emotional Repression | `r sprintf("%.2f", med_rrc$indirect)` | `r sprintf("%.3f", med_rrc$p)` | No |
+| Negative Affect | `r sprintf("%.2f", med_na$indirect)` | `r sprintf("%.3f", med_na$p)` | No |
 
 \vspace{0.3cm}
 
-**Surprising:** Core theoretical mechanisms don't mediate
+**But:** Distress includes the Depression subscale $\rightarrow$ circular!
 
-(\emph{Note:} Distress includes Depression subscale - conceptual overlap)
+\vspace{0.2cm}
+
+**Sensitivity analysis** (removing Depression from Distress):
+
+- ACME = `r sprintf("%.2f", med_dist_noDep$indirect)`, *p* = `r sprintf("%.3f", med_dist_noDep$p)` $\rightarrow$ **Not significant**
+
+\vspace{0.3cm}
+
+\centering
+\textbf{No genuine mediation for any process measure}
 
 ## RQ4: Temporal Precedence
 
-**Cross-Lagged Panel Analyses:**
+\small
 
-No evidence of temporal precedence for any process measure:
+**Cross-lagged panel analyses (standardized $\beta$):**
 
-- Distress: Process → Depression (*p* = .39)
-- Emotional Repression: Process → Depression (*p* = .67)
-- Negative Affect: Process → Depression (*p* = .25)
+No evidence that process changes precede depression changes:
 
-\vspace{0.5cm}
+| Process Measure | Process $\rightarrow$ Depression | Depression $\rightarrow$ Process |
+|:--|:-:|:-:|
+| Emotional Repression | n.s. | n.s. |
+| Negative Affect | n.s. | n.s. |
+| Distress | n.s. | n.s. |
+
+\vspace{0.4cm}
 
 **Interpretation:**
 
-\centering
-Process and depression change \textbf{concurrently}, not sequentially
+- Process measures and depression change **concurrently**, not sequentially
+- No evidence for the theorized causal chain
+- Consistent with broad, simultaneous therapeutic change
 
 # Discussion
 
-## Key Findings Summary
+## The Mediation Puzzle
 
-**1. Large, Durable Effects (+)**
+\small
 
-- Very large depression reduction (*d* = 2.50 at follow-up)
-- Effects increase over time
-
-\vspace{0.3cm}
-
-**2. All Processes Change (+)**
-
-- Large effects on all proposed mechanisms
-- Strong concurrent correlations
+**The paradox:** ISTDP produces large effects on both depression and all process measures, yet process changes don't mediate depression improvement.
 
 \vspace{0.3cm}
 
-**3. But Mediation is Limited (-)**
+**Four possible explanations:**
 
-- Core mechanisms (repression, negative affect) don't mediate
-- Challenges theoretical assumptions
+1. **Measurement timing** -- 3 time points too coarse to capture session-level dynamics; session-by-session process coding has shown effects (Town et al., 2022)
 
-\vspace{0.3cm}
+2. **Self-report limitations** -- Unconscious processes may not be capturable via questionnaires; observer-rated "unlocking" *did* mediate outcomes (Johansson et al., 2024)
 
-**4. Concurrent, Not Sequential (-)**
+3. **Defensive restructuring** -- Patients may shift defensive organization (e.g., repression $\rightarrow$ isolation of affect) without full "unlocking" (Abbass, 2015)
 
-- No temporal precedence
-- Broad, simultaneous therapeutic change
+4. **Multiple pathways** -- Different psychodiagnostic groups (resistant, repressive, fragile) may change through different mechanisms (Abbass, 2015; Johansson et al., 2014)
 
-## Clinical Implications
-
-**For Practitioners:**
-
-- ISTDP is highly effective for treatment-resistant depression
-- Effects are large and durable
-- Process changes are observable
-
-\vspace{0.5cm}
-
-**For Patients:**
-
-- Effective treatment option when first-line treatments fail
-- Substantial symptom reduction
-- Lasting benefits
-
-\vspace{0.5cm}
-
-**But Mechanism Unclear:**
-
-- Treatment works... but HOW remains unclear
-- Future research needed
-
-## Theoretical Implications
-
-**Traditional Theory:**
-
-\centering
-Treatment → Reduce Repression → Reduce Depression
-
-\raggedright
-
-\vspace{0.3cm}
-
-**Our Findings Suggest:**
-
-\centering
-Treatment → (Process Changes \textbf{AND} Depression Change)
-
-\raggedright
-
-\vspace{0.5cm}
-
-**Possible Explanations:**
-
-1. Common factors (alliance, hope, engagement)
-2. Measurement timing (3 time points may miss dynamics)
-3. True concurrent mechanism (synergistic change)
-
-## Strengths & Limitations
-
-**Strengths:**
-
-- Public data, advanced analyses, comprehensive testing
-- RCT design, adequate power, 3-month follow-up
-- Fully reproducible (75 automated tests)
-
-\vspace{0.3cm}
-
-**Limitations:**
-
-- Secondary analysis, limited time points (3)
-- Self-report measures only
-- Conceptual overlap (distress/depression)
-- Iranian sample (generalizability?)
-
-# Conclusions
-
-## Main Conclusions
+## Conclusions
 
 \Large
 
-\textbf{What We Know:}
+\textbf{ISTDP is effective:}
 
 \normalsize
 
-+ ISTDP produces large, durable depression improvements
+- Very large, durable effects on TRD (*d* = `r sprintf("%.2f", effect_sizes$d[3])` at follow-up)
+- Effects increase after treatment ends
+- All proposed process measures change substantially
 
-+ ISTDP changes proposed process measures
-
-\vspace{0.5cm}
+\vspace{0.4cm}
 
 \Large
 
-\textbf{What Remains Unclear:}
+\textbf{But mechanisms remain unclear:}
 
 \normalsize
 
-- Mechanisms don't mediate as expected
+- No mediation by emotional repression or negative affect
+- Distress mediation due to construct overlap, not genuine mechanism
+- Concurrent rather than sequential change
 
-- No clear temporal precedence
-
-\vspace{0.5cm}
-
-\centering
-\Large
-\textbf{ISTDP works... but HOW it works remains unclear}
-
-## Open Science
-
-**All Materials Public:**
-
-- Data: Open Science Framework (DOI: 10.17605/OSF.IO/75PU8)
-- Code: GitHub repository
-- This presentation: Fully reproducible R Markdown
-
-\vspace{0.5cm}
-
-**Validation Framework:**
-
-- 75 automated tests (100% passing)
-- Tests data integrity, statistical models, reproducibility
-- Compares to original study
-
-\vspace{0.5cm}
+\vspace{0.4cm}
 
 \centering
-\textbf{Anyone can verify our findings}
+\textbf{Understanding \emph{how} psychotherapy works requires finer temporal measurement and observational methods}
 
 ## Thank You
 
-\Large
+\large
 
 **Questions?**
 
 \normalsize
 
-\vspace{1cm}
+\vspace{0.5cm}
 
-**Contact:**
-
-Robert Johansson
+Robert Johansson \& Peter Lilliengren
 
 robert.johansson@psychology.su.se
 
@@ -545,8 +405,10 @@ Department of Psychology, Stockholm University
 
 \vspace{0.5cm}
 
+\small
+
 **Resources:**
 
-- GitHub: https://github.com/robert-johansson/heshmati-reanalysis
-- OSF Data: https://doi.org/10.17605/OSF.IO/75PU8
-- Original Paper: Heshmati et al. (2023), \emph{Psychotherapy}
+- GitHub: github.com/robert-johansson/heshmati-reanalysis
+- Data: doi.org/10.17605/OSF.IO/75PU8
+- Original Paper: Heshmati et al. (2023), *Psychotherapy*
