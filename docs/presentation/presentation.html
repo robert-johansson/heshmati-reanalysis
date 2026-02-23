@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Effects of ISTDP on Treatment-Resistant Depression</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Robert Johansson &amp; Peter Lilliengren" />
+    <meta name="date" content="2026-02-23" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Effects of ISTDP on Treatment-Resistant Depression
+]
+.subtitle[
+## A Reanalysis Examining Mechanisms of Change
+]
+.author[
+### Robert Johansson &amp; Peter Lilliengren
+]
+.institute[
+### Department of Psychology, Stockholm University
+]
+.date[
+### 2026-02-23
+]
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Introduction
+
+---
+
+# Treatment-Resistant Depression
+
+.pull-left[
+**Clinical Challenge:**
+- ~30% of depressed patients don't respond to first-line treatments
+- Cumulative failure rates increase with each trial
+- Substantial burden on patients and healthcare systems
+
+**ISTDP as a Promising Alternative:**
+- Brief psychodynamic therapy (10--40 sessions, typically once per week)
+- Targets emotional avoidance and defensive functioning
+- Growing evidence base for depression, including TRD
+]
+
+.pull-right[
+**Proposed Sequential Mechanism:**
+
+.center[
+Reduce Repression
+
+&amp;darr;
+
+Facilitate Emotional Experiencing
+
+&amp;darr;
+
+Reduce Depression
+]
+]
+
+---
+
+# The Original Study &amp; Our Research Questions
+
+**Heshmati, Wienicke, &amp; Driessen (2023):**
+- RCT: *N* = 86 with treatment-resistant depression (Iran)
+- ISTDP (20 sessions / 10 weeks) vs. Waitlist
+- Very large effects on depression, but mechanisms untested
+
+--
+
+**Our Four Research Questions:**
+
+1. How large and durable are ISTDP's effects on depression?
+
+2. Does ISTDP change proposed process measures?
+
+3. Do process changes **mediate** depression improvement?
+
+4. Do process changes **precede** depression changes?
+
+---
+class: inverse, center, middle
+
+# Methods
+
+---
+
+# Design and Analysis
+
+.pull-left[
+**Sample:** *N* = 86 (43 ISTDP, 43 Waitlist); 62% female; ages 18--60
+
+**Attrition:** 12.8% (7 ISTDP, 4 Waitlist); handled via REML
+
+**Measures:**
+- Primary: Depression (WAI Depression subscale, 7--35)
+- Process: Emotional Repression (WAI-RRC), Negative Affect (PANAS-NA), Distress (WAI Distress)
+]
+
+.pull-right[
+**Analyses:**
+- Linear mixed-effects models (random intercepts)
+- Bootstrap mediation (5,000 resamples, BCa CIs)
+- Cross-lagged panel analyses (standardized coefficients)
+- Sensitivity: Distress without Depression subscale, therapist effects
+
+**Open Science:** All data (OSF) and code (GitHub) publicly available; 129 automated validation tests
+]
+
+---
+class: inverse, center, middle
+
+# Results
+
+---
+class: inverse, center, middle
+
+# RQ1
+## How large and durable are ISTDP's effects on depression?
+
+---
+
+# RQ1: Depression Trajectories
+
+&lt;img src="figures/trajectories-1.png" width="80%" /&gt;
+
+---
+
+# RQ1: Effect Sizes
+
+**Between-group effect sizes (Cohen's *d*):**
+
+| Time Point | *d* | 95% CI |
+|-----------|-----|--------|
+| Baseline | 0.08 | [-0.35, 0.51] |
+| Post-treatment | 1.68 | [1.15, 2.22] |
+| **Follow-up** | **2.50** | [1.88, 3.11] |
+
+--
+
+- Effects **increase over time** rather than diminishing
+- Continued improvement after treatment ended (*p* &lt; .001)
+- Very large effects relative to waitlist control
+
+---
+class: inverse, center, middle
+
+# RQ2
+## Does ISTDP change proposed process measures?
+
+---
+
+# RQ2: Process Measure Effects at Follow-Up
+
+.pull-left[
+**All proposed mechanisms showed very large effects:**
+
+| Process Measure | Cohen's *d* |
+|----------------|-------------|
+| Emotional Repression (WAI-RRC) | 2.76 |
+| Negative Affect (PANAS-NA) | 1.96 |
+| Distress (WAI) | 2.95 |
+| Suppression of Aggression | 2.75 |
+]
+
+.pull-right[
+**Within-ISTDP correlations with depression change:**
+
+- Distress: *r* = 0.70 (but includes Depression subscale)
+- Emotional Repression: *r* = 0.03
+- Negative Affect: *r* = -0.19
+]
+
+---
+class: inverse, center, middle
+
+# RQ3
+## Do process changes mediate depression improvement?
+
+---
+
+# RQ3: Mediation Results
+
+| Mediator | Indirect Effect | *p* | Mediated? |
+|----------|:-:|:-:|:-:|
+| Distress | -6.34 | 0.000 | Significant (54%) |
+| Emotional Repression | -1.84 | 0.246 | No |
+| Negative Affect | 1.51 | 0.149 | No |
+
+--
+
+**But:** Distress includes the Depression subscale &amp;rarr; circular!
+
+--
+
+**Sensitivity analysis** (removing Depression from Distress):
+
+- ACME = 0.55, *p* = 0.702 &amp;rarr; **Not significant**
+
+--
+
+.center[
+### No genuine mediation for any process measure
+]
+
+---
+class: inverse, center, middle
+
+# RQ4
+## Do process changes precede depression changes?
+
+---
+
+# RQ4: Temporal Precedence
+
+**Cross-lagged panel analyses (standardized &amp;beta;):**
+
+No evidence that process changes precede depression changes:
+
+| Process Measure | Process &amp;rarr; Depression | Depression &amp;rarr; Process |
+|:--|:-:|:-:|
+| Emotional Repression | n.s. | n.s. |
+| Negative Affect | n.s. | n.s. |
+| Distress | n.s. | n.s. |
+
+--
+
+**Interpretation:**
+- Process measures and depression change **concurrently**, not sequentially
+- No evidence for the theorized causal chain
+- Consistent with broad, simultaneous therapeutic change
+
+---
+class: inverse, center, middle
+
+# Discussion
+
+---
+
+# The Mediation Puzzle
+
+**The paradox:** ISTDP produces large effects on both depression and all process measures, yet process changes don't mediate depression improvement.
+
+--
+
+**Four possible explanations:**
+
+1. **Measurement timing** -- 3 time points too coarse to capture session-level dynamics; session-by-session process coding has shown effects (Town et al., 2022)
+
+2. **Self-report limitations** -- Unconscious processes may not be capturable via questionnaires; observer-rated "unlocking" *did* mediate outcomes (Johansson et al., 2024)
+
+3. **Defensive restructuring** -- Patients may shift defensive organization (e.g., repression &amp;rarr; isolation of affect) without full "unlocking" (Abbass, 2015)
+
+4. **Multiple pathways** -- Different psychodiagnostic groups (resistant, repressive, fragile) may change through different mechanisms (Abbass, 2015; Johansson et al., 2014)
+
+---
+
+# Conclusions
+
+.pull-left[
+### ISTDP is effective
+
+- Very large, durable effects on TRD (*d* = 2.50 at follow-up)
+- Effects increase after treatment ends
+- All proposed process measures change substantially
+]
+
+.pull-right[
+### But mechanisms remain unclear
+
+- No mediation by emotional repression or negative affect
+- Distress mediation due to construct overlap, not genuine mechanism
+- Concurrent rather than sequential change
+]
+
+--
+
+.center[
+### Understanding *how* psychotherapy works requires finer temporal measurement and observational methods
+]
+
+---
+
+# Thank You
+
+.pull-left[
+**Questions?**
+
+Robert Johansson &amp; Peter Lilliengren
+
+robert.johansson@psychology.su.se
+
+Department of Psychology, Stockholm University
+]
+
+.pull-right[
+**Resources:**
+
+- GitHub: github.com/robert-johansson/heshmati-reanalysis
+- Data: doi.org/10.17605/OSF.IO/75PU8
+- Original Paper: Heshmati et al. (2023), *Psychotherapy*
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9",
+  "slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
