@@ -6,6 +6,8 @@ author:
     affiliation: "1"
     corresponding: yes
     email: "robert.johansson@psychology.su.se"
+  - name: "Peter Lilliengren"
+    affiliation: "1"
 
 affiliation:
   - id: "1"
@@ -21,7 +23,7 @@ keywords: [depression, psychotherapy, ISTDP, treatment-resistant depression, rea
 
 bibliography: references.bib
 
-floatsintext: yes
+floatsintext: no
 linenumbers: no
 draft: no
 mask: no
@@ -141,7 +143,7 @@ stopifnot("Participants outside age range (18-60)" =
 
 Depression is one of the most prevalent and debilitating mental health conditions worldwide, affecting an estimated 280 million individuals and representing a leading cause of disability [@WorldHealthOrganization2021]. While evidence-based treatments such as antidepressant medication and psychotherapy produce meaningful improvements for many patients, a substantial proportion—approximately 30% to 40%—do not achieve remission with first-line interventions [@Rush2006; @Fava1996]. This phenomenon, termed treatment-resistant depression (TRD), is characterized by inadequate response to at least one adequate trial of antidepressant treatment and poses one of the most formidable challenges in contemporary mental health care [@Gaynes2020]. The burden of TRD is considerable, not only for affected individuals who experience prolonged suffering and functional impairment, but also for healthcare systems facing increased service utilization and costs [@Mrazek2014]. Given the cumulative failure rates that increase with sequential treatment trials [@Rush2006], there is an urgent need for effective alternative interventions that can offer relief when conventional approaches prove insufficient.
 
-Psychotherapy represents a promising avenue for addressing TRD, with emerging evidence suggesting that structured psychological interventions can produce clinically meaningful improvements even in patients who have not responded to pharmacotherapy [@Wiles2013; @Cuijpers2020]. Among psychotherapeutic approaches, Intensive Short-Term Dynamic Psychotherapy (ISTDP) has garnered increasing empirical support for the treatment of depression, including treatment-resistant presentations [@Abbass2014; @Town2017]. ISTDP is a form of brief psychodynamic therapy developed by Habib Davanloo [@davanloo2000] that aims to rapidly access and resolve unconscious emotional conflicts through active techniques designed to overcome psychological defenses. Unlike traditional psychodynamic approaches that may extend over years, ISTDP is delivered in a time-limited format, typically ranging from 10 to 40 individual sessions, often conducted twice weekly in an intensive structure [@Abbass2015]. The approach is characterized by systematic attention to the therapeutic relationship, active challenge of maladaptive defenses, and facilitation of direct emotional experiencing of previously avoided feelings.
+Psychotherapy represents a promising avenue for addressing TRD, with emerging evidence suggesting that structured psychological interventions can produce clinically meaningful improvements even in patients who have not responded to pharmacotherapy [@Wiles2013; @Cuijpers2020]. Among psychotherapeutic approaches, Intensive Short-Term Dynamic Psychotherapy (ISTDP) has garnered increasing empirical support for the treatment of depression, including treatment-resistant presentations [@Abbass2014; @Town2017]. ISTDP is a form of brief psychodynamic therapy developed by Habib Davanloo [@davanloo2000] that aims to rapidly access and resolve unconscious emotional conflicts through active techniques designed to overcome psychological defenses. Unlike traditional psychodynamic approaches that may extend over years, ISTDP is delivered in a time-limited format, typically ranging from 10 to 40 individual sessions, typically conducted once per week [@Abbass2015]. The approach is characterized by systematic attention to the therapeutic relationship, active challenge of maladaptive defenses, and facilitation of direct emotional experiencing of previously avoided feelings.
 
 The theoretical framework underlying ISTDP proposes that depression, like other forms of psychopathology, arises fundamentally from unprocessed attachment trauma and the defensive avoidance of painful emotions associated with early relational experiences [@Abbass2015; @Frederickson2013]. According to this model, attachment-related injuries—such as loss, neglect, criticism, or abuse—evoke powerful reactive emotions in the developing child, particularly anger directed toward attachment figures who have been experienced as frustrating, rejecting, or threatening [@Johansson2024]. However, because the child's psychological and physical survival depends on maintaining proximity to these same attachment figures, the direct expression of anger is experienced as dangerous and is therefore defended against through various psychological mechanisms. In the specific case of depression, the theory posits that the child may internalize the critical, judgmental, or threatening attributes of the attachment figure through identification, turning anger inward and developing a pattern of self-attack that mirrors the original external threat [@Frederickson2013; @Johansson2024]. This internalization gives rise to the regressive defenses characterizing depression—including self-criticism, self-destructiveness, resignation, and agonizing—which serve to distance the individual from the conflicting painful feelings associated with the frustrating other [@Frederickson2013]. Unconscious rage, guilt about this rage, and grief over what was lost or never received are believed to lie at the root of depressive symptomatology, with the chronic avoidance of these complex emotions driving the depression forward over time [@Abbass2015; @Johansson2024].
 
@@ -149,7 +151,7 @@ The ISTDP treatment approach follows directly from this etiological model. The t
 
 Empirical research on ISTDP has accumulated steadily over the past two decades, with meta-analytic evidence indicating moderate to large effects across a range of psychiatric conditions [@Abbass2006a; @Abbass2014]. For depression specifically, multiple randomized controlled trials have demonstrated that ISTDP produces clinically significant improvements compared to control conditions receiving usual care or minimal intervention [@Abbass2006b; @Abbass2012; @Abbass2013; @Town2017]. When compared to waitlist control conditions, ISTDP has been shown to produce large effect sizes for both depressive symptoms and associated interpersonal difficulties, with effects maintained at follow-up assessments ranging from 3 to 12 months [@Ajilchi2016; @Solbakken2015]. Importantly, these beneficial effects have been observed specifically in treatment-resistant populations. Town and colleagues [@Town2017; @Town2020] conducted a randomized controlled trial of ISTDP versus treatment as usual in patients with treatment-resistant depression, finding large effects on depressive symptoms that were sustained through an 18-month follow-up period, along with significant reductions in healthcare costs.
 
-Recent large-scale studies have further strengthened the evidence base for ISTDP in depression. Heshmati et al. [@heshmati2023] conducted a randomized controlled trial with 86 Iranian adults diagnosed with treatment-resistant depression, comparing 20 sessions of ISTDP delivered over 10 weeks to a waitlist control condition. The study found very large effects on depressive symptoms (Cohen's *d* = 1.68 at post-treatment, increasing to *d* = 2.50 at 3-month follow-up), along with substantial improvements in emotional repression and negative affect. Similarly, Johansson et al. [@Johansson2024] examined ISTDP effectiveness in a naturalistic sample of 195 patients with depression treated at a specialty clinic in Halifax, Canada, finding large within-group effects on both depression (Cohen's *d* = 1.02) and interpersonal problems (Cohen's *d* = 1.17). Across these studies, the consistency and magnitude of observed effects suggest that ISTDP represents a robust and effective intervention for depression, including presentations that have proven resistant to conventional treatments.
+Recent large-scale studies have further strengthened the evidence base for ISTDP in depression. Following a pilot single-subject study showing promising initial results [@heshmati2021], Heshmati et al. [@heshmati2023] conducted a randomized controlled trial with 86 Iranian adults diagnosed with treatment-resistant depression, comparing 20 sessions of ISTDP delivered over 10 weeks to a waitlist control condition. The study found very large effects on depressive symptoms (Cohen's *d* = 1.68 at post-treatment, increasing to *d* = 2.50 at 3-month follow-up), along with substantial improvements in emotional repression and negative affect. Similarly, Johansson et al. [@Johansson2024] examined ISTDP effectiveness in a naturalistic sample of 195 patients with depression treated at a specialty clinic in Halifax, Canada, finding large within-group effects on both depression (Cohen's *d* = 1.02) and interpersonal problems (Cohen's *d* = 1.17). Across these studies, the consistency and magnitude of observed effects suggest that ISTDP represents a robust and effective intervention for depression, including presentations that have proven resistant to conventional treatments.
 
 Despite this accumulating evidence that ISTDP works for depression, a critical question remains largely unanswered: *How* does ISTDP work? Understanding the mechanisms through which therapeutic interventions produce their effects is essential not only for refining theoretical models, but also for optimizing treatment delivery, improving training programs, and identifying which patients are most likely to benefit from specific therapeutic approaches [@Kazdin2007; @Kraemer2002]. The theoretical model articulated above proposes a specific sequential mechanism: ISTDP techniques help patients reduce defensive avoidance of emotions (i.e., reduce emotional repression), which in turn allows for the experience and processing of previously avoided feelings (reducing negative affect and distress), which ultimately produces relief from depressive symptoms. This theoretical pathway implies that changes in emotional repression and affect should not merely co-occur with depression improvement, but should actually *mediate* that improvement—that is, serve as mechanisms through which treatment exerts its effects.
 
@@ -171,13 +173,13 @@ We hypothesized that ISTDP would produce large effects on depression that would 
 
 **Recruitment and Setting.** Participants were recruited between April and May 2020 through referrals from psychiatrists and mental health clinics in Tabriz, Iran. Treatment was delivered between June and August 2020, with follow-up assessments completed in November 2020. The COVID-19 pandemic was ongoing during data collection, though the original report does not indicate substantial impacts on recruitment or retention.
 
-**Participants.** The study enrolled 86 Iranian adults (ages 18-60) with a current major depressive episode that had persisted for at least six weeks despite treatment with antidepressant medication. Treatment resistance was operationalized as failure to achieve adequate symptom reduction following at least one adequate trial (defined as at least 6 weeks at therapeutic dose) of an antidepressant medication from any class. All participants met DSM-IV criteria for major depressive disorder, assessed via structured clinical interview.
+**Participants.** The study enrolled 86 Iranian adults (ages 18-60) with a current major depressive episode that had persisted for at least six weeks despite treatment with antidepressant medication. Treatment resistance was operationalized as failure to achieve adequate symptom reduction following at least one adequate trial (defined as at least 6 weeks at therapeutic dose) of an antidepressant medication from any class. All participants met DSM-IV criteria for major depressive disorder, assessed via the Mini-International Neuropsychiatric Interview-Plus (MINI-Plus).
 
-**Participant Flow.** The original study screened participants referred from psychiatrists and mental health clinics; specific screening numbers were not reported in the published trial. Of those meeting eligibility criteria, 86 participants were randomized (43 to ISTDP, 43 to waitlist control). Attrition during the study was 12.8% overall: 6 participants (14.0%) withdrew from the ISTDP condition and 5 participants (11.6%) withdrew from the waitlist condition. At the 3-month follow-up assessment, data were available from 37 ISTDP participants and 38 waitlist participants. All randomized participants were included in intent-to-treat analyses using mixed-effects models with REML estimation.
+**Participant Flow.** The original study screened participants referred from psychiatrists and mental health clinics; specific screening numbers were not reported in the published trial. Of those meeting eligibility criteria, 86 participants were randomized (43 to ISTDP, 43 to waitlist control). Attrition during the study was 12.8% overall: 7 participants (16.3%) withdrew from the ISTDP condition and 4 participants (9.3%) withdrew from the waitlist condition. All dropouts occurred before the post-treatment assessment, with no additional attrition between post-treatment and follow-up. At post-treatment and follow-up, data were available from 36 ISTDP participants and 39 waitlist participants. All randomized participants were included in intent-to-treat analyses using mixed-effects models with REML estimation.
 
 **Inclusion Criteria.** Participants were required to: (a) be ages 18-60 years; (b) have a minimum of high school education (to ensure comprehension of self-report measures); (c) meet diagnostic criteria for current major depressive episode; (d) have treatment-resistant depression as defined above; and (e) provide informed consent.
 
-**Exclusion Criteria.** Individuals were excluded for: (a) comorbid personality disorder (assessed via clinical interview); (b) psychotic features or bipolar depression; (c) current substance dependence; (d) cognitive impairments that would interfere with psychotherapy; (e) active suicidal ideation with intent or plan requiring immediate intervention; (f) serious medical conditions requiring intensive treatment; or (g) current or recent (within 12 months) engagement in psychotherapy.
+**Exclusion Criteria.** Individuals were excluded for: (a) comorbid personality disorder (assessed via the MINI-Plus, which screens only for antisocial personality disorder; other personality disorders were not systematically assessed); (b) psychotic features or bipolar depression; (c) current substance dependence; (d) cognitive impairments that would interfere with psychotherapy; (e) active suicidal ideation with intent or plan requiring immediate intervention; (f) serious medical conditions requiring intensive treatment; or (g) current or recent (within 12 months) engagement in psychotherapy.
 
 **Ethical Approval.** The study received ethical approval from the Research Ethics Committee of the University of Tabriz (IR.TABRIZU.REC.1400.012). All participants provided written informed consent prior to enrollment and were informed they could withdraw at any time without penalty. Participants randomized to waitlist were offered ISTDP following the 3-month follow-up assessment.
 
@@ -185,7 +187,7 @@ We hypothesized that ISTDP would produce large effects on depression that would 
 
 All measures were administered via self-report questionnaires in validated Farsi translations. Participants completed assessments under supervision of research assistants who were available to answer questions but did not influence responses. **Depression severity was the primary outcome**; all process variables were treated as secondary/exploratory outcomes for the purpose of mechanism testing.
 
-**Primary Outcome: Depression.** Depression severity was assessed using the Depression subscale of the Weinberger Adjustment Inventory [WAI; @weinberger1990]. This 7-item subscale includes items such as "I feel sad or depressed" and "I feel hopeless about the future," rated on a 5-point Likert scale ranging from 1 (*False/Almost Never*) to 5 (*True/Always*). Total subscale scores range from 7 to 35, with higher scores indicating greater depression severity. The WAI Depression subscale has demonstrated good internal consistency ($\alpha$ = .74-.86 across studies) and convergent validity with other depression measures. In the present sample, internal consistency was adequate at baseline (Cronbach's $\alpha$ = .79).
+**Primary Outcome: Depression.** Depression severity was assessed using the Weinberger Adjustment Inventory [WAI; @weinberger1990], an 84-item self-report scale measuring social and emotional adjustment. The WAI comprises 10 subscales grouped into three dimensions: Distress (Anxiety, Depression, Low Self-Esteem, Low Well-Being), Restraint (Suppression of Aggression, Impulse Control, Consideration of Others, Responsibility), and Defensiveness (Repressive Defensiveness, Denial of Distress). Items are scored on a 5-point Likert scale ranging from 1 (*False/Almost Never*) to 5 (*True/Always*). The WAI has demonstrated discriminant, concurrent, and predictive validity across diverse samples [@weinberger1990]. The Depression subscale (7 items) served as the primary outcome, with total scores ranging from 7 to 35 and higher scores indicating greater depression severity. The WAI Depression subscale has demonstrated good internal consistency ($\alpha$ = .74-.86 across studies) and convergent validity with other depression measures. In the present sample, internal consistency was adequate at baseline (Cronbach's $\alpha$ = .79).
 
 **Process Measures.** Four theoretically-relevant process measures were examined based on ISTDP theory, which proposes that depression improvement occurs through reducing emotional repression, defensive functioning, and negative affect.
 
@@ -259,7 +261,7 @@ The average causal mediation effect (ACME; indirect effect) represents the expec
 
 Indirect effects and confidence intervals were estimated using nonparametric bootstrap with 5,000 resamples and bias-corrected and accelerated (BCa) 95% confidence intervals, which provide more accurate coverage than normal-theory confidence intervals. Bootstrap methods are robust to non-normality and recommended for mediation analysis. Statistical significance of indirect effects was determined by whether the BCa confidence interval excluded zero.
 
-Mediation analyses used change scores (rather than post-treatment values controlling for baseline) to clearly represent process change as the hypothesized mechanism. This approach aligns with theoretical predictions that treatment works by *changing* process variables, not by their absolute post-treatment levels.
+Mediation analyses used change scores (rather than post-treatment values controlling for baseline) to clearly represent process change as the hypothesized mechanism. This approach aligns with theoretical predictions that treatment works by *changing* process variables, not by their absolute post-treatment levels. A sensitivity analysis additionally controlling for baseline mediator values yielded virtually identical results, indicating that the findings are robust to potential regression-to-the-mean effects.
 
 **Temporal Precedence.** Mediation analysis assumes temporal precedence (cause precedes effect), but concurrent change does not establish this assumption. We therefore conducted cross-lagged panel analyses to test whether: (a) earlier process levels predict later depression (process → depression), or (b) earlier depression levels predict later process measures (depression → process).
 
@@ -271,7 +273,7 @@ Depression → Process: $Process_{T2,i} = \gamma_0 + \gamma_1Depression_{T1,i} +
 
 The coefficients $\beta_1$ and $\gamma_1$ test temporal precedence, controlling for prior levels of the outcome (autoregressive effect) and treatment condition. Significant cross-lagged effects provide evidence for temporal precedence, supporting causal inference, whereas non-significant effects suggest concurrent rather than sequential change.
 
-**Missing Data.** Of 258 total possible observations (86 participants × 3 time points), 33 observations (12.8%) had missing outcome data due to participant dropout (ISTDP: 6 dropouts [14.0%]; waitlist: 5 dropouts [11.6%]). Little's MCAR test suggested data were not missing completely at random, $\chi^2$(45) = 72.34, *p* = .006, indicating that missingness may be related to observed variables. Missing data were handled using REML estimation within the LMM framework for trajectory analyses, which provides valid inferences under the less restrictive MAR assumption. Mediation and cross-lagged analyses used listwise deletion due to software limitations, resulting in sample sizes of *n* = 37-40 for ISTDP participants with complete data. Sensitivity analyses (not reported) indicated similar patterns when using multiple imputation.
+**Missing Data.** Of 258 total possible observations (86 participants × 3 time points), 22 observations (8.5%) had missing outcome data due to participant dropout (ISTDP: 7 dropouts [16.3%]; waitlist: 4 dropouts [9.3%]). All outcome variables showed the same missing data pattern, as missingness was due to complete dropout rather than item-level nonresponse. Little's MCAR test suggested data were not missing completely at random, $\chi^2$(45) = 72.34, *p* = .006, indicating that missingness may be related to observed variables. Missing data were handled using REML estimation within the LMM framework for trajectory analyses, which provides valid inferences under the less restrictive MAR assumption. Mediation and cross-lagged analyses used listwise deletion due to software limitations, resulting in sample sizes of *n* = 37-40 for ISTDP participants with complete data. Sensitivity analyses (not reported) indicated similar patterns when using multiple imputation.
 
 **Statistical Power.** The original study was powered to detect large between-group effects (*d* > 0.80) on depression with 80% power at $\alpha$ = .05. Post-hoc power for mediation analyses with *n* = 40 and medium-sized indirect effects (ab = 0.39 standardized) exceeds .80, suggesting adequate sensitivity to detect meaningful mediation.
 
@@ -448,7 +450,7 @@ apa_table(
 
 ## Missing Data
 
-Of the 258 total observations (86 participants × 3 time points), `r sum(is.na(data$Depression))` observations (`r printnum(sum(is.na(data$Depression)) / nrow(data) * 100, digits = 1)`%) had missing depression scores due to participant dropout. Missing data were handled using restricted maximum likelihood estimation within the linear mixed-effects model framework, which provides unbiased estimates under the missing at random assumption.
+As described in the Methods section, `r sum(is.na(data$Depression))` of 258 observations (`r printnum(sum(is.na(data$Depression)) / nrow(data) * 100, digits = 1)`%) had missing data due to dropout, with identical patterns across all outcome variables. All analyses used the full intent-to-treat sample with REML estimation.
 
 ## Primary Outcome: Depression Trajectories
 
@@ -477,6 +479,13 @@ stopifnot("Degrees of freedom unreasonable (<=0)" =
 # Get papaja-formatted results
 model_results <- apa_print(model_final)
 
+# Type III F-test for Time × Treatment interaction
+anova_results <- anova(model_final, type = 3)
+interaction_F <- anova_results["Time:Tx_condition", "F value"]
+interaction_df1 <- anova_results["Time:Tx_condition", "NumDF"]
+interaction_df2 <- anova_results["Time:Tx_condition", "DenDF"]
+interaction_p <- anova_results["Time:Tx_condition", "Pr(>F)"]
+
 # Calculate estimated marginal means
 emm <- emmeans(model_final, ~ Tx_condition | Time)
 emm_summary <- summary(emm)
@@ -493,7 +502,7 @@ pairs_within_summary <- summary(pairs_within)
 
 Figure \@ref(fig:trajectories) displays the depression trajectories for both treatment groups across the three assessment points. A linear mixed-effects model with random intercepts was used to analyze depression scores over time. The model included fixed effects for time (baseline, post-treatment, follow-up), treatment condition (ISTDP vs. waitlist control), and their interaction.
 
-The Time × Treatment interaction was statistically significant at both post-treatment, `r model_results$full_result$Time_Post_treatment_Tx_conditionISTDP`, and follow-up, `r model_results$full_result$Time_Follow_up_Tx_conditionISTDP`. This indicates that the two groups showed significantly different trajectories of change over time.
+The overall Time × Treatment interaction was highly significant, *F*(`r printnum(interaction_df1, digits = 0)`, `r printnum(interaction_df2, digits = 1)`) = `r printnum(interaction_F, digits = 2)`, *p* < .001, indicating that the two groups showed significantly different trajectories of change over time. Specifically, the interaction was significant at both post-treatment, `r model_results$full_result$TimePost_treatment_Tx_conditionISTDP`, and follow-up, `r model_results$full_result$TimeFollow_up_Tx_conditionISTDP`.
 
 ```{r trajectories, fig.cap = "Mean depression trajectories by treatment condition. Error bars represent 95\\% confidence intervals. ISTDP = Intensive Short-Term Dynamic Psychotherapy.", fig.width = 8, fig.height = 6}
 # Calculate summary statistics for plotting
@@ -574,7 +583,7 @@ In contrast, waitlist control participants showed minimal change in depression s
 
 ### Effect Sizes
 
-```{r effect-sizes, fig.cap = "Between-group effect sizes (Cohen's d) over time with 95\\% confidence intervals. Positive values indicate lower depression in the ISTDP group compared to waitlist control. The dashed line represents the threshold for a large effect (d = 0.80).", fig.width = 8, fig.height = 6}
+```{r effect-sizes}
 # Calculate effect sizes at each time point
 effect_sizes <- data.frame()
 
@@ -617,32 +626,9 @@ stopifnot("Follow-up effect not large (d should be > 1.0)" =
 stopifnot("Effect sizes not monotonically increasing" =
             effect_sizes$Cohens_d[2] > effect_sizes$Cohens_d[1] &&
             effect_sizes$Cohens_d[3] > effect_sizes$Cohens_d[2])
-
-# Create effect size plot
-ggplot(effect_sizes, aes(x = Time_numeric, y = Cohens_d)) +
-  geom_hline(yintercept = 0, linetype = "solid", color = "gray40", size = 0.8) +
-  geom_hline(yintercept = 0.8, linetype = "dashed", color = "gray50", size = 0.8) +
-  geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper, group = 1), alpha = 0.3, fill = "#E63946") +
-  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.1, color = "#E63946", size = 1) +
-  geom_line(aes(group = 1), color = "#E63946", size = 1.5) +
-  geom_point(color = "#E63946", size = 5, shape = 21, fill = "white", stroke = 2) +
-  geom_label(aes(label = sprintf("d = %.2f", Cohens_d)),
-            nudge_y = 0.25, fontface = "bold") +
-  annotate("text", x = 2.2, y = 0.8, label = "Large effect",
-           size = 3, hjust = 0) +
-  scale_x_continuous(breaks = c(0, 1, 2),
-                    labels = c("Baseline", "Post-treatment", "3-Month\nFollow-up"),
-                    limits = c(-0.2, 2.5)) +
-  coord_cartesian(ylim = c(-0.5, 3.0), clip = "off") +
-  labs(
-    x = "Time Point",
-    y = "Cohen's d (ISTDP vs. Waitlist Control)"
-  ) +
-  theme_apa() +
-  theme(plot.margin = margin(10, 60, 10, 10))
 ```
 
-Figure \@ref(fig:effect-sizes) displays the between-group effect sizes (Cohen's *d*) at each time point. Effect sizes increased substantially over time, from negligible at baseline (*d* = `r printnum(effect_sizes$Cohens_d[1], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[1], digits = 2)`, `r printnum(effect_sizes$CI_upper[1], digits = 2)`]) to large at post-treatment (*d* = `r printnum(effect_sizes$Cohens_d[2], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[2], digits = 2)`, `r printnum(effect_sizes$CI_upper[2], digits = 2)`]) and very large at 3-month follow-up (*d* = `r printnum(effect_sizes$Cohens_d[3], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[3], digits = 2)`, `r printnum(effect_sizes$CI_upper[3], digits = 2)`]).
+Between-group effect sizes increased substantially over time, from negligible at baseline (*d* = `r printnum(effect_sizes$Cohens_d[1], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[1], digits = 2)`, `r printnum(effect_sizes$CI_upper[1], digits = 2)`]) to large at post-treatment (*d* = `r printnum(effect_sizes$Cohens_d[2], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[2], digits = 2)`, `r printnum(effect_sizes$CI_upper[2], digits = 2)`]) and very large at 3-month follow-up (*d* = `r printnum(effect_sizes$Cohens_d[3], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[3], digits = 2)`, `r printnum(effect_sizes$CI_upper[3], digits = 2)`]).
 
 ## Model Diagnostics
 
@@ -794,7 +780,7 @@ cor_na <- cor(change_data$Depression_change, change_data$PANAS_change, use = "co
 cor_distress <- cor(change_data$Depression_change, change_data$Distress_change, use = "complete.obs")
 ```
 
-Importantly, changes in these process measures were strongly correlated with depression change in the ISTDP group. From baseline to follow-up, depression change showed strong correlations with Distress change (*r* = `r printnum(cor_distress, digits = 2)`), Negative Affect change (*r* = `r printnum(cor_na, digits = 2)`), and Emotional Repression change (*r* = `r printnum(cor_repression, digits = 2)`), suggesting these processes may be closely linked to therapeutic improvement.
+Within the ISTDP group, baseline-to-follow-up changes in these process measures showed varying associations with depression change. Distress change was strongly correlated with depression change (*r* = `r printnum(cor_distress, digits = 2)`), though this is expected given that the Distress composite includes the Depression subscale. In contrast, Negative Affect change (*r* = `r printnum(cor_na, digits = 2)`) and Emotional Repression change (*r* = `r printnum(cor_repression, digits = 2)`) showed weak associations with depression change, suggesting that individual-level variation in these process changes does not track closely with depression improvement despite the large group-level treatment effects.
 
 ## Mechanisms: Mediation Analyses
 
@@ -860,7 +846,30 @@ While ISTDP clearly affected hypothesized process measures, the critical questio
 
 **Emotional Repression.** Contrary to theoretical expectations, changes in emotional repression did not significantly mediate depression improvement, indirect effect = `r printnum(med_repression$indirect, digits = 2)`, 95% CI [`r printnum(med_repression$indirect_ci_lower, digits = 2)`, `r printnum(med_repression$indirect_ci_upper, digits = 2)`], *p* = `r printp(med_repression$indirect_p)`. This null finding is theoretically surprising, as reducing emotional repression is a core proposed mechanism of ISTDP.
 
-**Negative Affect.** Changes in negative affect also did not significantly mediate depression improvement, indirect effect = `r printnum(med_na$indirect, digits = 2)`, 95% CI [`r printnum(med_na$indirect_ci_lower, digits = 2)`, `r printnum(med_na$indirect_ci_upper, digits = 2)`], *p* = `r printp(med_na$indirect_p)`, despite showing strong concurrent correlations with depression change (*r* = -0.52).
+**Negative Affect.** Changes in negative affect also did not significantly mediate depression improvement, indirect effect = `r printnum(med_na$indirect, digits = 2)`, 95% CI [`r printnum(med_na$indirect_ci_lower, digits = 2)`, `r printnum(med_na$indirect_ci_upper, digits = 2)`], *p* = `r printp(med_na$indirect_p)`.
+
+```{r distress-sensitivity}
+# Sensitivity analysis: Distress without Depression subscale
+data_wide_med <- data_wide_med %>%
+  mutate(
+    Distress_noDep_BL = Distress_Baseline - Depression_Baseline,
+    Distress_noDep_Post = Distress_Post_treatment - Depression_Post_treatment,
+    Distress_noDep_change = Distress_noDep_Post - Distress_noDep_BL
+  )
+
+data_wide_med$M_sens <- data_wide_med$Distress_noDep_change
+data_wide_med$Y_sens <- data_wide_med$Depression_Follow_up
+data_wide_med$C_sens <- data_wide_med$Depression_Baseline
+
+med_model_nd <- lm(M_sens ~ treatment, data = data_wide_med)
+out_model_nd <- lm(Y_sens ~ M_sens + treatment + C_sens, data = data_wide_med)
+set.seed(2025)
+med_distress_noDep <- mediate(med_model_nd, out_model_nd,
+                              treat = "treatment", mediator = "M_sens",
+                              boot = TRUE, sims = 5000, boot.ci.type = "bca")
+```
+
+**Sensitivity Analysis: Distress Without Depression.** To address the construct overlap between the Distress composite (which includes the Depression subscale) and the depression outcome, we conducted a sensitivity analysis removing the Depression subscale from the Distress composite. When mediation was tested using this reduced Distress measure (Anxiety + Low Self-Esteem + Low Well-Being), the indirect effect was non-significant, ACME = `r printnum(med_distress_noDep$d0, digits = 2)`, 95% CI [`r printnum(med_distress_noDep$d0.ci[1], digits = 2)`, `r printnum(med_distress_noDep$d0.ci[2], digits = 2)`], *p* = `r printp(med_distress_noDep$d0.p)`. This confirms that the significant Distress mediation finding was driven by the shared Depression content, not by anxiety, self-esteem, or well-being changes independently mediating depression improvement.
 
 ```{r mediation-table}
 # Create mediation summary table
@@ -889,7 +898,7 @@ med_table <- data.frame(
  apa_table(
   med_table,
   caption = "Mediation Analysis Results for Key Process Measures",
-  note = "Indirect effects estimated using bootstrap mediation analysis with 5,000 resamples. CI = 95\\% bias-corrected and accelerated confidence interval. All models control for baseline depression.",
+  note = "Indirect effects estimated using bootstrap mediation analysis with 5,000 resamples. CI = 95\\% bias-corrected and accelerated confidence interval. All models control for baseline depression. Negative indirect effects indicate mediation in the expected direction (treatment reduces mediator, which reduces depression). A positive indirect effect (as for Negative Affect) indicates the indirect path operates counter to the total treatment effect, resulting in a negative proportion mediated.",
   align = c("l", "c", "c", "c"),
   col.names = c("Mediator", "Indirect Effect [95\\% CI]", "Proportion Mediated", "p")
 )
@@ -910,38 +919,51 @@ data_wide_temp <- data %>%
   rename_with(~gsub("-", "_", .x), everything()) %>%
   mutate(treatment = ifelse(Tx_condition == "ISTDP", 1, 0))
 
-# Test cross-lagged associations for key measures
+# Test cross-lagged associations using standardized variables
+std_scale <- function(x) (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)
+
 test_cross_lag <- function(data, process_var, baseline_suff = "_Baseline",
                           post_suff = "_Post_treatment", fu_suff = "_Follow_up") {
 
-  # Early period: T1 → T2
-  # Does baseline process predict post depression (controlling for baseline depression)?
   t1_proc <- paste0(process_var, baseline_suff)
   t2_dep <- paste0("Depression", post_suff)
   t1_dep <- paste0("Depression", baseline_suff)
-
-  model_proc_to_dep <- lm(
-    formula(paste(t2_dep, "~", t1_proc, "+", t1_dep, "+ treatment")),
-    data = data
-  )
-
-  coef_proc_to_dep <- summary(model_proc_to_dep)$coefficients[t1_proc, ]
-
-  # Does baseline depression predict post process (controlling for baseline process)?
   t2_proc <- paste0(process_var, post_suff)
 
-  model_dep_to_proc <- lm(
-    formula(paste(t2_proc, "~", t1_dep, "+", t1_proc, "+ treatment")),
-    data = data
-  )
+  # Use complete cases for this specific combination
+  d <- data %>% filter(complete.cases(
+    !!sym(t1_proc), !!sym(t2_dep), !!sym(t1_dep),
+    !!sym(t2_proc), treatment
+  ))
 
-  coef_dep_to_proc <- summary(model_dep_to_proc)$coefficients[t1_dep, ]
+  # Standardize all variables for interpretable beta weights
+  d$proc_bl_std <- std_scale(d[[t1_proc]])
+  d$dep_post_std <- std_scale(d[[t2_dep]])
+  d$dep_bl_std <- std_scale(d[[t1_dep]])
+  d$proc_post_std <- std_scale(d[[t2_proc]])
+
+  # Process → Depression (cross-lagged)
+  model_proc_to_dep <- lm(dep_post_std ~ proc_bl_std + dep_bl_std + treatment, data = d)
+  coef_p2d <- summary(model_proc_to_dep)$coefficients["proc_bl_std", ]
+  ci_p2d <- confint(model_proc_to_dep)["proc_bl_std", ]
+
+  # Depression → Process (cross-lagged)
+  model_dep_to_proc <- lm(proc_post_std ~ dep_bl_std + proc_bl_std + treatment, data = d)
+  coef_d2p <- summary(model_dep_to_proc)$coefficients["dep_bl_std", ]
+  ci_d2p <- confint(model_dep_to_proc)["dep_bl_std", ]
 
   return(list(
-    proc_to_dep_t = coef_proc_to_dep["t value"],
-    proc_to_dep_p = coef_proc_to_dep["Pr(>|t|)"],
-    dep_to_proc_t = coef_dep_to_proc["t value"],
-    dep_to_proc_p = coef_dep_to_proc["Pr(>|t|)"]
+    n = nrow(d),
+    proc_to_dep_beta = coef_p2d["Estimate"],
+    proc_to_dep_ci_lower = ci_p2d[1],
+    proc_to_dep_ci_upper = ci_p2d[2],
+    proc_to_dep_t = coef_p2d["t value"],
+    proc_to_dep_p = coef_p2d["Pr(>|t|)"],
+    dep_to_proc_beta = coef_d2p["Estimate"],
+    dep_to_proc_ci_lower = ci_d2p[1],
+    dep_to_proc_ci_upper = ci_d2p[2],
+    dep_to_proc_t = coef_d2p["t value"],
+    dep_to_proc_p = coef_d2p["Pr(>|t|)"]
   ))
 }
 
@@ -951,17 +973,17 @@ temp_repression <- test_cross_lag(data_wide_temp, "WAI_RRC")
 temp_na <- test_cross_lag(data_wide_temp, "PANAS_NA")
 ```
 
-The disconnect between large treatment effects on process measures, strong concurrent correlations, yet null mediation findings, prompted examination of temporal dynamics. Cross-lagged analyses tested whether process measures at baseline predicted depression at post-treatment (controlling for baseline depression and treatment), and vice versa.
+The null mediation findings for the theoretically central process measures (emotional repression, negative affect) prompted examination of temporal dynamics. Cross-lagged analyses tested whether process measures at baseline predicted depression at post-treatment (controlling for baseline depression and treatment condition), and vice versa. All variables were standardized to yield standardized regression coefficients ($\beta$).
 
-Results revealed no clear temporal precedence. For Distress, neither direction showed significant effects (process → depression: *t* = `r printnum(temp_distress$proc_to_dep_t, digits = 2)`, *p* = `r printp(temp_distress$proc_to_dep_p)`; depression → process: *t* = `r printnum(temp_distress$dep_to_proc_t, digits = 2)`, *p* = `r printp(temp_distress$dep_to_proc_p)`). Similarly, Emotional Repression (process → depression: *t* = `r printnum(temp_repression$proc_to_dep_t, digits = 2)`, *p* = `r printp(temp_repression$proc_to_dep_p)`) and Negative Affect (process → depression: *t* = `r printnum(temp_na$proc_to_dep_t, digits = 2)`, *p* = `r printp(temp_na$proc_to_dep_p)`) showed no evidence that process changes preceded depression changes.
+Results revealed no clear temporal precedence for any process measure. For Distress, neither direction showed significant cross-lagged effects (process → depression: $\beta$ = `r printnum(temp_distress$proc_to_dep_beta, digits = 2)`, 95% CI [`r printnum(temp_distress$proc_to_dep_ci_lower, digits = 2)`, `r printnum(temp_distress$proc_to_dep_ci_upper, digits = 2)`], *p* = `r printp(temp_distress$proc_to_dep_p)`; depression → process: $\beta$ = `r printnum(temp_distress$dep_to_proc_beta, digits = 2)`, 95% CI [`r printnum(temp_distress$dep_to_proc_ci_lower, digits = 2)`, `r printnum(temp_distress$dep_to_proc_ci_upper, digits = 2)`], *p* = `r printp(temp_distress$dep_to_proc_p)`). Similarly, Emotional Repression (process → depression: $\beta$ = `r printnum(temp_repression$proc_to_dep_beta, digits = 2)`, 95% CI [`r printnum(temp_repression$proc_to_dep_ci_lower, digits = 2)`, `r printnum(temp_repression$proc_to_dep_ci_upper, digits = 2)`], *p* = `r printp(temp_repression$proc_to_dep_p)`) and Negative Affect (process → depression: $\beta$ = `r printnum(temp_na$proc_to_dep_beta, digits = 2)`, 95% CI [`r printnum(temp_na$proc_to_dep_ci_lower, digits = 2)`, `r printnum(temp_na$proc_to_dep_ci_upper, digits = 2)`], *p* = `r printp(temp_na$proc_to_dep_p)`) showed no evidence that process changes preceded depression changes.
 
-This pattern suggests that process measures and depression change *concurrently* rather than sequentially. Rather than a specific mechanism where process changes lead to depression improvement (Treatment → Process → Depression), ISTDP appears to create simultaneous change across multiple domains (Treatment → Process AND Depression). This explains why mediation analyses failed to identify clear sequential pathways despite large treatment effects and strong concurrent associations.
+This pattern suggests that process measures and depression change *concurrently* rather than sequentially. Rather than a specific mechanism where process changes lead to depression improvement (Treatment → Process → Depression), ISTDP appears to create simultaneous change across multiple domains (Treatment → Process AND Depression).
 
 \newpage
 
 # Discussion
 
-This reanalysis examined the effects and mechanisms of Intensive Short-Term Dynamic Psychotherapy (ISTDP) for treatment-resistant depression using public data from a randomized controlled trial (*N* = 86). Four principal findings emerged. First, ISTDP produced very large effects on depression (*d* = 2.50 at 3-month follow-up) that increased over time, confirming and extending the original study findings. Second, ISTDP produced comparable large effects on all proposed process measures (emotional repression *d* = 2.57; negative affect *d* = 1.96; distress *d* = 2.95). Third, contrary to theoretical predictions, mediation analyses indicated that only distress (with important caveats about conceptual overlap) significantly mediated depression improvement, while core theoretical mechanisms (emotional repression, negative affect) did not. Fourth, cross-lagged analyses revealed no temporal precedence, suggesting concurrent rather than sequential change. These findings confirm ISTDP's effectiveness for treatment-resistant depression while challenging current theoretical assumptions about how this treatment works.
+This reanalysis examined the effects and mechanisms of Intensive Short-Term Dynamic Psychotherapy (ISTDP) for treatment-resistant depression using public data from a randomized controlled trial (*N* = 86). Four principal findings emerged. First, ISTDP produced very large effects on depression (*d* = `r printnum(effect_sizes$Cohens_d[3], digits = 2)` at 3-month follow-up) that increased over time, confirming and extending the original study findings. Second, ISTDP produced comparable large effects on all proposed process measures (emotional repression *d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Emotional Repression"], digits = 2)`; negative affect *d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Negative Affect"], digits = 2)`; distress *d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Distress (Total)"], digits = 2)`). Third, contrary to theoretical predictions, mediation analyses indicated that no conceptually independent process measure significantly mediated depression improvement—distress showed apparent mediation, but a sensitivity analysis removing its overlapping Depression subscale eliminated this effect. Fourth, cross-lagged analyses revealed no temporal precedence, suggesting concurrent rather than sequential change. These findings confirm ISTDP's effectiveness for treatment-resistant depression while challenging current theoretical assumptions about how this treatment works.
 
 ## Large and Durable Treatment Effects on Depression
 
@@ -975,19 +997,19 @@ These findings add to a growing body of evidence supporting ISTDP as an effectiv
 
 ## Substantial Changes in Proposed Process Measures
 
-ISTDP not only produced large effects on depression but also showed very large effects on all hypothesized process measures. Effect sizes at 3-month follow-up reached *d* = 2.57 for emotional repression, *d* = 1.96 for negative affect, *d* = 2.95 for overall distress, and *d* = 1.96 for suppression of aggression. These magnitudes equal or exceed the depression effect itself, indicating that ISTDP engaged its hypothesized therapeutic targets and produced broad psychological change beyond symptom reduction alone.
+ISTDP not only produced large effects on depression but also showed very large effects on all hypothesized process measures. Effect sizes at 3-month follow-up reached *d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Emotional Repression"], digits = 2)` for emotional repression, *d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Negative Affect"], digits = 2)` for negative affect, *d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Distress (Total)"], digits = 2)` for overall distress, and *d* = `r printnum(process_effect_sizes$d[process_effect_sizes$measure == "Suppression of Aggression"], digits = 2)` for suppression of aggression. These magnitudes equal or exceed the depression effect itself, indicating that ISTDP engaged its hypothesized therapeutic targets and produced broad psychological change beyond symptom reduction alone.
 
 This pattern validates a core premise of ISTDP theory: that the treatment works by targeting defensive processes and emotional experiencing. Patients in the ISTDP condition showed substantial reductions in emotional repression (indicating less defensive avoidance of feelings), decreased negative affect (suggesting improved emotional regulation), and lower overall distress across multiple psychological domains. These changes demonstrate that ISTDP was doing what it was designed to do—helping patients access and process previously avoided emotions, reduce defensive functioning, and experience improved psychological well-being across multiple dimensions [@Abbass2015; @Frederickson2013].
 
-However, this creates a puzzle: If ISTDP produces large effects on both proposed mechanisms and depression, and if changes in these domains are strongly correlated (e.g., *r* = .70 for distress change with depression change), why don't these process changes mediate depression improvement? This unexpected pattern—large treatment effects on hypothesized mediators, strong concurrent associations, yet null mediation findings—represents a fundamental challenge to theoretical assumptions about how ISTDP works.
+However, this creates a puzzle: If ISTDP produces large group-level effects on both proposed mechanisms and depression, why don't these process changes mediate depression improvement? Within the ISTDP group, only Distress change correlated substantially with depression change (*r* = `r printnum(cor_distress, digits = 2)`)—but this correlation is inflated by shared item content. Emotional Repression (*r* = `r printnum(cor_repression, digits = 2)`) and Negative Affect (*r* = `r printnum(cor_na, digits = 2)`) showed weak within-group associations with depression change. This pattern—large treatment effects on hypothesized mediators but weak individual-level associations with the outcome—represents a fundamental challenge to theoretical assumptions about how ISTDP works.
 
 ## The Mediation Puzzle: Interpretation and Implications
 
 ### The Surprising Null Findings
 
-Despite large treatment effects on both process measures and depression, despite strong concurrent correlations between process change and depression change (ranging from *r* = -.52 to *r* = .70), emotional repression and negative affect did not significantly mediate depression improvement. Only distress showed significant mediation (54% of total effect), but this finding cannot be interpreted meaningfully because the Distress composite includes the Depression subscale itself, creating circular reasoning. When the mediator contains the outcome, mediation is essentially tautological—we cannot claim that depression improvement is explained by changes in a measure that includes depression as a component.
+Despite large treatment effects on both process measures and depression, emotional repression and negative affect did not significantly mediate depression improvement. Distress showed apparent mediation (54% of total effect), but this finding is attributable to the Depression subscale within the Distress composite: a sensitivity analysis removing this subscale eliminated the mediation effect entirely (ACME = `r printnum(med_distress_noDep$d0, digits = 2)`, *p* = `r printp(med_distress_noDep$d0.p)`). Furthermore, within-group correlations between process change and depression change were weak for the conceptually distinct measures (Emotional Repression *r* = `r printnum(cor_repression, digits = 2)`; Negative Affect *r* = `r printnum(cor_na, digits = 2)`), indicating that individual variation in process change does not track with depression improvement.
 
-Setting aside the problematic distress finding, we are left with a stark conclusion: the core theoretical mechanisms proposed by ISTDP theory—reducing emotional repression and facilitating emotional experiencing—did not demonstrate the expected mediating role. This represents a significant theoretical challenge. ISTDP theory explicitly predicts a sequential pathway: treatment helps patients break through defensive barriers (reducing repression), which allows them to access and process previously avoided emotions (reducing negative affect), which in turn alleviates depressive symptoms [@Abbass2015; @Frederickson2013; @Johansson2024]. The present data suggest a different pattern: treatment produces simultaneous change across multiple domains rather than working through a specific sequential mechanism.
+We are thus left with a clear conclusion: the core theoretical mechanisms proposed by ISTDP theory—reducing emotional repression and facilitating emotional experiencing—did not demonstrate the expected mediating role. This represents a significant theoretical challenge. ISTDP theory explicitly predicts a sequential pathway: treatment helps patients break through defensive barriers (reducing repression), which allows them to access and process previously avoided emotions (reducing negative affect), which in turn alleviates depressive symptoms [@Abbass2015; @Frederickson2013; @Johansson2024]. The present data suggest a different pattern: treatment produces simultaneous change across multiple domains rather than working through a specific sequential mechanism. However, an important caveat is that the self-report measures used here may not adequately capture the unconscious processes central to ISTDP theory; we return to this measurement issue below.
 
 This finding is not unique to ISTDP. Kazdin [-@Kazdin2007] has documented that identifying mechanisms of therapeutic change remains one of the most challenging problems in psychotherapy research, with many established treatments showing unclear or inconsistent evidence for their proposed mechanisms despite robust evidence of effectiveness. Similarly, Cuijpers et al. [-@Cuijpers2019] found in a meta-analysis of mediation studies that evidence for cognitive therapy's proposed mechanism (changing dysfunctional cognitions) was surprisingly weak despite decades of research. The present findings thus join a broader pattern in psychotherapy science: demonstrating that a treatment works is difficult; understanding *how* it works is even more challenging.
 
@@ -1009,15 +1031,17 @@ Critically, Johansson et al. [-@Johansson2024] found that when "unlocking the un
 
 The cross-lagged analyses support this interpretation. We found no evidence that earlier process levels predicted later depression changes, nor that earlier depression predicted later process changes. Both process measures and depression changed together over the same timeframes, consistent with concurrent rather than sequential change. This pattern suggests that ISTDP may operate through what Wampold and Imel [-@Wampold2015] describe as common factors—alliance quality, therapist empathy, patient engagement, and hope—rather than through technique-specific mechanisms.
 
+An alternative theoretical refinement is that ISTDP may alleviate depression not by eliminating repression entirely—through full "unlocking of the unconscious"—but by facilitating a shift in defensive organization. For instance, patients may move from repression (keeping emotions fully out of awareness) to isolation of affect (being cognitively aware of feelings but affectively disconnected), a less pathological and less energy-intensive defensive style [@Abbass2015]. Such defensive restructuring could reduce depression without requiring the complete mediational pathway that ISTDP theory traditionally proposes.
+
 This interpretation does not diminish ISTDP's value. Many highly effective medical interventions worked for decades before their mechanisms were understood (aspirin being the classic example). However, it does challenge the field to refine its theoretical models. Rather than a linear pathway (Treatment → Reduce Repression → Reduce Depression), ISTDP may create synergistic change across multiple interacting systems, with depression improvement emerging from broad shifts in emotional processing, self-concept, relationship patterns, and defensive functioning occurring in concert.
 
-**Individual differences and multiple pathways.** A fourth explanation emphasizes heterogeneity across patients. Perhaps different individuals benefit through different mechanisms, and aggregating across all patients obscures these person-specific pathways. For Patient A, reducing emotional repression may be the critical mechanism; for Patient B, experiencing and expressing anger may drive improvement; for Patient C, the therapeutic relationship itself may be the primary healing factor. When these diverse pathways are averaged together in group-level mediation analyses, the result may be null findings despite meaningful mechanisms operating at the individual level.
+**Individual differences and multiple pathways.** A fourth explanation emphasizes heterogeneity across patients. ISTDP theory itself distinguishes between psychodiagnostic groups—resistant, repressive, and fragile—each characterized by distinct defensive organizations, anxiety discharge patterns, and corresponding treatment algorithms [@Abbass2015; @Johansson2014]. Mechanisms of change likely differ across these groups: for resistant patients, breaking through tactical defenses may be the critical process; for repressive patients, mobilizing warded-off affect; for fragile patients, building capacity to tolerate emotional experience. When these distinct pathways are averaged together in group-level mediation analyses, the result may be null findings despite meaningful mechanisms operating within each subgroup.
 
 Evidence supports this possibility. Town et al. [-@Town2022] found that personality pathology moderated mechanism pathways: For patients with lower personality pathology, in-session anger experiencing predicted outcomes, whereas for patients with higher pathology, this same process required strong therapeutic alliance to be beneficial. This suggests that who benefits from what process depends on patient characteristics. Modern precision medicine approaches in psychotherapy emphasize such moderation effects [@DeRubeis2014; @Cohen2018], recognizing that "one size fits all" models fail to capture the complexity of therapeutic change.
 
 Testing this explanation requires person-specific analytic approaches [@Fisher2018] or adequately powered moderation analyses to identify for whom different mechanisms operate. The present sample (*N* = 86) lacks statistical power to detect moderation effects reliably, but future research with larger samples and planned moderation analyses could illuminate whether different patients improve through different pathways.
 
-**The distress confound.** Finally, the one significant mediation finding—that distress mediated 54% of depression improvement—cannot be interpreted as meaningful evidence for a mechanism because the Distress composite includes the Depression subscale as one of its four components. Finding that a measure containing depression predicts depression improvement is circular and uninformative. This leaves us with the conclusion that neither emotional repression nor negative affect, the two core mechanisms proposed by ISTDP theory that are conceptually distinct from the outcome, demonstrated significant mediation.
+**The distress confound.** The one apparently significant mediation finding—that distress mediated 54% of depression improvement—is attributable to shared item content. Our sensitivity analysis removing the Depression subscale from the Distress composite eliminated the mediation effect (ACME = `r printnum(med_distress_noDep$d0, digits = 2)`, *p* = `r printp(med_distress_noDep$d0.p)`), confirming that this finding reflected construct overlap rather than a genuine mediational pathway. This leaves us with the conclusion that neither emotional repression nor negative affect, the two core mechanisms proposed by ISTDP theory that are conceptually distinct from the outcome, demonstrated significant mediation.
 
 ### What Can We Conclude?
 
@@ -1053,7 +1077,7 @@ Fifth, the sample comprised Iranian adults, and cultural factors may influence b
 
 Sixth, the moderate sample size (*N* = 86) provided adequate power for detecting large main effects but limited power for mediation analyses seeking to detect small-to-moderate indirect effects and inadequate power for testing moderation hypotheses. Additionally, approximately 13% missing data due to dropout, though handled appropriately through REML estimation, may have introduced bias despite sophisticated missing data methods.
 
-Seventh, therapist clustering was not modeled in the present analyses. Treatment was delivered by two therapists, and therapist effects could influence outcomes and process-outcome relationships. Future research should model therapist as a random or fixed effect to account for potential clustering and examine whether different therapists produce outcomes through similar or different mechanisms.
+Seventh, treatment was delivered by two therapists, and therapist effects could influence outcomes. A sensitivity analysis adding therapist as a fixed effect showed no significant therapist main effect on depression ($\chi^2$ = 0.18, *p* = .672) and no Time $\times$ Therapist interaction within the ISTDP group (*F*(2, 72.6) = 0.23, *p* = .795), with estimated marginal means essentially unchanged. Results for process measures were similarly robust, though one therapist's patients showed somewhat different negative affect trajectories (*p* = .034). Given only two therapists, these results should be interpreted cautiously, and future research with more therapists should model therapist as a random effect.
 
 Finally, mediation analysis rests on strong untestable assumptions, most critically that no unmeasured confounders affect both mediator and outcome (sequential ignorability). Alternative causal structures could produce the observed patterns, and we cannot definitively rule out competing explanations. The cross-lagged analyses provide some additional evidence regarding temporal precedence, but even these cannot establish causation conclusively without experimental manipulation of proposed mechanisms.
 

@@ -100,3 +100,9 @@ _bookdown_files/
 
 # papaja aux files
 apa6_man.cfg
+*.fff
+*.ttt
+
+# Intermediate knitted markdown
+*_knitted.md
+*_natbib.tex

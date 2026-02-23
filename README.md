@@ -8,7 +8,7 @@
 
 This repository contains a complete reanalysis of data from a randomized controlled trial examining the effects of Intensive Short-Term Dynamic Psychotherapy (ISTDP) versus waitlist control on depressive symptoms in individuals with treatment-resistant depression.
 
-**Author:** Robert Johansson, Department of Psychology, Stockholm University, Stockholm, Sweden
+**Authors:** Robert Johansson & Peter Lilliengren, Department of Psychology, Stockholm University, Stockholm, Sweden
 
 **Original Study:**
 > Heshmati, R., Wienicke, F. J., & Driessen, E. (2023). The effects of intensive short-term dynamic psychotherapy on depressive symptoms, negative affect, and emotional repression in single treatment-resistant depression: A randomized controlled trial. *Psychotherapy*, *60*(4), 497-511. https://doi.org/10.1037/pst0000500
@@ -49,7 +49,7 @@ heshmati-reanalysis/
 ├── presentation-beamer.pdf   # PDF presentation
 ├── figures/                  # Auto-generated figures
 │   ├── trajectories-1.pdf
-│   └── effect-sizes-1.pdf
+│   └── process-trajectories-1.pdf
 ├── tests/                    # Comprehensive test suite (75 tests)
 │   ├── testthat/
 │   │   ├── test-data-integrity.R
@@ -88,6 +88,9 @@ install.packages(c(
   "lmerTest",    # Tests for lme4
   "emmeans",     # Estimated marginal means
   "effsize",     # Effect size calculations
+  "mediation",   # Causal mediation analysis
+  "patchwork",   # Combine plots
+  "kableExtra",  # Enhanced tables
   "knitr",       # R Markdown
   "rmarkdown"    # R Markdown
 ))
@@ -123,11 +126,12 @@ Running `manuscript.Rmd` will:
 3. **Fit linear mixed-effects model** with random intercepts
 4. **Generate figures:**
    - Mean depression trajectories with 95% CIs
-   - Between-group effect sizes over time
+   - Process measure trajectories
 5. **Calculate estimated marginal means** (Table 2)
 6. **Perform pairwise comparisons** (within- and between-groups)
 7. **Compute effect sizes** (Cohen's d with 95% CIs)
-8. **Generate APA-formatted manuscript** (`manuscript.pdf`)
+8. **Perform mediation and cross-lagged analyses** for process measures
+9. **Generate APA-formatted manuscript** (`manuscript.pdf`)
 
 ## Key Findings
 
@@ -137,6 +141,8 @@ Running `manuscript.Rmd` will:
 - **Within-group changes:**
   - ISTDP: 8.40-point reduction at post-treatment, 12.87-point reduction at follow-up (both p < .001)
   - Waitlist: Minimal, non-significant changes (all ps > .10)
+- **Mediation:** Neither emotional repression nor negative affect significantly mediated depression improvement. Distress showed apparent mediation, but a sensitivity analysis removing the overlapping Depression subscale eliminated this effect.
+- **Temporal precedence:** Cross-lagged analyses revealed no evidence that process changes preceded depression changes, suggesting concurrent rather than sequential change.
 
 ## Dataset
 
@@ -147,7 +153,8 @@ Running `manuscript.Rmd` will:
 - **Treatment:** ISTDP (20 sessions over 10 weeks) vs. waitlist
 - **Primary outcome:** Depression (Weinberger Adjustment Inventory Depression subscale)
 - **Assessment points:** Baseline, post-treatment (10 weeks), 3-month follow-up
-- **Missing data:** 8.5% (22 of 258 observations)
+- **Attrition:** 12.8% overall (7 ISTDP [16.3%], 4 waitlist [9.3%])
+- **Missing data:** 8.5% (22 of 258 observations) due to dropout
 
 ### Data Access
 The original dataset is publicly available on the Open Science Framework:
@@ -172,6 +179,15 @@ See `data/README.md` for complete variable descriptions and `docs/VARIABLES.md` 
 - Estimated marginal means with Kenward-Roger degrees of freedom
 - Pairwise comparisons with Tukey adjustment for multiple testing
 - Effect sizes: Cohen's d with 95% confidence intervals
+
+**Mechanism Analyses:**
+- Bootstrap mediation analysis (5,000 resamples, BCa CIs) using the `mediation` package
+- Cross-lagged panel analyses with standardized coefficients for temporal precedence testing
+
+**Sensitivity Analyses:**
+- Distress without Depression subscale (to address construct overlap)
+- Therapist effects (fixed effect for therapist in LMM)
+- Baseline mediator control in mediation models
 
 ## Testing and Validation
 
@@ -271,7 +287,9 @@ For details, see [`docs/testing.md`](docs/testing.md).
 ### This Reanalysis
 If you use this reanalysis, please cite:
 ```
-Johansson, R. (2025). Effects of Intensive Short-Term Dynamic Psychotherapy on Depression: A Reanalysis of Heshmati et al.'s Data. GitHub repository: https://github.com/robert-johansson/heshmati-reanalysis
+Johansson, R., & Lilliengren, P. (2026). Effectiveness and mechanisms of intensive short-term dynamic
+psychotherapy for treatment-resistant depression: A reanalysis of a randomized controlled trial.
+https://github.com/robert-johansson/heshmati-reanalysis
 ```
 
 ## License
@@ -303,10 +321,11 @@ For questions about the original data:
 
 ## Acknowledgments
 
-This reanalysis uses publicly available data generously shared by Heshmati, Wienicke, and Driessen. We thank the authors for their commitment to open science and data sharing.
+This reanalysis uses publicly available data generously shared by Heshmati, Wienicke, and Driessen. We thank the authors for their commitment to open science and data sharing. We also thank Professor Allan Abbass for helpful comments and suggestions on the manuscript.
 
 ## Version History
 
+- **v1.1** (2026-02-23): Corrected dropout numbers, added mediation and cross-lagged analyses to key findings, added sensitivity analyses (distress without depression, therapist effects, baseline mediator control), expanded WAI description, added Heshmati et al. (2021) reference
 - **v1.0** (2025-10-10): Initial release with complete reanalysis
 
 ## Issues and Contributions
