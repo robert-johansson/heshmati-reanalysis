@@ -13,6 +13,9 @@ This repository contains a complete reanalysis of data from a randomized control
 **Original Study:**
 > Heshmati, R., Wienicke, F. J., & Driessen, E. (2023). The effects of intensive short-term dynamic psychotherapy on depressive symptoms, negative affect, and emotional repression in single treatment-resistant depression: A randomized controlled trial. *Psychotherapy*, *60*(4), 497-511. https://doi.org/10.1037/pst0000500 ([preprint](https://repository.ubn.ru.nl/bitstream/handle/2066/298912/1/298912.pdf))
 
+**Data Descriptor:**
+> Heshmati, R., Wienicke, F. J., & Driessen, E. (2025). Dataset from a randomized controlled trial comparing intensive short-term dynamic psychotherapy to waitlist for treatment-resistant depression. *Data in Brief*, *63*, 112126. https://doi.org/10.1016/j.dib.2025.112126
+
 ## Presentations
 
 **View the research presentation online:**
