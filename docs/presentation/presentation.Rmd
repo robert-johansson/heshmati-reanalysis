@@ -249,6 +249,12 @@ class: inverse, center, middle
 # Results
 
 ---
+class: inverse, center, middle
+
+# RQ1
+## How large and durable are ISTDP's effects on depression?
+
+---
 
 # RQ1: Depression Trajectories
 
@@ -295,6 +301,12 @@ ggplot(summary_stats, aes(x = Time_numeric, y = mean, color = Tx_condition)) +
 - Very large effects relative to waitlist control
 
 ---
+class: inverse, center, middle
+
+# RQ2
+## Does ISTDP change proposed process measures?
+
+---
 
 # RQ2: Process Measure Effects at Follow-Up
 
@@ -316,6 +328,12 @@ ggplot(summary_stats, aes(x = Time_numeric, y = mean, color = Tx_condition)) +
 - Emotional Repression: *r* = `r sprintf("%.2f", cor_rrc)`
 - Negative Affect: *r* = `r sprintf("%.2f", cor_na)`
 ]
+
+---
+class: inverse, center, middle
+
+# RQ3
+## Do process changes mediate depression improvement?
 
 ---
 
@@ -342,6 +360,12 @@ ggplot(summary_stats, aes(x = Time_numeric, y = mean, color = Tx_condition)) +
 .center[
 ### No genuine mediation for any process measure
 ]
+
+---
+class: inverse, center, middle
+
+# RQ4
+## Do process changes precede depression changes?
 
 ---
 
