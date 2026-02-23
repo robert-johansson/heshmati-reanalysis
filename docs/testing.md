@@ -1,7 +1,7 @@
 # Testing Framework Documentation
 
 **Last Updated:** 2025-10-11
-**Status:** ✅ All 75 tests passing
+**Status:** ✅ All 129 tests passing
 
 ---
 
@@ -79,7 +79,7 @@ Rscript check-analyses.R
 
 This will:
 1. Check for required R packages
-2. Run all 75 tests
+2. Run all 129 tests
 3. Display a summary report
 4. Exit with appropriate status code (0 = success, 1 = failure)
 
@@ -387,7 +387,7 @@ expect_equal(mean_age, 36.9)
 This testing framework demonstrates:
 
 1. **Reproducibility:** All analyses produce identical results with seed 2025
-2. **Validation:** 75 automated tests verify data integrity and statistical correctness
+2. **Validation:** 129 automated tests verify data integrity and statistical correctness
 3. **Transparency:** Test code is publicly available and well-documented
 4. **Best Practices:** Follows modern software engineering standards for research code
 

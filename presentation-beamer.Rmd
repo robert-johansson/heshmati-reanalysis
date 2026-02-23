@@ -223,7 +223,7 @@ Reduce Repression $\rightarrow$ Facilitate Emotional Experiencing $\rightarrow$ 
 
 \vspace{0.2cm}
 
-**Open Science:** All data (OSF) and code (GitHub) publicly available; 75 automated validation tests
+**Open Science:** All data (OSF) and code (GitHub) publicly available; 129 automated validation tests
 
 # Results
 

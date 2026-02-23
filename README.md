@@ -48,10 +48,11 @@ heshmati-reanalysis/
 ├── manuscript.pdf            # Generated manuscript (APA format)
 ├── presentation-beamer.Rmd   # Beamer presentation source
 ├── presentation-beamer.pdf   # PDF presentation
+├── beamer-header.tex         # Beamer theme customizations
 ├── figures/                  # Auto-generated figures
 │   ├── trajectories-1.pdf
 │   └── process-trajectories-1.pdf
-├── tests/                    # Comprehensive test suite (75 tests)
+├── tests/                    # Comprehensive test suite (129 tests)
 │   ├── testthat/
 │   │   ├── test-data-integrity.R
 │   │   ├── test-transformations.R
@@ -60,7 +61,6 @@ heshmati-reanalysis/
 │   │   ├── test-reproducibility.R
 │   │   └── test-original-comparison.R
 │   └── testthat.R
-└── sessionInfo.txt           # R package versions used
 ```
 
 ## Reproducibility
@@ -196,7 +196,7 @@ This project includes a comprehensive testing framework to ensure reproducibilit
 
 ### Overview
 
-- **75 automated tests** validate all analyses
+- **129 automated tests** validate all analyses
 - **Two-tier approach:** Inline assertions (run during knitting) + comprehensive test suite
 - **100% pass rate** ✅
 - Full documentation: [`docs/testing.md`](docs/testing.md)
@@ -218,12 +218,12 @@ Expected output:
 
 | Category | Tests | Validates |
 |----------|-------|-----------|
-| **Data Integrity** | 15 | Sample size, missing data, variable types, scale ranges |
-| **Transformations** | 10 | Variable coding, change scores, format conversions |
-| **Model Validity** | 12 | LMM convergence, structure, assumptions, diagnostics |
-| **Results** | 20 | Effect sizes, EMMs, treatment effects, significance tests |
-| **Reproducibility** | 8 | Identical results across runs, bootstrap consistency |
-| **Original Study** | 10 | Demographics, effects match Heshmati et al. (2023) |
+| **Data Integrity** | 27 | Sample size, missing data, variable types, scale ranges |
+| **Transformations** | 21 | Variable coding, change scores, format conversions |
+| **Model Validity** | 21 | LMM convergence, structure, assumptions, diagnostics |
+| **Results** | 29 | Effect sizes, EMMs, treatment effects, significance tests |
+| **Reproducibility** | 15 | Identical results across runs, bootstrap consistency |
+| **Original Study** | 16 | Demographics, effects match Heshmati et al. (2023) |
 
 ### Test Files
 
@@ -246,7 +246,7 @@ To verify reproducibility:
 1. Clone this repository
 2. Install R packages (see Requirements above)
 3. Run: `Rscript check-analyses.R`
-4. All 75 tests should pass ✅
+4. All 129 tests should pass ✅
 
 This demonstrates:
 - **Reproducibility:** Analyses produce identical results (seed = 2025)

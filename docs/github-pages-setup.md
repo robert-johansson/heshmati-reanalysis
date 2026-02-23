@@ -191,7 +191,7 @@ Create `docs/index.html` with the following content:
 
     <h2>📚 Documentation</h2>
     <ul>
-        <li><a href="testing.html">Testing Framework</a> - 75 automated validation tests</li>
+        <li><a href="testing.html">Testing Framework</a> - 129 automated validation tests</li>
         <li><a href="presentation-guide.html">Presentation Guide</a> - How to use and customize</li>
         <li><a href="github-pages-setup.html">GitHub Pages Setup</a> - This guide</li>
     </ul>
