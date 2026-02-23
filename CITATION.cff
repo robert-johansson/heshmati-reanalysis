@@ -1,0 +1,58 @@
+cff-version: 1.2.0
+message: "If you use this reanalysis, please cite it as below."
+title: "Effectiveness and Mechanisms of Intensive Short-Term Dynamic Psychotherapy for Treatment-Resistant Depression: A Reanalysis of a Randomized Controlled Trial"
+type: software
+authors:
+  - family-names: Johansson
+    given-names: Robert
+    email: robert.johansson@psychology.su.se
+    affiliation: "Department of Psychology, Stockholm University"
+    orcid: "https://orcid.org/0000-0003-0401-7439"
+  - family-names: Lilliengren
+    given-names: Peter
+    affiliation: "Department of Psychology, Stockholm University"
+    orcid: "https://orcid.org/0000-0002-2500-3510"
+date-released: "2026-02-23"
+url: "https://github.com/robert-johansson/heshmati-reanalysis"
+repository-code: "https://github.com/robert-johansson/heshmati-reanalysis"
+license: MIT
+keywords:
+  - treatment-resistant depression
+  - psychotherapy
+  - ISTDP
+  - psychodynamic therapy
+  - mechanisms of change
+  - mediation analysis
+  - reanalysis
+  - randomized controlled trial
+references:
+  - type: article
+    title: "The effects of intensive short-term dynamic psychotherapy on depressive symptoms, negative affect, and emotional repression in single treatment-resistant depression: A randomized controlled trial"
+    authors:
+      - family-names: Heshmati
+        given-names: Rasoul
+      - family-names: Wienicke
+        given-names: Frederik J.
+      - family-names: Driessen
+        given-names: Ellen
+    journal: Psychotherapy
+    volume: 60
+    issue: 4
+    start: 497
+    end: 511
+    year: 2023
+    doi: "10.1037/pst0000500"
+  - type: data
+    title: "Dataset from a randomized controlled trial comparing intensive short-term dynamic psychotherapy to waitlist for treatment-resistant depression"
+    authors:
+      - family-names: Heshmati
+        given-names: Rasoul
+      - family-names: Wienicke
+        given-names: Frederik J.
+      - family-names: Driessen
+        given-names: Ellen
+    journal: "Data in Brief"
+    volume: 63
+    start: 112126
+    year: 2025
+    doi: "10.1016/j.dib.2025.112126"

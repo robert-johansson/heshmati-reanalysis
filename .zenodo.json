@@ -1,0 +1,45 @@
+{
+  "title": "Effectiveness and Mechanisms of Intensive Short-Term Dynamic Psychotherapy for Treatment-Resistant Depression: A Reanalysis of a Randomized Controlled Trial",
+  "description": "Complete reanalysis of a randomized controlled trial (N = 86) examining ISTDP versus waitlist for treatment-resistant depression. Includes reproducible R Markdown manuscript, 129 automated validation tests, and all analysis code.",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Johansson, Robert",
+      "affiliation": "Department of Psychology, Stockholm University",
+      "orcid": "0000-0003-0401-7439"
+    },
+    {
+      "name": "Lilliengren, Peter",
+      "affiliation": "Department of Psychology, Stockholm University",
+      "orcid": "0000-0002-2500-3510"
+    }
+  ],
+  "keywords": [
+    "treatment-resistant depression",
+    "psychotherapy",
+    "ISTDP",
+    "psychodynamic therapy",
+    "mechanisms of change",
+    "mediation analysis",
+    "reanalysis",
+    "randomized controlled trial"
+  ],
+  "license": "MIT",
+  "related_identifiers": [
+    {
+      "identifier": "10.1037/pst0000500",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.17605/OSF.IO/75PU8",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1016/j.dib.2025.112126",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    }
+  ]
+}
