@@ -1,7 +1,8 @@
 # Effects of Intensive Short-Term Dynamic Psychotherapy on Depression: A Reanalysis of Heshmati et al.'s Data
 
 [![Validate Analyses](https://github.com/robert-johansson/heshmati-reanalysis/actions/workflows/check-analyses.yml/badge.svg)](https://github.com/robert-johansson/heshmati-reanalysis/actions/workflows/check-analyses.yml)
-[![DOI](https://img.shields.io/badge/DOI-10.17605%2FOSF.IO%2F75PU8-blue)](https://doi.org/10.17605/OSF.IO/75PU8)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18743451.svg)](https://doi.org/10.5281/zenodo.18743451)
+[![DOI](https://img.shields.io/badge/Data_DOI-10.17605%2FOSF.IO%2F75PU8-blue)](https://doi.org/10.17605/OSF.IO/75PU8)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Pages](https://img.shields.io/badge/presentation-live-success)](https://robert-johansson.github.io/heshmati-reanalysis/presentation/)
 
