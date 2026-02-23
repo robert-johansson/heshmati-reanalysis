@@ -442,9 +442,9 @@ demo_table <- data.frame(
 apa_table(
   demo_table,
   caption = "Baseline Demographic and Clinical Characteristics by Treatment Condition",
-  note = "ISTDP = Intensive Short-Term Dynamic Psychotherapy. N = 86 (43 per condition).",
+  note = "ISTDP = Intensive Short-Term Dynamic Psychotherapy.",
   align = c("l", "c", "c"),
-  col.names = c("Characteristic", "ISTDP", "Waitlist Control")
+  col.names = c("Characteristic", "ISTDP (*n* = 43)", "Waitlist Control (*n* = 43)")
 )
 ```
 
