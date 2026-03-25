@@ -542,11 +542,55 @@ ggplot(summary_stats, aes(x = Time_numeric, y = mean, color = Tx_condition, fill
   )
 ```
 
+```{r effect-sizes}
+# Calculate effect sizes at each time point
+effect_sizes <- data.frame()
+
+for (time_point in c("Baseline", "Post-treatment", "Follow-up")) {
+  df_time <- data_clean %>% filter(Time == time_point)
+
+  control_scores <- df_time %>% filter(Tx_condition == "Control") %>% pull(Depression)
+  istdp_scores <- df_time %>% filter(Tx_condition == "ISTDP") %>% pull(Depression)
+
+  d_result <- cohen.d(istdp_scores, control_scores)
+
+  cohens_d <- -d_result$estimate
+  ci_lower <- -d_result$conf.int[2]
+  ci_upper <- -d_result$conf.int[1]
+
+  time_numeric <- ifelse(time_point == "Baseline", 0,
+                        ifelse(time_point == "Post-treatment", 1, 2))
+
+  effect_sizes <- rbind(effect_sizes, data.frame(
+    Time = time_point,
+    Time_numeric = time_numeric,
+    Cohens_d = cohens_d,
+    CI_lower = ci_lower,
+    CI_upper = ci_upper
+  ))
+}
+
+effect_sizes$Time <- factor(effect_sizes$Time, levels = c("Baseline", "Post-treatment", "Follow-up"))
+
+# === EFFECT SIZE VALIDATION ===
+stopifnot("Effect sizes out of plausible range (-5 to 5)" =
+            all(effect_sizes$Cohens_d > -5 & effect_sizes$Cohens_d < 5))
+stopifnot("Confidence intervals inverted (lower > upper)" =
+            all(effect_sizes$CI_lower < effect_sizes$CI_upper))
+stopifnot("Baseline groups not balanced (|d| should be < 0.5)" =
+            abs(effect_sizes$Cohens_d[effect_sizes$Time == "Baseline"]) < 0.5)
+stopifnot("Follow-up effect not large (d should be > 1.0)" =
+            effect_sizes$Cohens_d[effect_sizes$Time == "Follow-up"] > 1.0)
+stopifnot("Effect sizes not monotonically increasing" =
+            effect_sizes$Cohens_d[2] > effect_sizes$Cohens_d[1] &&
+            effect_sizes$Cohens_d[3] > effect_sizes$Cohens_d[2])
+```
+
 ### Estimated Marginal Means
 
-Table \@ref(tab:means) presents the estimated marginal means for depression scores at each time point by treatment condition. At baseline, the groups did not differ significantly in depression levels, *t*(`r printnum(pairs_between_summary$df[1], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[1], digits = 2)`, *p* = `r printp(pairs_between_summary$p.value[1])`, Cohen's *d* = 0.08, 95% CI [-0.35, 0.51].
+Table \@ref(tab:means) presents the estimated marginal means for depression scores at each time point by treatment condition. At baseline, the groups did not differ significantly in depression levels, *t*(`r printnum(pairs_between_summary$df[1], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[1], digits = 2)`, *p* = `r printp(pairs_between_summary$p.value[1])`, Cohen's *d* = `r printnum(effect_sizes$Cohens_d[1], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[1], digits = 2)`, `r printnum(effect_sizes$CI_upper[1], digits = 2)`].
 
-However, at post-treatment, ISTDP participants showed significantly lower depression scores than waitlist controls, *t*(`r printnum(pairs_between_summary$df[2], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[2], digits = 2)`, *p* < .001, Cohen's *d* = 1.68, 95% CI [1.15, 2.22], representing a large effect. This between-group difference increased further at 3-month follow-up, *t*(`r printnum(pairs_between_summary$df[3], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[3], digits = 2)`, *p* < .001, Cohen's *d* = 2.50, 95% CI [1.88, 3.11], representing a very large effect.
+However, at post-treatment, ISTDP participants showed significantly lower depression scores than waitlist controls, *t*(`r printnum(pairs_between_summary$df[2], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[2], digits = 2)`, *p* < .001, Cohen's *d* = `r printnum(effect_sizes$Cohens_d[2], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[2], digits = 2)`, `r printnum(effect_sizes$CI_upper[2], digits = 2)`], representing a large effect. This between-group difference increased further at 3-month follow-up, *t*(`r printnum(pairs_between_summary$df[3], digits = 1)`) = `r printnum(pairs_between_summary$t.ratio[3], digits = 2)`, *p* < .001, Cohen's *d* = `r printnum(effect_sizes$Cohens_d[3], digits = 2)`, 95% CI [`r printnum(effect_sizes$CI_lower[3], digits = 2)`, `r printnum(effect_sizes$CI_upper[3], digits = 2)`], representing a very large effect.
 
 ```{r means}
 # Create means table
@@ -580,49 +624,6 @@ For ISTDP participants, depression scores decreased significantly from baseline 
 
 In contrast, waitlist control participants showed minimal change in depression scores across all time points (all *p*s > .10), with no significant differences between baseline and post-treatment (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "Control" & grepl("Baseline.*Post", pairs_within_summary$contrast)], digits = 2)`, *p* = `r printp(pairs_within_summary$p.value[pairs_within_summary$Tx_condition == "Control" & grepl("Baseline.*Post", pairs_within_summary$contrast)])`), baseline and follow-up (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "Control" & grepl("Baseline.*Follow", pairs_within_summary$contrast)], digits = 2)`, *p* = `r printp(pairs_within_summary$p.value[pairs_within_summary$Tx_condition == "Control" & grepl("Baseline.*Follow", pairs_within_summary$contrast)])`), or post-treatment and follow-up (*M*~diff~ = `r printnum(pairs_within_summary$estimate[pairs_within_summary$Tx_condition == "Control" & grepl("Post.*Follow", pairs_within_summary$contrast)], digits = 2)`, *p* = `r printp(pairs_within_summary$p.value[pairs_within_summary$Tx_condition == "Control" & grepl("Post.*Follow", pairs_within_summary$contrast)])`).
 
-```{r effect-sizes}
-# Calculate effect sizes at each time point (used for validation)
-effect_sizes <- data.frame()
-
-for (time_point in c("Baseline", "Post-treatment", "Follow-up")) {
-  df_time <- data_clean %>% filter(Time == time_point)
-
-  control_scores <- df_time %>% filter(Tx_condition == "Control") %>% pull(Depression)
-  istdp_scores <- df_time %>% filter(Tx_condition == "ISTDP") %>% pull(Depression)
-
-  d_result <- cohen.d(istdp_scores, control_scores)
-
-  cohens_d <- -d_result$estimate
-  ci_lower <- -d_result$conf.int[2]
-  ci_upper <- -d_result$conf.int[1]
-
-  time_numeric <- ifelse(time_point == "Baseline", 0,
-                        ifelse(time_point == "Post-treatment", 1, 2))
-
-  effect_sizes <- rbind(effect_sizes, data.frame(
-    Time = time_point,
-    Time_numeric = time_numeric,
-    Cohens_d = cohens_d,
-    CI_lower = ci_lower,
-    CI_upper = ci_upper
-  ))
-}
-
-effect_sizes$Time <- factor(effect_sizes$Time, levels = c("Baseline", "Post-treatment", "Follow-up"))
-
-# === EFFECT SIZE VALIDATION ===
-# Sanity checks to catch calculation errors
-stopifnot("Effect sizes out of plausible range (-5 to 5)" =
-            all(effect_sizes$Cohens_d > -5 & effect_sizes$Cohens_d < 5))
-stopifnot("Confidence intervals inverted (lower > upper)" =
-            all(effect_sizes$CI_lower < effect_sizes$CI_upper))
-stopifnot("Baseline groups not balanced (|d| should be < 0.5)" =
-            abs(effect_sizes$Cohens_d[effect_sizes$Time == "Baseline"]) < 0.5)
-stopifnot("Follow-up effect not large (d should be > 1.0)" =
-            effect_sizes$Cohens_d[effect_sizes$Time == "Follow-up"] > 1.0)
-stopifnot("Effect sizes not monotonically increasing" =
-            effect_sizes$Cohens_d[2] > effect_sizes$Cohens_d[1] &&
-            effect_sizes$Cohens_d[3] > effect_sizes$Cohens_d[2])
 ```
 
 ## Model Diagnostics
@@ -1006,7 +1007,7 @@ Despite large treatment effects on both process measures and depression, emotion
 
 In these exploratory analyses, the core process variables proposed by ISTDP theory—reducing emotional repression and facilitating emotional experiencing—did not demonstrate the expected mediating role. While these findings must be interpreted cautiously given the moderate sample size and limited measurement occasions, they suggest a need for theoretical refinement. ISTDP theory explicitly predicts a sequential pathway: treatment helps patients break through defensive barriers (reducing repression), which allows them to access and process previously avoided emotions (reducing negative affect), which in turn alleviates depressive symptoms [@Abbass2015; @Frederickson2013; @Johansson2024]. The present data suggest a different pattern: treatment produces simultaneous change across multiple domains rather than working through a specific sequential mechanism. However, an important caveat is that the self-report measures used here may not adequately capture the unconscious processes central to ISTDP theory; we return to this measurement issue below.
 
-This finding is not unique to ISTDP. Kazdin [-@Kazdin2007] has documented that identifying mechanisms of therapeutic change remains one of the most challenging problems in psychotherapy research, with many established treatments showing unclear or inconsistent evidence for their proposed mechanisms despite robust evidence of effectiveness. Similarly, Cuijpers et al. [-@Cuijpers2019] found in a meta-analysis of mediation studies that evidence for cognitive therapy's proposed mechanism (changing dysfunctional cognitions) was surprisingly weak despite decades of research. The present findings thus join a broader pattern in psychotherapy science: demonstrating that a treatment works is difficult; understanding *how* it works is even more challenging.
+This finding is not unique to ISTDP. Kazdin [-@Kazdin2007] has documented that identifying mechanisms of therapeutic change remains one of the most challenging problems in psychotherapy research, with many established treatments showing unclear or inconsistent evidence for their proposed mechanisms despite robust evidence of effectiveness. Similarly, a recent meta-analysis of mediation studies across depression interventions found that while cognitive and behavioral change were commonly tested as mediators, the evidence for specific proposed mechanisms remained inconsistent [@angerer2025mechanisms]. The present findings thus join a broader pattern in psychotherapy science: demonstrating that a treatment works is difficult; understanding *how* it works is even more challenging.
 
 ### Possible Explanations for Null Mediation
 
@@ -1082,11 +1083,11 @@ Finally, independent replication in diverse samples, settings, and cultural cont
 
 These findings underscore a fundamental challenge in psychotherapy research: demonstrating that a treatment works is difficult; understanding how it works is even more challenging. ISTDP clearly produces very large benefits for patients with treatment-resistant depression—among the largest effects observed in the psychotherapy literature—with improvements that are durable and increase after treatment ends. These effectiveness findings position ISTDP as a valuable treatment option for a challenging clinical population facing limited alternatives.
 
-However, the processes underlying these improvements remain to be fully elucidated. The present exploratory analyses did not identify the proposed sequential pathways—wherein reducing emotional repression leads to improved affect regulation which in turn alleviates depression—does not diminish ISTDP's therapeutic value, but rather highlights the complexity of therapeutic change and the limitations of current methodological approaches to studying it. Several explanations merit consideration: insufficient temporal resolution of measurement, inability of self-report instruments to capture unconscious processes, true concurrent rather than sequential change, individual heterogeneity in mechanism pathways, or some combination of these factors.
+However, the processes underlying these improvements remain to be fully elucidated. The fact that the present exploratory analyses did not identify the proposed sequential pathways—wherein reducing emotional repression leads to improved affect regulation which in turn alleviates depression—does not diminish ISTDP's therapeutic value, but rather highlights the complexity of therapeutic change and the limitations of current methodological approaches to studying it. Several explanations merit consideration: insufficient temporal resolution of measurement, inability of self-report instruments to capture unconscious processes, true concurrent rather than sequential change, individual heterogeneity in mechanism pathways, or some combination of these factors.
 
-This disconnect between clear effectiveness evidence and unclear mechanism evidence is not unique to ISTDP but reflects a broader pattern across psychotherapy research [@Kazdin2007; @Cuijpers2019]. Many well-established treatments show robust efficacy despite inconsistent or weak evidence for their proposed mechanisms. This creates both a practical reality and a research imperative. Practically, clinicians can confidently offer ISTDP to patients with treatment-resistant depression, knowing that it works remarkably well even as questions about mechanisms remain open. From a research perspective, the field needs refined theoretical models that can accommodate concurrent, multi-dimensional change; improved measurement approaches combining self-report, observational, and physiological methods; and intensive longitudinal designs capturing temporal dynamics at relevant timescales.
+This disconnect between clear effectiveness evidence and unclear mechanism evidence is not unique to ISTDP but reflects a broader pattern across psychotherapy research [@Kazdin2007; @Cuijpers2019]. Many well-established treatments show robust efficacy despite inconsistent or weak evidence for their proposed mechanisms. This creates both a practical reality and a research imperative. Practically, clinicians may consider ISTDP as a treatment option for patients with treatment-resistant depression, noting that the available evidence, while promising, comes primarily from waitlist-controlled trials and requires replication against active comparators. From a research perspective, the field needs refined theoretical models that can accommodate concurrent, multi-dimensional change; improved measurement approaches combining self-report, observational, and physiological methods; and intensive longitudinal designs capturing temporal dynamics at relevant timescales.
 
-Future research with finer temporal resolution, multi-method assessment, attention to individual differences, and replication across diverse contexts will be essential to unraveling the pathways through which ISTDP—and psychotherapy more broadly—produces therapeutic change. Until then, the message for patients and clinicians is clear: ISTDP represents an evidence-based, highly effective treatment for treatment-resistant depression. The fact that we do not yet fully understand how these benefits emerge does not diminish their reality or clinical importance. Understanding mechanism remains an important scientific goal, but effectiveness evidence provides sufficient foundation for confident clinical application. As the field continues investigating the "how" question, patients can benefit from a treatment approach that demonstrably works.
+Future research with finer temporal resolution, multi-method assessment, attention to individual differences, and replication across diverse contexts will be essential to unraveling the pathways through which ISTDP—and psychotherapy more broadly—produces therapeutic change. Until then, the available evidence suggests that ISTDP is a promising treatment for treatment-resistant depression that warrants further investigation. Understanding therapeutic processes remains an important scientific goal, and the present findings highlight the need for refined measurement approaches to advance this understanding.
 
 \newpage
 
