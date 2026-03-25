@@ -243,6 +243,8 @@ Between-group effect sizes (Cohen's *d*) were calculated at each time point usin
 
 **Mediation Analyses.** We tested whether treatment effects on depression were mediated by changes in process measures using the causal mediation framework. This framework estimates the indirect effect of treatment on outcome that flows through the mediator, separating it from the direct effect. Identification of the average causal mediation effect relies on the sequential ignorability assumption---that no unmeasured confounders affect both the mediator and the outcome, conditional on treatment assignment and covariates. This assumption cannot be empirically verified and should be borne in mind when interpreting results.
 
+Mediation and cross-lagged analyses were conducted for Emotional Repression (WAI-RRC), Negative Affect (PANAS), and Distress. Suppression of Aggression was not tested as a separate mediator because it is a component subscale of the WAI-RRC composite already included in the analyses.
+
 For each process measure, we specified:
 - *Treatment (X)*: ISTDP vs. waitlist (binary indicator)
 - *Mediator (M)*: Change in process measure from baseline to post-treatment
